@@ -148,7 +148,30 @@ newgrp docker
 ```
 The expected ouput is
 <pre>
+(jegan@tektutor.org$)><b>sudo systemctl enable docker</b>
+Created symlink from /etc/systemd/system/multi-user.target.wants/docker.service to /usr/lib/systemd/system/docker.service.
+(jegan@tektutor.org$)><b>sudo systemctl start docker</b>
+(jegan@tektutor.org$)><b>sudo systemctl status docker</b>
+● docker.service - Docker Application Container Engine
+   Loaded: loaded (/usr/lib/systemd/system/docker.service; enabled; vendor preset: disabled)
+   Active: active (running) since Sun 2022-03-06 19:23:50 PST; 9min ago
+     Docs: https://docs.docker.com
+ Main PID: 64145 (dockerd)
+   CGroup: /system.slice/docker.service
+           └─64145 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
 
+Mar 06 19:23:48 tektutor.org dockerd[64145]: time="2022-03-06T19:23:48.110984142-08:00" level=info msg="ccResolverWrapper: sending...le=grpc
+Mar 06 19:23:48 tektutor.org dockerd[64145]: time="2022-03-06T19:23:48.111009882-08:00" level=info msg="ClientConn switching balan...le=grpc
+Mar 06 19:23:48 tektutor.org dockerd[64145]: time="2022-03-06T19:23:48.477701245-08:00" level=info msg="Loading containers: start."
+Mar 06 19:23:49 tektutor.org dockerd[64145]: time="2022-03-06T19:23:49.915307132-08:00" level=info msg="Default bridge (docker0) i...ddress"
+Mar 06 19:23:50 tektutor.org dockerd[64145]: time="2022-03-06T19:23:50.201200737-08:00" level=info msg="Firewalld: interface docke...urning"
+Mar 06 19:23:50 tektutor.org dockerd[64145]: time="2022-03-06T19:23:50.462895927-08:00" level=info msg="Loading containers: done."
+Mar 06 19:23:50 tektutor.org dockerd[64145]: time="2022-03-06T19:23:50.515173237-08:00" level=info msg="Docker daemon" commit=459d...0.10.12
+Mar 06 19:23:50 tektutor.org dockerd[64145]: time="2022-03-06T19:23:50.515686639-08:00" level=info msg="Daemon has completed initialization"
+Mar 06 19:23:50 tektutor.org systemd[1]: Started Docker Application Container Engine.
+Mar 06 19:23:50 tektutor.org dockerd[64145]: time="2022-03-06T19:23:50.571898030-08:00" level=info msg="API listen on /var/run/docker.sock"
+Hint: Some lines were ellipsized, use -l to show in full.
+(jegan@tektutor.org$)><b>newgrp docker</b>
 </pre>
 
 
