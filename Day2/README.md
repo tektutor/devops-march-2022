@@ -59,6 +59,7 @@ Append the IPAddresses of master, worker1 and worker2 as shown below in /etc/hos
 192.168.254.130 worker1
 192.168.254.131 worker2
 ```
+The actual IP addresses might vary in your system, hence you need to replace above IP with your master, worker1 and worker2 IP addresses accordingly.
 
 ### Firewall configurations
 For summary of ports that must be opened, refer official Kubernetes documention https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
@@ -69,6 +70,7 @@ firewall-cmd --permanent --add-port=6443/tcp
 firewall-cmd --permanent --add-port=2379-2380/tcp
 firewall-cmd --permanent --add-port=10250-10252/tcp
 firewall-cmd --permanent --add-port=10255/tcp
+firewall-cmd --permanent --add-port=30000-32767/tcp
 firewall-cmd --permanent --add-masquerade
 firewall-cmd --permanent --zone=trusted  --add-source=192.168.0.0/16 
 modprobe br_netfilter
