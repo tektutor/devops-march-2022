@@ -285,6 +285,32 @@ CONTAINER ID   IMAGE                COMMAND    CREATED         STATUS           
 74f23bc4b3d8   hello-world:latest   "/hello"   3 minutes ago   Exited (0) 3 minutes ago             <b>hello1</b>
 </pre>
 
+## ⛹️‍♀️ Lab - Creating an ubuntu container in interactive mode
+```
+docker run -it --name ubuntu1 --hostname ubuntu1 ubuntu:16.04 /bin/bash
+```
+
+The expected output is
+<pre>
+jegan@tektutor:~$ <b>docker run -it --name ubuntu1 --hostname ubuntu1 ubuntu:16.04 /bin/bash</b>
+Unable to find image 'ubuntu:16.04' locally
+16.04: Pulling from library/ubuntu
+58690f9b18fc: Pull complete 
+b51569e7c507: Pull complete 
+da8ef40b9eca: Pull complete 
+fb15d46c38dc: Pull complete 
+Digest: sha256:0f71fa8d4d2d4292c3c617fda2b36f6dabe5c8b6e34c3dc5b0d17d4e704bd39c
+Status: Downloaded newer image for ubuntu:16.04
+root@ubuntu1:/# hostname
+ubuntu1
+root@ubuntu1:/# hostname -i
+172.17.0.2
+root@ubuntu1:/# ls
+bin   dev  home  lib64  mnt  proc  run   srv  tmp  var
+boot  etc  lib   media  opt  root  sbin  sys  usr
+root@ubuntu1:/# 
+</pre>
+
 ## ⛹️‍♂️ Lab - Stopping a single running container
 ```
 docker stop <container-name>
