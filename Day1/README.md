@@ -220,7 +220,7 @@ docker run hello-world:latest
 ```
 The expected output is
 <pre>
-jegan@tektutor:~$ docker run hello-world:latest
+jegan@tektutor:~$ <b>docker run hello-world:latest</b>
 
 Hello from Docker!
 This message shows that your installation appears to be working correctly.
