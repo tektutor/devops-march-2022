@@ -149,5 +149,5 @@ jegan@tektutor:~$ <b>docker images</b>
 REPOSITORY                                TAG       IMAGE ID       CREATED        SIZE
 docker.bintray.io/jfrog/artifactory-oss   latest    547c6957fc54   4 weeks ago    993MB
 sonarqube                                 latest    4ac4842c584e   5 weeks ago    520MB
-hello-world                               latest    feb5d9fea6a5   5 months ago   13.3kB
+<b>hello-world                               latest    feb5d9fea6a5   5 months ago   13.3kB</b>
 </pre>
