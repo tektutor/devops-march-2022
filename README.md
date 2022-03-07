@@ -5,9 +5,9 @@ As CentOS 8.x has reached End of Life by 31st Dec 2021,  RedHat stopped software
 
 ## Installing Docker Community Edition in CentOS 7.7
 ```
-sudo yum install -y yum-utils
+sudo yum install -y yum-utils -y
 sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-sudo yum install docker-ce docker-ce-cli containerd.io
+sudo yum install docker-ce docker-ce-cli containerd.io -y
 ```
 
 The expected output is
