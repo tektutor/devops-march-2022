@@ -622,3 +622,31 @@ jegan@tektutor:~$ docker ps --filter status=exited --filter ancestor=ubuntu:18.0
 CONTAINER ID   IMAGE          COMMAND       CREATED         STATUS                     PORTS     NAMES
 56fa26cafe81   ubuntu:18.04   "/bin/bash"   8 minutes ago   Exited (0) 7 minutes ago             c3
 </pre>
+
+## ⛹️‍♂️ Lab - Creating mysql container
+```
+docker run -d --name db1 --hostname db1 -e MYSQL_ROOT_PASSWORD=root mysql:latest
+```
+
+The expected output is
+
+<pre>
+jegan@tektutor:~$ <b>docker run -d --name db1 --hostname db1 -e MYSQL_ROOT_PASSWORD=root mysql:latest</b>
+Unable to find image 'mysql:latest' locally
+latest: Pulling from library/mysql
+15115158dd02: Pull complete 
+d733f6778b18: Pull complete 
+1cc7a6c74a04: Pull complete 
+c4364028a805: Pull complete 
+82887163f0f6: Pull complete 
+097bfae26e7a: Pull complete 
+e1b044d6a24f: Pull complete 
+cd2978bd4d12: Pull complete 
+28bce5cc1677: Pull complete 
+907b6d695760: Pull complete 
+c5049403458b: Pull complete 
+f360718d6f4e: Pull complete 
+Digest: sha256:0eb33f0094ef5351639d9d9847c963ee9f22f5631cde046babd4ec239aaeaf06
+Status: Downloaded newer image for mysql:latest
+ae04c45f030c49a66f994570a33dc053802a9221b92a3e2e0cb83f7eba62f34e
+</pre>
