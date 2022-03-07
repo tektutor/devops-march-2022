@@ -333,6 +333,22 @@ The expected output is
 <pre>
 </pre>
 
+## ⛹️‍♂️ Lab - Removing a single exited container
+```
+docker rm <container-name>
+docker rm <container-id>
+```
+The expected output is
+<pre>
+jegan@tektutor:~$ <b>docker ps -a</b>
+CONTAINER ID   IMAGE                COMMAND    CREATED         STATUS                     PORTS     NAMES
+74f23bc4b3d8   hello-world:latest   "/hello"   3 minutes ago   Exited (0) 3 minutes ago             hello1
+jegan@tektutor:~$ <b>docker rm hello1</b>
+hello1
+jegan@tektutor:~$ <b>docker ps -a</b>
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+</pre>
+
 ## Removing all containers forcibly
 ```
 docker rm -f $(docker ps -aq)
