@@ -60,4 +60,23 @@ Before the Virtualization technology came into the Industry
   - How many physical servers are required to setup 10000 web servers?
 
 
-## Virtualization vs 
+## Containerization
+ - light weight virtualization technology
+    - containers doesn't require dedicated hardwares resources unlike Virtualization technology
+ - containers are application process
+ - application virtualization
+ - all the containers are normal application processess that share the same Host OS Kernel
+ - containers are not Operating System
+ - containers in many ways they appear like an OS/VM
+ - containers has their shell file system
+ - containers are allocated with IP address
+ - containers has its own network stack ( 7 OSI Layers )
+ - containers has its own NIC ( Network Interface Card - Software Defined Network )
+ - is a Linux Technology
+ - Linux Kernel supports
+     1. Namespace - is used to separate or isolate containers from each other by letting them run it own namespace
+     2. CGroups ( Control Groups )
+         - resource quota allocation
+         - i.e it help in putting some restriction on how much CPU resources, RAM and Storage a particular container can use
+         - this is required to ensure that one single container does'nt take up all the H/W resources leaving other containers
+           starve for H/W resources
