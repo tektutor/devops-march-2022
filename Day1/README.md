@@ -623,7 +623,7 @@ CONTAINER ID   IMAGE          COMMAND       CREATED         STATUS              
 56fa26cafe81   ubuntu:18.04   "/bin/bash"   8 minutes ago   Exited (0) 7 minutes ago             c3
 </pre>
 
-## ⛹️‍♂️ Lab - Creating mysql container
+## ⛹️‍♂️ Lab - Creating mysql container in background (deattached) mode
 ```
 docker run -d --name db1 --hostname db1 -e MYSQL_ROOT_PASSWORD=root mysql:latest
 ```
@@ -649,4 +649,15 @@ f360718d6f4e: Pull complete
 Digest: sha256:0eb33f0094ef5351639d9d9847c963ee9f22f5631cde046babd4ec239aaeaf06
 Status: Downloaded newer image for mysql:latest
 ae04c45f030c49a66f994570a33dc053802a9221b92a3e2e0cb83f7eba62f34e
+</pre>
+
+List and see if the mysql container is running as expected
+```
+docker ps
+```
+The expected output is
+<pre>
+jegan@tektutor:~$ <b>docker ps</b>
+CONTAINER ID   IMAGE          COMMAND                  CREATED         STATUS         PORTS                 NAMES
+ae04c45f030c   mysql:latest   "docker-entrypoint.s…"   2 minutes ago   Up 2 minutes   3306/tcp, 33060/tcp   db1
 </pre>
