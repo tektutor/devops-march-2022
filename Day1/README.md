@@ -430,9 +430,16 @@ You may replace the container-name with container id as well.
 docker start <container-name>
 ```
 
-
 The expected output is
 <pre>
+jegan@tektutor:~$ <b>docker ps -a</b>
+CONTAINER ID   IMAGE          COMMAND       CREATED          STATUS                     PORTS     NAMES
+12fc64f9d46d   ubuntu:16.04   "/bin/bash"   13 minutes ago   Exited (0) 9 minutes ago             ubuntu1
+jegan@tektutor:~$ <b>docker start ubuntu1</b>
+ubuntu1
+jegan@tektutor:~$ <b>docker ps</b>
+CONTAINER ID   IMAGE          COMMAND       CREATED          STATUS         PORTS     NAMES
+12fc64f9d46d   ubuntu:16.04   "/bin/bash"   13 minutes ago   Up 3 seconds             ubuntu1
 </pre>
 
 ## ⛹️‍♀️ Lab - Restarting a container that is either running or not running currently
