@@ -521,3 +521,63 @@ The expected output is
 <pre>
 </pre>
 
+## Let's dispose all containers
+```
+docker stop $(docker ps -q) && docker rm $(docker ps -aq)
+```
+
+## Let's create multiple containers
+```
+docker run -dit --name c1 --hostname c1 ubuntu:16.04 /bin/bash
+docker run -dit --name c2 --hostname c2 ubuntu:16.04 /bin/bash
+docker run -dit --name c3 --hostname c3 ubuntu:18.04 /bin/bash
+docker run -dit --name ubuntu1 --hostname ubuntu1 ubuntu:16.04 /bin/bash
+docker run -dit --name ubuntu2 --hostname ubuntu2 ubuntu:16.04 /bin/bash
+docker run -dit --name ubuntu3 --hostname ubuntu3 ubuntu:16.04 /bin/bash
+```
+
+The expected output is
+<pre>
+jegan@tektutor:~$ docker run -dit --name c1 --hostname c1 ubuntu:16.04 /bin/bash
+d7d967b44e66dea236e53a4601d7de4b1b084dec2c689d207b4c3a56020d2402
+jegan@tektutor:~$ docker run -dit --name c2 --hostname c2 ubuntu:16.04 /bin/bash
+c2300b0295720269c5cbc46e476e30b8dafb8f74e56a54b0b392f8a170e758cb
+jegan@tektutor:~$ docker run -dit --name c3 --hostname c3 ubuntu:18.04 /bin/bash
+56fa26cafe8185005ec95fad4cff1462f0125aec1e0541dea293c99493b0cb51
+jegan@tektutor:~$ docker run -dit --name ubuntu1 --hostname ubuntu1 ubuntu:16.04 /bin/bash
+c3d8d619df9b3d9bdf6393d6ea423d9f05997209afe041c6e15991bfdd288232
+jegan@tektutor:~$ docker run -dit --name ubuntu2 --hostname ubuntu2 ubuntu:16.04 /bin/bash
+65f057bca098a3e6b6fb243cd2cdd63a2e28a6c20607bfd8166e459c4e9887ab
+jegan@tektutor:~$ docker run -dit --name ubuntu3 --hostname ubuntu3 ubuntu:16.04 /bin/bash
+e7167bb5e79765bfdcead88f9fe3b2018279650344135e5fec0c61a6c9887729
+</pre>
+
+List all the containers
+```
+docker ps
+```
+
+The expected output is
+<pre>
+jegan@tektutor:~$ docker ps
+CONTAINER ID   IMAGE          COMMAND       CREATED          STATUS          PORTS     NAMES
+e7167bb5e797   ubuntu:16.04   "/bin/bash"   47 seconds ago   Up 46 seconds             ubuntu3
+65f057bca098   ubuntu:16.04   "/bin/bash"   50 seconds ago   Up 48 seconds             ubuntu2
+c3d8d619df9b   ubuntu:16.04   "/bin/bash"   50 seconds ago   Up 49 seconds             ubuntu1
+56fa26cafe81   ubuntu:18.04   "/bin/bash"   51 seconds ago   Up 49 seconds             c3
+c2300b029572   ubuntu:16.04   "/bin/bash"   51 seconds ago   Up 50 seconds             c2
+d7d967b44e66   ubuntu:16.04   "/bin/bash"   52 seconds ago   Up 50 seconds             c1
+</pre>
+
+Let us stop c3 container
+```
+docker stop c3
+```
+docker ps -a -f ancestor=ubuntu:18.04
+```
+Let us now list all running containers whose image is ubuntu:18.04
+<pre>
+jegan@tektutor:~$ docker ps -a -f ancestor=ubuntu:18.04
+CONTAINER ID   IMAGE          COMMAND       CREATED         STATUS                      PORTS     NAMES
+56fa26cafe81   ubuntu:18.04   "/bin/bash"   2 minutes ago   Exited (0) 21 seconds ago             c3
+</pre>
