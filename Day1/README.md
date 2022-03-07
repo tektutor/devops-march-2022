@@ -253,7 +253,8 @@ The expected output is
 <pre>
 </pre>
 
-## ⛹️‍♀️ Lab - Listing all containers irrespective of their running status
+## ⛹️‍♀️ Lab - Listing all containers irrespective of their running statjegan@tektutor:~$ docker stop 12fc64f9d46d
+us
 ```
 docker ps -a
 ```
@@ -431,7 +432,7 @@ ubuntu1
 jegan@tektutor:~$ <b>docker ps</b>
 CONTAINER ID   IMAGE          COMMAND       CREATED          STATUS         PORTS     NAMES
 12fc64f9d46d   ubuntu:16.04   "/bin/bash"   13 minutes ago   Up 3 seconds             ubuntu1
-jegan@tektutor:~$ docker stop 12fc64f9d46d
+jegan@tektutor:~$ <b>docker stop 12fc64f9d46d</b>
 12fc64f9d46d
 jegan@tektutor:~$ <b>docker ps -a</b>
 CONTAINER ID   IMAGE          COMMAND       CREATED          STATUS                      PORTS     NAMES
