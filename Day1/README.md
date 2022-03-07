@@ -151,3 +151,65 @@ docker.bintray.io/jfrog/artifactory-oss   latest    547c6957fc54   4 weeks ago  
 sonarqube                                 latest    4ac4842c584e   5 weeks ago    520MB
 <b>hello-world                               latest    feb5d9fea6a5   5 months ago   13.3kB</b>
 </pre>
+
+## Finding more details about your docker installation
+```
+docker infor
+```
+
+The expected output is
+<pre>
+jegan@tektutor:~$ <b>docker info</b>
+Client:
+ Context:    default
+ Debug Mode: false
+
+Server:
+ Containers: 2
+  Running: 2
+  Paused: 0
+  Stopped: 0
+ Images: 3
+ Server Version: 20.10.7
+ Storage Driver: overlay2
+  Backing Filesystem: extfs
+  Supports d_type: true
+  Native Overlay Diff: true
+  userxattr: false
+ Logging Driver: json-file
+ Cgroup Driver: cgroupfs
+ Cgroup Version: 1
+ Plugins:
+  Volume: local
+  Network: bridge host ipvlan macvlan null overlay
+  Log: awslogs fluentd gcplogs gelf journald json-file local logentries splunk syslog
+ Swarm: inactive
+ Runtimes: io.containerd.runc.v2 io.containerd.runtime.v1.linux runc
+ Default Runtime: runc
+ Init Binary: docker-init
+ containerd version: 
+ runc version: 
+ init version: 
+ Security Options:
+  apparmor
+  seccomp
+   Profile: default
+ Kernel Version: 5.4.0-100-generic
+ Operating System: Ubuntu 18.04.6 LTS
+ OSType: linux
+ Architecture: x86_64
+ CPUs: 48
+ Total Memory: 125.6GiB
+ Name: tektutor
+ ID: I3XQ:RESC:AIUK:6RVT:T34U:3CP5:GHLH:QWET:J52D:UV3O:G5B6:3WGE
+ Docker Root Dir: /var/lib/docker
+ Debug Mode: false
+ Registry: https://index.docker.io/v1/
+ Labels:
+ Experimental: false
+ Insecure Registries:
+  127.0.0.0/8
+ Live Restore Enabled: false
+
+WARNING: No swap limit support
+</pre>
