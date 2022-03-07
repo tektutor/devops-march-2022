@@ -1003,3 +1003,19 @@ Bye
 
 As you can use, the database and table with data is intact. All credit goes to the Docker volume mounting feature :)
 
+# Docker Networking
+
+## Listing docker network types 
+```
+docker network ls
+```
+
+<pre>
+jegan@tektutor:~$ docker network ls
+NETWORK ID     NAME      DRIVER    SCOPE
+00305de8fb69   bridge    bridge    local
+9371e925f813   host      host      local
+7c9fa6ea53f0   none      null      local
+</pre>
+
+Bridge is the default type of network used by Docker.
