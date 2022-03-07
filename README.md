@@ -5,23 +5,14 @@ As CentOS 8.x has reached End of Life by 31st Dec 2021,  RedHat stopped software
 
 ## Installing Docker Community Edition in CentOS 7.7
 ```
-sudo su -
-yum install -y yum-utils
-yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-yum install docker-ce docker-ce-cli containerd.io
+sudo yum install -y yum-utils
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+sudo yum install docker-ce docker-ce-cli containerd.io
 ```
 
-#### Starting docker engine service
-```
-sudo systemctl enable docker
-sudo systemctl start docker
-sudo systemctl status docker
-sudo usermod -aG docker $USER
-newgrp docker
-```
-The expected ouput is
+The expected output is
 <pre>
-(jegan@tektutor.org$)>sudo yum install -y yum-utils
+(jegan@tektutor.org$)><b>sudo yum install -y yum-utils</b>
 Loaded plugins: fastestmirror, langpacks
 Loading mirror speeds from cached hostfile
  * base: centos.excellmedia.net
@@ -31,13 +22,13 @@ Loading mirror speeds from cached hostfile
 Package yum-utils-1.1.31-54.el7_8.noarch already installed and latest version
 Nothing to do
 
-(jegan@tektutor.org$)>sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+(jegan@tektutor.org$)><b>sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</b>
 Loaded plugins: fastestmirror, langpacks
 adding repo from: https://download.docker.com/linux/centos/docker-ce.repo
 grabbing file https://download.docker.com/linux/centos/docker-ce.repo to /etc/yum.repos.d/docker-ce.repo
 repo saved to /etc/yum.repos.d/docker-ce.repo
 
-(jegan@tektutor.org$)>sudo yum install docker-ce docker-ce-cli containerd.io
+(jegan@tektutor.org$)><b>sudo yum install docker-ce docker-ce-cli containerd.io</b>
 Loaded plugins: fastestmirror, langpacks
 Loading mirror speeds from cached hostfile
  * base: centos.excellmedia.net
@@ -144,6 +135,19 @@ Dependency Installed:
   fuse3-libs.x86_64 0:3.6.1-4.el7                                       slirp4netns.x86_64 0:0.4.3-4.el7_8                                  
 
 Complete!
+</pre>
+
+
+#### Starting docker engine service
+```
+sudo systemctl enable docker
+sudo systemctl start docker
+sudo systemctl status docker
+sudo usermod -aG docker $USER
+newgrp docker
+```
+The expected ouput is
+<pre>
 
 </pre>
 
