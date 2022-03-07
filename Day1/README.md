@@ -1001,3 +1001,5 @@ Bye
 # exit
 </pre>
 
+As you can use, the database and table with data is intact. All credit goes to the Docker volume mounting feature :)
+
