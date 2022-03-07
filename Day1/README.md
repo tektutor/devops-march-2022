@@ -122,3 +122,18 @@ Mar 06 19:23:50 tektutor.org systemd[1]: Started Docker Application Container En
 Mar 06 19:23:50 tektutor.org dockerd[64145]: time="2022-03-06T19:23:50.571898030-08:00" level=i...ck"
 Hint: Some lines were ellipsized, use -l to show in full.
 </pre>
+
+### Downloading hello-world docker image from Docker Hub(Remote Registry) to Local Docker Registry
+```
+docker pull hello-world:latest
+```
+
+The expected ouput is
+<pre>
+jegan@tektutor:~$ <b>docker pull hello-world:latest</b>
+latest: Pulling from library/hello-world
+2db29710123e: Pull complete 
+Digest: sha256:97a379f4f88575512824f3b352bc03cd75e239179eea0fecc38e597b2209f49a
+Status: Downloaded newer image for hello-world:latest
+docker.io/library/hello-world:latest
+</pre>
