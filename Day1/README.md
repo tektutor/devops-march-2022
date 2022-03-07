@@ -269,6 +269,22 @@ The expected output is
 <pre>
 </pre>
 
+## ⛹️‍♀️ Lab - Rename a container
+```
+docker rename <old-container-name> <new-container-name>
+```
+
+The expected output is
+<pre>
+jegan@tektutor:~$ <b>docker ps -a</b>
+CONTAINER ID   IMAGE                COMMAND    CREATED              STATUS                          PORTS     NAMES
+74f23bc4b3d8   hello-world:latest   "/hello"   About a minute ago   Exited (0) About a minute ago             <b>sharp_wescoff</b>
+jegan@tektutor:~$ <b>docker rename sharp_wescoff hello1</b>
+jegan@tektutor:~$ <b>docker ps -a</b>
+CONTAINER ID   IMAGE                COMMAND    CREATED         STATUS                     PORTS     NAMES
+74f23bc4b3d8   hello-world:latest   "/hello"   3 minutes ago   Exited (0) 3 minutes ago             <b>hello1</b>
+</pre>
+
 ## ⛹️‍♂️ Lab - Stopping a single running container
 ```
 docker stop <container-name>
