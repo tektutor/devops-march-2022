@@ -610,3 +610,15 @@ jegan@tektutor:~$ docker ps --filter status=exited
 CONTAINER ID   IMAGE          COMMAND       CREATED         STATUS                     PORTS     NAMES
 56fa26cafe81   ubuntu:18.04   "/bin/bash"   5 minutes ago   Exited (0) 4 minutes ago             c3
 </pre>
+
+List all containers which are in exited state and their image is ubuntu:18.04
+```
+docker ps --filter status=exited --filter ancestor=ubuntu:18.04
+```
+
+The expected output is
+<pre>
+jegan@tektutor:~$ docker ps --filter status=exited --filter ancestor=ubuntu:18.04
+CONTAINER ID   IMAGE          COMMAND       CREATED         STATUS                     PORTS     NAMES
+56fa26cafe81   ubuntu:18.04   "/bin/bash"   8 minutes ago   Exited (0) 7 minutes ago             c3
+</pre>
