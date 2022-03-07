@@ -154,7 +154,7 @@ sonarqube                                 latest    4ac4842c584e   5 weeks ago  
 
 ## ⛹️‍♂️ Lab - Finding more details about your docker installation
 ```
-docker infor
+docker info
 ```
 
 The expected output is
