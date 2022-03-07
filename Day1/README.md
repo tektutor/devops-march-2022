@@ -91,7 +91,7 @@ The expected output is
 Docker version 20.10.12, build e91ed57
 </pre>
 
-## Checking the status of Docker Enginer (Daemon/Service)
+##  ⛹️‍♀️ Lab - Checking the status of Docker Enginer (Daemon/Service)
 ```
 sudo systemctl status docker
 ```
@@ -123,7 +123,7 @@ Mar 06 19:23:50 tektutor.org dockerd[64145]: time="2022-03-06T19:23:50.571898030
 Hint: Some lines were ellipsized, use -l to show in full.
 </pre>
 
-### Downloading hello-world docker image from Docker Hub(Remote Registry) to Local Docker Registry
+### ⛹️‍♂️ Lab - Downloading hello-world docker image from Docker Hub(Remote Registry) to Local Docker Registry
 ```
 docker pull hello-world:latest
 ```
@@ -138,7 +138,7 @@ Status: Downloaded newer image for hello-world:latest
 docker.io/library/hello-world:latest
 </pre>
 
-### Listing docker images from your local docker registry
+### ⛹️‍♀️ Lab - Listing docker images from your local docker registry
 ```
 docker images
 ```
@@ -152,7 +152,7 @@ sonarqube                                 latest    4ac4842c584e   5 weeks ago  
 <b>hello-world                               latest    feb5d9fea6a5   5 months ago   13.3kB</b>
 </pre>
 
-## Finding more details about your docker installation
+## ⛹️‍♂️ Lab - Finding more details about your docker installation
 ```
 docker infor
 ```
@@ -213,3 +213,70 @@ Server:
 
 WARNING: No swap limit support
 </pre>
+
+## ⛹️‍♀️ Lab - Creating your first container
+```
+docker run hello-world:latest
+```
+The expected output is
+<pre>
+</pre>
+
+## ⛹️‍♂️ Lab - Listing currently running containers
+```
+docker ps
+```
+
+The expected output is
+<pre>
+</pre>
+
+## ⛹️‍♀️ Lab - Listing all containers irrespective of their running status
+```
+docker ps -a
+```
+The expected output is
+<pre>
+</pre>
+
+## ⛹️‍♂️ Lab - Listing only container ids of running containers
+```
+docker ps -aq
+```
+The expected output is
+<pre>
+</pre>
+
+## ⛹️‍♂️ Lab - Stopping a single running container
+```
+docker stop <container-name>
+```
+The expected output is
+<pre>
+</pre>
+
+## ⛹️‍♀️ Lab - Starting a container that isn't running currently
+
+You may replace the container-name with container id as well.
+```
+docker start <container-name>
+```
+
+
+The expected output is
+<pre>
+</pre>
+
+## ⛹️‍♀️ Lab - Restarting a container that is either running or not running currently
+
+You may replace the container-name with container id as well.
+```
+docker restart <container-name>
+```
+
+The expected output is
+<pre>
+</pre>
+
+
+
