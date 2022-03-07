@@ -87,7 +87,7 @@ docker --version
 ```
 The expected output is
 <pre>
-(jegan@tektutor.org$)>docker --version
+(jegan@tektutor.org$)><b>docker --version</b>
 Docker version 20.10.12, build e91ed57
 </pre>
 
@@ -97,7 +97,7 @@ sudo systemctl status docker
 ```
 The expected output is
 <pre>
-jegan@tektutor.org$)>sudo sytemctl status docker
+jegan@tektutor.org$)><b>sudo sytemctl status docker</b>
 sudo: sytemctl: command not found
 (jegan@tektutor.org$)>sudo systemctl status docker
 ● docker.service - Docker Application Container Engine
