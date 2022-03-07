@@ -716,6 +716,8 @@ INSERT INTO Training VALUES ( "DevOps", "3 Days" );
 INSERT INTO Training VALUES ( "Microservices", "5 Days" );
 INSERT INTO Training VALUES ( "OpenShift CI/CD with Tekton", "5 Days" );
 SELECT * FROM Training;
+exit
+exit
 ```
 
 The expected output is
@@ -762,4 +764,89 @@ mysql> <b>SELECT * FROM Training;</b>
 3 rows in set (0.00 sec)
 
 mysql> 
+mysql> exit
+Bye
+# exit
+</pre>
+
+Let's delete the mysql container
+```
+docker rm -f db1
+```
+The expected output is
+<pre>
+jegan@tektutor:~$ docker rm -f db1
+db1
+</pre>
+
+Let's see if the data inserted will be available once the db1 container is removed
+```
+docker rm -f db1
+docker run -d --name db1 --hostname db1 -e MYSQL_ROOT_PASSWORD=root mysql:latest
+docker exec -it db1 sh
+mysql -u root -p 
+SHOW DATABASES;
+```
+
+The expected output is
+<pre>
+jegan@tektutor:~$ docker rm -f db1
+db1
+jegan@tektutor:~$ docker run -d --name db1 --hostname db1 -e MYSQL_ROOT_PASSWORD=root mysql:latest
+2da413c6eff6015ff636b107becedc6fd42aad2583f82b1556232dddbafbf491
+jegan@tektutor:~$ docker exec -it db1 sh
+# mysql -u root -p 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.28 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.00 sec)
+
+mysql> 
+</pre>
+
+As we can see, the 'tektutor' database is missing.
+
+## ⛹️‍♀️ Lab - Using Persistent Volume to store database external to a container
+
+We need to create a directory as non-root user
+```
+mkdir -p /tmp/mysql
+```
+The expected output is
+<pre>
+jegan@tektutor:~$ mkdir -p /tmp/mysql
+</pre>
+
+Let's create a new db1 mysql container using /tmp/mysql local hostpath as the persistent volume which is mounted inside the container at path /var/lib/mysql.
+```
+docker run -d --name db1 --hostname db1 -v /tmp/mysql:/var/lib/mysql mysql:latest 
+docker ps 
+```
+
+The expected output is
+<pre>
+jegan@tektutor:~$ docker run -d --name db1 --hostname db1 -e MYSQL_ROOT_PASSWORD=root -v /tmp/mysql:/var/lib/mysql mysql:latest
+65239ff45071700bbc43795b8520ba90b77fdeee7de10fa3730894308c70f1c6
+jegan@tektutor:~$ docker ps
+CONTAINER ID   IMAGE          COMMAND                  CREATED         STATUS        PORTS                 NAMES
+65239ff45071   mysql:latest   "docker-entrypoint.s…"   3 seconds ago   Up 1 second   3306/tcp, 33060/tcp   db1
 </pre>
