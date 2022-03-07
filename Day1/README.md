@@ -720,7 +720,7 @@ SELECT * FROM Training;
 
 The expected output is
 <pre>
-mysql> SHOW DATABASES;
+mysql> <b>SHOW DATABASES;</b>
 +--------------------+
 | Database           |
 +--------------------+
@@ -731,27 +731,27 @@ mysql> SHOW DATABASES;
 +--------------------+
 4 rows in set (0.01 sec)
 
-mysql> CREATE DATABASE tektutor;
+mysql> <b>CREATE DATABASE tektutor;</b>
 Query OK, 1 row affected (0.01 sec)
 
-mysql> USE tektutor;
+mysql> <b>USE tektutor;</b>
 Database changed
-mysql> SHOW TABLES;
+mysql> <b>SHOW TABLES;</b>
 Empty set (0.00 sec)
 
-mysql> CREATE TABLE Training ( name VARCHAR(55), duration VARCHAR(30) );
+mysql> <b>CREATE TABLE Training ( name VARCHAR(55), duration VARCHAR(30) );</b>
 Query OK, 0 rows affected (0.02 sec)
 
-mysql> INSERT INTO Training VALUES ( "DevOps", "3 Days" );
+mysql> <b>INSERT INTO Training VALUES ( "DevOps", "3 Days" );</b>
 Query OK, 1 row affected (0.01 sec)
 
-mysql> INSERT INTO Training VALUES ( "Microservices", "5 Days" );
+mysql> <b>INSERT INTO Training VALUES ( "Microservices", "5 Days" );</b>
 Query OK, 1 row affected (0.01 sec)
 
-mysql> INSERT INTO Training VALUES ( "OpenShift CI/CD with Tekton", "5 Days" );
+mysql> <b>INSERT INTO Training VALUES ( "OpenShift CI/CD with Tekton", "5 Days" );</b>
 Query OK, 1 row affected (0.00 sec)
 
-mysql> SELECT * FROM Training;
+mysql> <b>SELECT * FROM Training;</b>
 +-----------------------------+----------+
 | name                        | duration |
 +-----------------------------+----------+
