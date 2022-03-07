@@ -314,6 +314,8 @@ exit
 </pre>
 
 ## ⛹️‍♀️ Lab - Finding more details about a docker image
+
+You may observe ubuntu:16.04 docker image has got 4 layers. 
 ```
 docker inspect ubuntu:16.04
 ```
