@@ -137,3 +137,17 @@ Digest: sha256:97a379f4f88575512824f3b352bc03cd75e239179eea0fecc38e597b2209f49a
 Status: Downloaded newer image for hello-world:latest
 docker.io/library/hello-world:latest
 </pre>
+
+### Listing docker images from your local docker registry
+```
+docker images
+```
+
+The expected output is
+<pre>
+jegan@tektutor:~$ <b>docker images</b>
+REPOSITORY                                TAG       IMAGE ID       CREATED        SIZE
+docker.bintray.io/jfrog/artifactory-oss   latest    547c6957fc54   4 weeks ago    993MB
+sonarqube                                 latest    4ac4842c584e   5 weeks ago    520MB
+hello-world                               latest    feb5d9fea6a5   5 months ago   13.3kB
+</pre>
