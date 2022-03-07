@@ -718,6 +718,7 @@ INSERT INTO Training VALUES ( "OpenShift CI/CD with Tekton", "5 Days" );
 SELECT * FROM Training;
 exit
 exit
+docker rm -f db1
 ```
 
 The expected output is
@@ -928,3 +929,75 @@ Bye
 jegan@tektutor:~$ docker rm -f db1
 db1
 </pre>
+
+Though we deleted the db1 container through which we created 'tektutor' database and 'Training' table inside database 'tektutor'.  The data will be intact as we used external volume i.e /tmp/mysql hostpath.
+
+To verify if the data is still there, we will create a new container mounting the same volume
+```
+docker run -d --name db1 --hostname db1 -e MYSQL_ROOT_PASSWORD=root -v /tmp/mysql:/var/lib/mysql mysql:latest
+docker exec -it db1 sh
+mysql -u root -p
+SHOW DATABASES;
+USE tektutor;
+SELECT * FROM Training;
+```
+
+The expected output is
+<pre>
+jegan@tektutor:~$ docker run -d --name db1 --hostname db1 -e MYSQL_ROOT_PASSWORD=root -v /tmp/mysql:/var/lib/mysql mysql:latest
+34277dd48a895d12673bd89a715f86fc09acee0f454728d01687b65f04b6bb0f
+jegan@tektutor:~$ docker exec -it db1 sh
+# mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.28 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
+| tektutor           |
++--------------------+
+5 rows in set (0.01 sec)
+
+mysql> USE tektutor;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> SHOW TABLES;
++--------------------+
+| Tables_in_tektutor |
++--------------------+
+| Training           |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM Training;
++-----------------------------+----------+
+| name                        | duration |
++-----------------------------+----------+
+| DevOps                      | 3 Days   |
+| Microservices               | 5 Days   |
+| OpenShift CI/CD with Tekton | 5 Days   |
++-----------------------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> exit
+Bye
+# exit
+</pre>
+
