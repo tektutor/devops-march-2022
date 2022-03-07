@@ -705,3 +705,61 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
 mysql> 
 </pre>
+
+Let's create a database, create a table in it and add some records as shown below
+```
+SHOW DATABASES;
+CREATE DATABASE tektutor;
+USE tektutor;
+CREATE TABLE Training ( name VARCHAR(55), duration VARCHAR(30) );
+INSERT INTO Training VALUES ( "DevOps", "3 Days" );
+INSERT INTO Training VALUES ( "Microservices", "5 Days" );
+INSERT INTO Training VALUES ( "OpenShift CI/CD with Tekton", "5 Days" );
+SELECT * FROM Training;
+```
+
+The expected output is
+<pre>
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.01 sec)
+
+mysql> CREATE DATABASE tektutor;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> USE tektutor;
+Database changed
+mysql> SHOW TABLES;
+Empty set (0.00 sec)
+
+mysql> CREATE TABLE Training ( name VARCHAR(55), duration VARCHAR(30) );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO Training VALUES ( "DevOps", "3 Days" );
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Training VALUES ( "Microservices", "5 Days" );
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Training VALUES ( "OpenShift CI/CD with Tekton", "5 Days" );
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM Training;
++-----------------------------+----------+
+| name                        | duration |
++-----------------------------+----------+
+| DevOps                      | 3 Days   |
+| Microservices               | 5 Days   |
+| OpenShift CI/CD with Tekton | 5 Days   |
++-----------------------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> 
+</pre>
