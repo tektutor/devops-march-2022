@@ -309,6 +309,8 @@ root@ubuntu1:/# ls
 bin   dev  home  lib64  mnt  proc  run   srv  tmp  var
 boot  etc  lib   media  opt  root  sbin  sys  usr
 root@ubuntu1:/# 
+root@ubuntu1:/# exit
+exit
 </pre>
 
 ## ⛹️‍♂️ Lab - Stopping a single running container
