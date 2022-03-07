@@ -572,7 +572,6 @@ d7d967b44e66   ubuntu:16.04   "/bin/bash"   52 seconds ago   Up 50 seconds      
 Let us stop c3 container
 ```
 docker stop c3
-```
 docker ps -a -f ancestor=ubuntu:18.04
 ```
 Let us now list all running containers whose image is ubuntu:18.04
@@ -580,4 +579,34 @@ Let us now list all running containers whose image is ubuntu:18.04
 jegan@tektutor:~$ docker ps -a -f ancestor=ubuntu:18.04
 CONTAINER ID   IMAGE          COMMAND       CREATED         STATUS                      PORTS     NAMES
 56fa26cafe81   ubuntu:18.04   "/bin/bash"   2 minutes ago   Exited (0) 21 seconds ago             c3
+</pre>
+
+
+List all containers which are in running state using filter
+```
+docker ps --filter status=running
+```
+
+The expected output is
+<pre>
+jegan@tektutor:~$ docker ps --filter status=running
+CONTAINER ID   IMAGE          COMMAND       CREATED         STATUS         PORTS     NAMES
+e7167bb5e797   ubuntu:16.04   "/bin/bash"   4 minutes ago   Up 4 minutes             ubuntu3
+65f057bca098   ubuntu:16.04   "/bin/bash"   4 minutes ago   Up 4 minutes             ubuntu2
+c3d8d619df9b   ubuntu:16.04   "/bin/bash"   4 minutes ago   Up 4 minutes             ubuntu1
+c2300b029572   ubuntu:16.04   "/bin/bash"   4 minutes ago   Up 4 minutes             c2
+d7d967b44e66   ubuntu:16.04   "/bin/bash"   4 minutes ago   Up 4 minutes             c1
+</pre>
+
+
+List all containers which are in exited state using filter
+```
+docker ps --filter status=exited
+```
+
+The expected output is
+<pre>
+jegan@tektutor:~$ docker ps --filter status=exited
+CONTAINER ID   IMAGE          COMMAND       CREATED         STATUS                     PORTS     NAMES
+56fa26cafe81   ubuntu:18.04   "/bin/bash"   5 minutes ago   Exited (0) 4 minutes ago             c3
 </pre>
