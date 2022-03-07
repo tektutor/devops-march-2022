@@ -80,3 +80,45 @@ Before the Virtualization technology came into the Industry
          - i.e it help in putting some restriction on how much CPU resources, RAM and Storage a particular container can use
          - this is required to ensure that one single container does'nt take up all the H/W resources leaving other containers
            starve for H/W resources
+
+## Checking the version of docker installed
+```
+docker --version
+```
+The expected output is
+<pre>
+(jegan@tektutor.org$)>docker --version
+Docker version 20.10.12, build e91ed57
+</pre>
+
+## Checking the status of Docker Enginer (Daemon/Service)
+```
+sudo systemctl status docker
+```
+The expected output is
+<pre>
+jegan@tektutor.org$)>sudo sytemctl status docker
+sudo: sytemctl: command not found
+(jegan@tektutor.org$)>sudo systemctl status docker
+● docker.service - Docker Application Container Engine
+   Loaded: loaded (/usr/lib/systemd/system/docker.service; enabled; vendor preset: disabled)
+   Active: active (running) since Sun 2022-03-06 19:23:50 PST; 3h 42min ago
+     Docs: https://docs.docker.com
+ Main PID: 64145 (dockerd)
+    Tasks: 14
+   Memory: 40.5M
+   CGroup: /system.slice/docker.service
+           └─64145 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+
+Mar 06 19:23:48 tektutor.org dockerd[64145]: time="2022-03-06T19:23:48.110984142-08:00" level=i...rpc
+Mar 06 19:23:48 tektutor.org dockerd[64145]: time="2022-03-06T19:23:48.111009882-08:00" level=i...rpc
+Mar 06 19:23:48 tektutor.org dockerd[64145]: time="2022-03-06T19:23:48.477701245-08:00" level=i...t."
+Mar 06 19:23:49 tektutor.org dockerd[64145]: time="2022-03-06T19:23:49.915307132-08:00" level=i...ss"
+Mar 06 19:23:50 tektutor.org dockerd[64145]: time="2022-03-06T19:23:50.201200737-08:00" level=i...ng"
+Mar 06 19:23:50 tektutor.org dockerd[64145]: time="2022-03-06T19:23:50.462895927-08:00" level=i...e."
+Mar 06 19:23:50 tektutor.org dockerd[64145]: time="2022-03-06T19:23:50.515173237-08:00" level=i....12
+Mar 06 19:23:50 tektutor.org dockerd[64145]: time="2022-03-06T19:23:50.515686639-08:00" level=i...on"
+Mar 06 19:23:50 tektutor.org systemd[1]: Started Docker Application Container Engine.
+Mar 06 19:23:50 tektutor.org dockerd[64145]: time="2022-03-06T19:23:50.571898030-08:00" level=i...ck"
+Hint: Some lines were ellipsized, use -l to show in full.
+</pre>
