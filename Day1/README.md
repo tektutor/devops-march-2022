@@ -278,5 +278,28 @@ The expected output is
 <pre>
 </pre>
 
+## ⛹️‍♂️ Lab - Find the IP Address of a running container
+```
+docker inspect <container-name> | grep IPA
+```
+The expected output is
+<pre>
+</pre>
 
+## ⛹️‍♀️ Lab - Stopping all containers and removing them gracefully
+```
+docker stop $(docker ps -aq) && docker rm $(docker ps -aq)
+```
+
+The expected output is
+<pre>
+</pre>
+
+## Removing all containers forcibly
+```
+docker rm -f $(docker ps -aq)
+```
+The expected output is
+<pre>
+</pre>
 
