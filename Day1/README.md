@@ -850,3 +850,81 @@ jegan@tektutor:~$ docker ps
 CONTAINER ID   IMAGE          COMMAND                  CREATED         STATUS        PORTS                 NAMES
 65239ff45071   mysql:latest   "docker-entrypoint.s…"   3 seconds ago   Up 1 second   3306/tcp, 33060/tcp   db1
 </pre>
+
+Now let's get inside the container
+```
+docker exec -it db1 sh
+mysql -u root -p
+SHOW DATABASES;
+CREATE DATABASE tektutor;
+USE tektutor;
+CREATE TABLE Training ( name VARCHAR(50), duration VARCHAR(30) );
+INSERT INTO Training VALUES ( "DevOps", "3 Days" );
+INSERT INTO Training VALUES ( "Microservices", "5 Days" );
+INSERT INTO Training VALUES ( "OpenShift CI/CD with Tekton", "5 Days" );
+SELECT * FROM Training;
+exit
+exit
+```
+
+The expected output is
+<pre>
+jegan@tektutor:~$ docker exec -it db1 sh
+# mysql -u root -p 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.28 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.00 sec)
+
+mysql> CREATE DATABASE tektutor;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> USE tektutor;
+Database changed
+mysql> CREATE TABLE Training ( name VARCHAR(50), duration VARCHAR(30) );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO Training VALUES ( "DevOps", "3 Days" );
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Training VALUES ( "Microservices", "5 Days" );
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Training VALUES ( "OpenShift CI/CD with Tekton", "5 Days" );
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM Training;
++-----------------------------+----------+
+| name                        | duration |
++-----------------------------+----------+
+| DevOps                      | 3 Days   |
+| Microservices               | 5 Days   |
+| OpenShift CI/CD with Tekton | 5 Days   |
++-----------------------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> exit
+Bye
+# exit
+jegan@tektutor:~$ docker rm -f db1
+db1
+</pre>
