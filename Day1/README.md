@@ -661,3 +661,47 @@ jegan@tektutor:~$ <b>docker ps</b>
 CONTAINER ID   IMAGE          COMMAND                  CREATED         STATUS         PORTS                 NAMES
 ae04c45f030c   mysql:latest   "docker-entrypoint.s…"   2 minutes ago   Up 2 minutes   3306/tcp, 33060/tcp   db1
 </pre>
+
+Getting inside the mysql container
+```
+docker exec -it db1 sh
+hostname
+hostname -i
+```
+
+The expected output is
+<pre>
+jegan@tektutor:~$ docker exec -it db1 sh
+# hostname
+db1
+# ls
+bin   dev			  entrypoint.sh  home  lib64  mnt  proc  run   srv  tmp  var
+boot  docker-entrypoint-initdb.d  etc		 lib   media  opt  root  sbin  sys  usr
+# hostname -i
+172.17.0.2
+</pre>
+
+Connecting to mysql server
+```
+mysql -u root -p
+```
+When it prompts for password type 'root' as the password without the quotes.
+
+The expected ouptut is
+<pre>
+# mysql -u root -p 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.28 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> 
+</pre>
