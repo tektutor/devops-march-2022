@@ -939,4 +939,3 @@ http://worker2-node-ip
 
 You will be presented with page similar to screenshot below
 ![wordpress](wordpress.png)
-
