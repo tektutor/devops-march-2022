@@ -762,5 +762,17 @@ Allocated resources:
 Events:              <none>
 </pre>
 
+## ⛹️‍♂️ Lab - Listing nodes in wide mode
+```
+kubectl get nodes -o wide
+```
 
-
+The expected output is
+<pre>
+[jegan@master devops-march-2022]$ kubectl <b>get nodes -o wide</b>
+NAME                   STATUS   ROLES                  AGE    VERSION   INTERNAL-IP       EXTERNAL-IP   OS-IMAGE                KERNEL-VERSION           CONTAINER-RUNTIME
+master.tektutor.org    Ready    control-plane,master   169m   v1.23.4   192.168.167.134   <none>        CentOS Linux 7 (Core)   3.10.0-1160.el7.x86_64   docker://20.10.12
+worker1.tektutor.org   Ready    <none>                 146m   v1.23.4   192.168.167.135   <none>        CentOS Linux 7 (Core)   3.10.0-1160.el7.x86_64   docker://20.10.12
+worker2.tektutor.org   Ready    <none>                 143m   v1.23.4   192.168.167.136   <none>        CentOS Linux 7 (Core)   3.10.0-1160.el7.x86_64   docker://20.10.12
+[jegan@master devops-march-2022]$ 
+</pre>
