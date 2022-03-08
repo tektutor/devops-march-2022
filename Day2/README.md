@@ -275,3 +275,67 @@ rm -rf /etc/cni/net.d
 rm -rf /etc/kubernetes
 rm -rf $HOME/.kube
 ```
+
+## Kubernetes Overview
+- Container Orchestration Platform
+- platform that manages different types of containers
+- it support LXC, CRI-O(Podman), etc.,
+- gives an eco-system when you are applications can be deployed with K8s cluster and make it Highly Available
+- has in-built controllers that constantly monitors the health of your application, if required it repairs your application
+  by replacing unhealth Pod instance of your application with an healthy Pod instance
+- self-healing platform
+- it supports doing rolling update i.e helps in upgrading your appliction from one version to the other without any downtime
+- it helps in scaling up/down the number of instances of your microservices/applications running within K8s cluster
+- kubectl is the client tools that is used majority of the times to interact with the Kubernetes cluster
+- it is thru kubectl 
+    - you will deploy applications
+    - you will scale up/down the number of instances running within K8s cluster
+    - you will perform rolling update
+    - you will exposed your deployment as services either for internal or external
+    - this tool is generally used in master, but can also used in workers nodes optionally
+   
+ - kubeadm
+     - is an administrative tool
+     - used to bootstrap the master
+     - is also used to join the worker nodes to the K8s cluster
+     - is also used to unjoin a worker node from the K8s cluster
+     - is also used to reset(uninstall) K8s cluster setup
+     - is available on master as well as worker nodes
+    
+ - kubelet
+     - is the Kubernetes Container Agent that runs on every node ( master and workers)
+     - this is the daemon/service that actually interacts with the Container Runtime like Docker, CRI-O, etc.,
+     - kubelet is the component that pulls the required container images from Docker Hub or any of your private registries
+     - kubelet also constantly monitors the health of the Pods that are running in the worker node and keeps reporting
+       the status of those Pods to the master node(API Server)
+     - kubelet is the one which creates the Pods on the worker node
+     - kubelet is the one which creates the Control Plane components 
+     
+ - Control Plane components ( Typically runs on master node )
+     1. API Server
+     3. Scheduler
+     4. Controller Managers
+     5. etc ( key/value datastore )
+
+ - API Server
+      - implements all the Kubernetes features as REST API
+      - is the component that all other K8s components will interact with
+      - no components are allowed to talk to each other directly. i.e all communication should happen via API Server only
+      - API servers store the K8s cluster status into the etcd datastore
+      - API Server is the only components which will access the etcd datastore directly
+      
+ - Scheduler
+      - scheduler is the one which identies a healthy node where your application Pods can be deployed
+
+  - Controller Managers
+      - a collection of many Controllers that are responsible for High Availability of your applications
+      - Node Controller
+      - Endpoint Controller
+      - Deployment Controller
+      - ReplicaSet Controller
+      - Replication Controller
+      - monitors the health of cluster as well as the application Pods and take action in case any Pods are not healthy
+  
+ - etcd
+     - key/value pair dictionary style database
+     - third-party database developed as a separate opensource project which is used by Kubernetes
