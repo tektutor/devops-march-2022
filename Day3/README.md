@@ -89,6 +89,9 @@ https://operatorhub.io/
 
 
 ## ⛹️‍♂️ Lab - Installing etcd Kubernetes Operator from Operator Hub
+
+Let's install Operator Lifecycle Manager (OLM) before installing any K8s operator
+
 ```
 curl -sL https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.20.0/install.sh | bash -s v0.20.0
 ```
@@ -134,5 +137,18 @@ deployment "catalog-operator" successfully rolled out
 Package server phase: Installing
 Package server phase: Succeeded
 deployment "packageserver" successfully rolled out
+</pre>
+
+Let's now install etcd operator
+```
+kubectl create -f https://operatorhub.io/install/etcd.yaml
+```
+
+The expected output is
+<pre>
+[jegan@master etcd-k8s-opertors]$ <b>kubectl create -f https://operatorhub.io/install/etcd.yaml</b>
+namespace/my-etcd created
+operatorgroup.operators.coreos.com/operatorgroup created
+subscription.operators.coreos.com/my-etcd created
 </pre>
 
