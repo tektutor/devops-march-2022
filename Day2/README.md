@@ -339,3 +339,127 @@ rm -rf $HOME/.kube
  - etcd
      - key/value pair dictionary style database
      - third-party database developed as a separate opensource project which is used by Kubernetes
+
+
+## Kubernetes Jargons
+
+Pod
+  - is a Kubernetes Object
+  - a group of related containers
+  - your applications runs inside a container within a Pod
+  - this is the smallest unit that can be deployed in a K8s cluster
+
+ReplicaSet
+  - is a Kubernetes object
+  - ReplicaSet in turn manages Pod(s)
+  - ReplicaSet may have one to many Pods
+  - this capture the number of Pods that needs to run at any point in time
+  - support scale up/down
+
+Deployment
+  - applications are in general created as a Deployment
+  - Deployment in turn creates ReplicaSet(s)
+  - There can one to many ReplicaSets per Deployment
+  - Each version of your application there will be one ReplicaSet
+  - Also supports Rolling update
+  - You can initiate the Scale up/down only via Deployment
+  - The Deployment internally will communicate with ReplicaSet to scale up/down the number of Pods
+  - this is generally used to deploy stateless applications
+
+DaemonSet
+  - If you want to collect let's say Performance metrics from each node, then instead creating a Deployment you can create
+    a DaemonSet
+  - DaemonSet ensures one Pod of your application runs per node
+  - As more number of nodes are added to the K8s cluster, DaemonSet will automatically create one Pod of your application on the newly joined node
+  - If a node is removed from the Cluster, the DaemonSet will automatically ensure the Pod that was created by the DaemonSet is disposed
+
+Job
+ - is meant for one time activity like taking backup once in a week
+
+StatefulSet
+ - This is used to deploy stateful applications
+
+Service
+ - this helps access Pods via a service abstraction without knowing the specific Pod details
+ - as Pods come and go i.e created when scale up happens, destroyed when scale down happens
+ - it is not a good idea to connect to Pods directory
+ - the recommended practice to access a group of LoadBalanced Pods via a Service
+ - Service is of 2 types
+   1. Internal Service
+       - ClusterIP Service ( Used for database )
+       - accessible only within the K8s Cluster
+   2. External Service
+       - accessible outside the K8s Cluster
+        eg:
+       - NodePort Service
+       - LoadBalancer Service
+
+## Creating your first Deployment in Kubernetes
+```
+kubectl create deploy nginx --image=nginx:1.18
+```
+
+The expected output is
+<pre>
+[jegan@master ~]$ <b>kubectl create deployment nginx --image=nginx:1.18</b>
+deployment.apps/nginx created
+</pre>
+
+Now let's list the deployment that we created just now
+```
+kubectl get deployments
+kubectl get deployment
+kubectl get deploy
+```
+The expected output is
+<pre>
+[jegan@master ~]$ kubectl get deploy
+NAME    READY   UP-TO-DATE   AVAILABLE   AGE
+nginx   0/1     1            0           6s
+</pre>
+
+Now let's list the replicaset that was created as part of deployment
+```
+kubectl get replicasets
+kubectl get replicaset
+kubectl get rs
+```
+
+The expected output is
+<pre>
+[jegan@master ~]$ kubectl get rs
+NAME               DESIRED   CURRENT   READY   AGE
+nginx-6888c79454   1         1         0       15s
+</pre>
+
+Now let's list the Pods that were created as part of the deployment
+```
+kubectl get pods
+kubectl get pod
+kubectl get po
+```
+
+The expected ouput is
+<pre>
+[jegan@master ~]$ kubectl get po
+NAME                     READY   STATUS              RESTARTS   AGE
+nginx-6888c79454-2cpfx   0/1     ContainerCreating   0          18s
+</pre>
+
+You may also list many objects at one shot
+```
+kubectl get deploy,rs,po
+```
+
+The expected output is
+<pre>
+[jegan@master ~]$ kubectl get deploy,rs,po
+NAME                    READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/nginx   1/1     1            1           33s
+
+NAME                               DESIRED   CURRENT   READY   AGE
+replicaset.apps/nginx-6888c79454   1         1         1       33s
+
+NAME                         READY   STATUS    RESTARTS   AGE
+pod/nginx-6888c79454-2cpfx   1/1     Running   0          33s
+</pre>
