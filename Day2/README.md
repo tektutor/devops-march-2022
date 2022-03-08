@@ -66,31 +66,31 @@ For summary of ports that must be opened, refer official Kubernetes documention 
 
 #### Open the below ports in Master Node as root user
 ```
-firewall-cmd --permanent --add-port=6443/tcp
-firewall-cmd --permanent --add-port=2379-2380/tcp
-firewall-cmd --permanent --add-port=10250-10252/tcp
-firewall-cmd --permanent --add-port=10255/tcp
-firewall-cmd --permanent --add-port=30000-32767/tcp
-firewall-cmd --permanent --add-masquerade
-firewall-cmd --permanent --zone=trusted  --add-source=192.168.0.0/16 
-modprobe br_netfilter
-systemctl daemon-reload
-systemctl restart firewalld
-systemctl status firewalld
-firewall-cmd --list-all
+sudo firewall-cmd --permanent --add-port=6443/tcp
+sudo firewall-cmd --permanent --add-port=2379-2380/tcp
+sudo firewall-cmd --permanent --add-port=10250-10252/tcp
+sudo firewall-cmd --permanent --add-port=10255/tcp
+sudo firewall-cmd --permanent --add-port=30000-32767/tcp
+sudo firewall-cmd --permanent --add-masquerade
+sudo firewall-cmd --permanent --zone=trusted  --add-source=192.168.0.0/16 
+sudo modprobe br_netfilter
+sudo systemctl daemon-reload
+sudo systemctl restart firewalld
+sudo systemctl status firewalld
+sudo firewall-cmd --list-all
 ```
 
 #### Open the below ports in Worker Nodes as root user
 ```
-firewall-cmd --permanent --add-port=10250/tcp
-firewall-cmd --permanent --add-port=30000-32767/tcp
-firewall-cmd --permanent --add-masquerade
-firewall-cmd --permanent --zone=trusted  --add-source=192.168.0.0/16 
-modprobe br_netfilter
-systemctl daemon-reload
-systemctl restart firewalld
-systemctl status firewalld
-firewall-cmd --list-all
+sudo firewall-cmd --permanent --add-port=10250/tcp
+sudo firewall-cmd --permanent --add-port=30000-32767/tcp
+sudo firewall-cmd --permanent --add-masquerade
+sudo firewall-cmd --permanent --zone=trusted  --add-source=192.168.0.0/16 
+sudo modprobe br_netfilter
+sudo systemctl daemon-reload
+sudo systemctl restart firewalld
+sudo systemctl status firewalld
+sudo firewall-cmd --list-all
 ```
 
 #### Install Docker CE in Master and Worker Nodes
