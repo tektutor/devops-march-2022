@@ -871,3 +871,5 @@ The expected output is
 NAME               DESIRED   CURRENT   READY   AGE
 hello-66dc74bd76   1         1         1       100s
 </pre>
+
+
