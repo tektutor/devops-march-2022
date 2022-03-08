@@ -1,11 +1,11 @@
-## Creating Kubernetes Dashboard
+## ⛹️‍♀️ Lab - Creating Kubernetes Dashboard
 ```
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.5.0/aio/deploy/recommended.yaml
 ```
 
 The expected output is
 <pre>
-[jegan@master etcd-operator]$ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.5.0/aio/deploy/recommended.yaml
+[jegan@master etcd-operator]$ <b>kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.5.0/aio/deploy/recommended.yaml</b>
 namespace/kubernetes-dashboard created
 serviceaccount/kubernetes-dashboard created
 service/kubernetes-dashboard created
@@ -38,9 +38,9 @@ jegan@master k8s-dashboard]$ ls
 cluster-role-binding.yml  service-ac.yml
 [jegan@master k8s-dashboard]$ pwd
 /home/jegan/devops-march-2022/Day3/k8s-dashboard
-[jegan@master k8s-dashboard]$ kubectl apply -f service-ac.yml 
+[jegan@master k8s-dashboard]$ <b>kubectl apply -f service-ac.yml</b>
 serviceaccount/admin-user created
-[jegan@master k8s-dashboard]$ kubectl apply -f cluster-role-binding.yml 
+[jegan@master k8s-dashboard]$ <b>kubectl apply -f cluster-role-binding.yml</b>
 clusterrolebinding.rbac.authorization.k8s.io/admin-user created
 </pre>
 
