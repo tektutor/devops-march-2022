@@ -22,7 +22,7 @@ service/dashboard-metrics-scraper created
 deployment.apps/dashboard-metrics-scraper created
 </pre>
 
-## Creating a user to access Kubernetes Dashboard
+#### Creating an user to access Kubernetes Dashboard
 ```
 cd ~/devops-march-2022
 git pull
@@ -81,8 +81,14 @@ Now copy and paste the bearer token to login as shown in the screenshot below
 If all went butter smooth, you will get a similar page as shown below
 ![dashboard](dashboard-final.png)
 
+## ℹ️ Kubernetes Operators Hub
+This portal has many open source ready made Kubernetes Operators that can be installed into your Kubernetes Cluster.
+```
+https://operatorhub.io/
+```
 
-## Installing etcd Kubernetes Operator from Operator Hub
+
+## ⛹️‍♂️ Lab - Installing etcd Kubernetes Operator from Operator Hub
 ```
 curl -sL https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.20.0/install.sh | bash -s v0.20.0
 ```
