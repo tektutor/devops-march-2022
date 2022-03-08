@@ -394,7 +394,7 @@ Service
        - NodePort Service
        - LoadBalancer Service
 
-## Creating your first Deployment in Kubernetes
+## ⛹️‍♂️ Lab - Creating your first Deployment in Kubernetes
 ```
 kubectl create deploy nginx --image=nginx:1.18
 ```
