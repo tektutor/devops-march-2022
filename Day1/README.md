@@ -1184,7 +1184,10 @@ docker ps
 ```
 The expected output is
 <pre>
-
+$(jegan@master.tektutor.org) > <b>docker ps</b>
+CONTAINER ID   IMAGE          COMMAND              CREATED              STATUS              PORTS     NAMES
+<b>8def943d9936   ubuntu:16.04   "/bin/bash"          3 seconds ago        Up 2 seconds                  ubuntu2</b>
+<b>6fab05cb2780   ubuntu:16.04   "/bin/bash"          About a minute ago   Up About a minute             ubuntu1</b>
 </pre>
 
 Get inside ubuntu1 container and install network tools and ping utilities
