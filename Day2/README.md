@@ -194,6 +194,15 @@ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 
+If you wish to run kubectl commands as non-admin user then you need to append the below line to $HOME/.bashrc file
+```
+export KUBECONFIG=~/.kube/config
+```
+In order to apply the export changes done in $HOME/.bashrc file you need to run the below command
+```
+source ~/.bashrc
+```
+
 In order to access the cluster without issues after machine reboots, add the below to /root/.bashrc
 Do the below as root user
 ```
