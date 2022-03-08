@@ -1061,6 +1061,49 @@ ifconfig
 ```
 You are expected to see an output similar to below
 <pre>
+$(jegan@master.tektutor.org) > ifconfig
+docker0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
+        ether 02:42:36:d8:49:8d  txqueuelen 0  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+ens33: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.167.134  netmask 255.255.255.0  broadcast 192.168.167.255
+        inet6 fe80::f473:e071:f35b:8868  prefixlen 64  scopeid 0x20<link>
+        ether 00:0c:29:de:d4:ed  txqueuelen 1000  (Ethernet)
+        RX packets 81246  bytes 64372430 (61.3 MiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 43871  bytes 6027400 (5.7 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 32  bytes 2592 (2.5 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 32  bytes 2592 (2.5 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+virbr0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 192.168.122.1  netmask 255.255.255.0  broadcast 192.168.122.255
+        ether 52:54:00:b7:aa:ea  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 </pre>
+
+In the above output, docker0 is the default bridge created by Docker.  While creating containers if the user
+hasn't mentioned a custom network to which the container must be connected then by default it gets connected to the docker0 bridge network.  The docker0 bridge network has a subnet 172.17.0.0/16.  Out of which 172.17.0.1 is assigned to the docker0 bridge device which acts as a Gateway for all the containers that are part of docker0 bridge network.
+
+ens33 is the Network Interface Card i.e Virtual ethernet device created by VMware Workstation as this machine is a Guest OS created within VMWare Workstation Pro.
+
+lo is the loopback network interface that connects to itself.  This is useful for testing network applications in the absence of any other network.
+
+virbr0 is the virtual bridge device created by VMWare to make this machine act as a Hypervisor machine.
 
 ## Create two custom docker network
