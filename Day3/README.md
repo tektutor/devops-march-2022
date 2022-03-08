@@ -81,6 +81,13 @@ Now copy and paste the bearer token to login as shown in the screenshot below
 If all went butter smooth, you will get a similar page as shown below
 ![dashboard](dashboard-final.png)
 
+## Installing Helm Kubernetes package manager
+```
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+```
+
 ## ℹ️ Kubernetes Operators Hub
 This portal has many open source ready made Kubernetes Operators that can be installed into your Kubernetes Cluster.
 ```
@@ -152,3 +159,12 @@ operatorgroup.operators.coreos.com/operatorgroup created
 subscription.operators.coreos.com/my-etcd created
 </pre>
 
+Let's watch the Operators pods
+```
+kubectl get csv -n my-etcd
+```
+
+The expected output is
+<pre>
+
+</pre>
