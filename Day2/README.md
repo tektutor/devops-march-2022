@@ -896,17 +896,39 @@ kubectl get pv,pvc
 ```
 The expected output is
 <pre>
+[jegan@master wordpress]$ <b>kubectl get pv,pvc</b>
+NAME                               CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                    STORAGECLASS   REASON   AGE
+persistentvolume/mysql-pv-volume   1Gi        RWX            Retain           Bound    default/mysql-pv-claim   manual                  49m
+
+NAME                                   STATUS   VOLUME            CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+persistentvolumeclaim/mysql-pv-claim   Bound    mysql-pv-volume   1Gi        RWX            manual         49m
+
 </pre>
 
 Now check if wordpress and mysql Pods are running
 ```
 kubectl get po
 ```
+The expected output is
+<pre>
+[jegan@master wordpress]$ <b>kubectl get po</b>
+NAME                         READY   STATUS    RESTARTS   AGE</b>
+mysql-84b659854b-ccrpp       1/1     Running   0          49m
+wordpress-7d5bc6876b-j8xqc   1/1     Running   0          16m
+</pre>
 
 Now check if the wordpress and mysql services are created
 ```
 kubectl get svc
 ```
+The expected output is
+<pre>
+[jegan@master wordpress]$ <b>kubectl get svc</b>
+NAME                TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+kubernetes          ClusterIP   10.96.0.1       <none>        443/TCP        6h57m
+<b>mysql-service       ClusterIP   10.109.113.3    <none>        3306/TCP       45m
+wordpress-service   NodePort    10.104.149.87   <none>        80:31765/TCP   42m</b>
+</pre>
 
 Now you can try accessing the wordpress web page from any web browser either within the CentOS Lab machine or from the Windows Lab machine web browser
 ```
