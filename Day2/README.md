@@ -1,5 +1,5 @@
-  
-## Setting up a 3 Node Kubernetes Cluster using kubeadm
+## ⛹️‍♂️ Lab - Setting up a 3 Node Kubernetes Cluster using kubeadm
+
 #### Disable Virtual Memory (swap parition) in Master and Worker Nodes
 ```
 sudo swapoff -a
@@ -188,7 +188,7 @@ sudo systemctl restart kubelet
 kubeadm init --pod-network-cidr=192.168.0.0/16
 ```
 
-Do the below steps as rps user
+Do the below steps as non-admin user
 ```
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
@@ -286,7 +286,7 @@ rm -rf /etc/kubernetes
 rm -rf $HOME/.kube
 ```
 
-## Kubernetes Overview
+## ℹ️ Kubernetes Overview
 - Container Orchestration Platform
 - platform that manages different types of containers
 - it support LXC, CRI-O(Podman), etc.,
@@ -351,7 +351,7 @@ rm -rf $HOME/.kube
      - third-party database developed as a separate opensource project which is used by Kubernetes
 
 
-## Kubernetes Jargons
+## ℹ️ Kubernetes Jargons
 
 Pod
   - is a Kubernetes Object
@@ -484,7 +484,7 @@ NAME                         READY   STATUS    RESTARTS   AGE
 pod/nginx-6888c79454-2cpfx   1/1     Running   0          33s
 </pre>
 
-## What internally happens in K8s cluster when we create a deployment?
+## ℹ️ What internally happens in K8s cluster when we create a deployment?
 
 When you create a new deployment like so
 ```
@@ -939,3 +939,99 @@ http://worker2-node-ip
 
 You will be presented with page similar to screenshot below
 ![wordpress](wordpress.png)
+
+## ⛹️‍♂️ Lab - Install Open JDK 8
+```
+sudo yum install -y epel-release -y
+sudo yum install java-1.8.0-openjdk-devel -y
+```
+
+## Update .bashrc with JDK and Maven path
+
+This is how I find the JAVA_HOME
+<pre>
+[jegan@master ~]$ which javac
+/usr/bin/javac
+[jegan@master ~]$ ls -l /usr/bin/javac
+lrwxrwxrwx. 1 root root 23 Mar  8 04:01 /usr/bin/javac -> /etc/alternatives/javac
+[jegan@master ~]$ /etc/alternatives/javac^C
+[jegan@master ~]$ ls -l  /etc/alternatives/javac
+lrwxrwxrwx. 1 root root 70 Mar  8 04:01 /etc/alternatives/javac -> /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.322.b06-1.el7_9.x86_64/bin/javac
+</pre>
+
+
+## ⛹️‍♀️ Lab - Install Maven
+
+```
+cd ~/Downloads
+wget https://dlcdn.apache.org/maven/maven-3/3.8.4/binaries/apache-maven-3.8.4-bin.tar.gz --no-check-certificate
+tar xvf apache-maven-3.8.4-bin.tar.gz
+cd ~/Downloads/apache-maven-3.8.4/
+pwd
+```
+
+Edit your ~/.bashrc something like below
+```
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.322.b06-1.el7_9.x86_64
+export M2_HOME=/home/user/Downloads/apache-maven-3.8.4
+export PATH=$JAVA_HOME/bin:$M2_HOME/bin:$PATH
+```
+You need to find the JAVA_HOME in your system and update the path accordingly.
+
+We need to source the .bashrc to apply changes done in bashrc
+```
+source ~/.bashrc
+```
+
+## ⛹️‍♂️ Lab - Creating a custom Docker Image with a sample spring boot application and later deploy it into K8s cluster
+You need to install JDK 8 and Maven before trying this exercise
+```
+cd ~
+cd devops-march-2022
+git pull
+cd Day2/CustomDockerImage/spring-ms
+mvn clean package
+
+cp target/spring-hello-1.0.jar hello.jar
+
+docker build -t tektutor/spring-ms:1.0 .
+```
+
+You need to first create Docker Hub Free account, then create a repository that matches the image name and then you can login and push the image
+```
+docker login
+username: <your-docker-hub-user>
+password: <your-docker-hub-password>
+```
+
+Pushing custom docker image from local registry to Docker hub
+```
+docker push tektutor/spring-ms:1.0
+```
+
+## ⛹️‍♀️ Lab - Creating a deploy with our custom docker image from docker hub
+```
+kubectl create deploy hello --image=tektutor/spring-ms:1.0
+```
+
+List the deploy,rs,po
+```
+kubectl get deploy,rs,po
+```
+
+Create a NodePort service for hello deployment
+```
+kubectl expose deploy hello --type=NodePort --port=8080
+```
+
+List the service
+```
+kubectl get svc 
+```
+
+Accessing the NodePort service
+```curl http://<worker-node1-ip>
+curl http://<master-node-ip>
+curl http://<worker-node1-ip>
+curl http://<worker-node2-ip>
+```
