@@ -286,7 +286,7 @@ rm -rf /etc/kubernetes
 rm -rf $HOME/.kube
 ```
 
-## Kubernetes Overview
+## ℹ️ Kubernetes Overview
 - Container Orchestration Platform
 - platform that manages different types of containers
 - it support LXC, CRI-O(Podman), etc.,
