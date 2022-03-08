@@ -82,3 +82,51 @@ If all went butter smooth, you will get a similar page as shown below
 ![dashboard](dashboard-final.png)
 
 
+## Installing etcd Kubernetes Operator from Operator Hub
+```
+curl -sL https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.20.0/install.sh | bash -s v0.20.0
+```
+
+The expected output is
+<pre>
+[jegan@master Day3]$ <b>curl -sL https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.20.0/install.sh | bash -s v0.20.0</b>
+
+customresourcedefinition.apiextensions.k8s.io/catalogsources.operators.coreos.com created
+customresourcedefinition.apiextensions.k8s.io/clusterserviceversions.operators.coreos.com created
+customresourcedefinition.apiextensions.k8s.io/installplans.operators.coreos.com created
+customresourcedefinition.apiextensions.k8s.io/olmconfigs.operators.coreos.com created
+customresourcedefinition.apiextensions.k8s.io/operatorconditions.operators.coreos.com created
+customresourcedefinition.apiextensions.k8s.io/operatorgroups.operators.coreos.com created
+customresourcedefinition.apiextensions.k8s.io/operators.operators.coreos.com created
+customresourcedefinition.apiextensions.k8s.io/subscriptions.operators.coreos.com created
+customresourcedefinition.apiextensions.k8s.io/catalogsources.operators.coreos.com condition met
+customresourcedefinition.apiextensions.k8s.io/clusterserviceversions.operators.coreos.com condition met
+customresourcedefinition.apiextensions.k8s.io/installplans.operators.coreos.com condition met
+customresourcedefinition.apiextensions.k8s.io/olmconfigs.operators.coreos.com condition met
+customresourcedefinition.apiextensions.k8s.io/operatorconditions.operators.coreos.com condition met
+customresourcedefinition.apiextensions.k8s.io/operatorgroups.operators.coreos.com condition met
+customresourcedefinition.apiextensions.k8s.io/operators.operators.coreos.com condition met
+customresourcedefinition.apiextensions.k8s.io/subscriptions.operators.coreos.com condition met
+namespace/olm created
+namespace/operators created
+serviceaccount/olm-operator-serviceaccount created
+clusterrole.rbac.authorization.k8s.io/system:controller:operator-lifecycle-manager created
+clusterrolebinding.rbac.authorization.k8s.io/olm-operator-binding-olm created
+olmconfig.operators.coreos.com/cluster created
+deployment.apps/olm-operator created
+deployment.apps/catalog-operator created
+clusterrole.rbac.authorization.k8s.io/aggregate-olm-edit created
+clusterrole.rbac.authorization.k8s.io/aggregate-olm-view created
+operatorgroup.operators.coreos.com/global-operators created
+operatorgroup.operators.coreos.com/olm-operators created
+clusterserviceversion.operators.coreos.com/packageserver created
+catalogsource.operators.coreos.com/operatorhubio-catalog created
+Waiting for deployment "olm-operator" rollout to finish: 0 of 1 updated replicas are available...
+deployment "olm-operator" successfully rolled out
+Waiting for deployment "catalog-operator" rollout to finish: 0 of 1 updated replicas are available...
+deployment "catalog-operator" successfully rolled out
+Package server phase: Installing
+Package server phase: Succeeded
+deployment "packageserver" successfully rolled out
+</pre>
+
