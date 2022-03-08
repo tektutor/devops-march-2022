@@ -873,3 +873,45 @@ hello-66dc74bd76   1         1         1       100s
 </pre>
 
 
+## ⛹️‍♂️ Lab - Multi Pod application that also demonstrates Persistent Volume
+```
+cd /home/user
+git clone https://github.com/tektutor/devops-march-2022.git
+cd devops-march-2022
+git pull
+cd Day2/manifests/wordpress
+
+kubectl apply -f mysql-persistent-vol.yml
+kubectl apply -f mysql-persistent-vol-claim.yml
+kubectl apply -f mysql-deploy.yml
+kubectl apply -f mysql-service.yml
+
+kubectl apply -f wordpress-deploy.yml
+kubectl apply -f wordpress-service.yml
+```
+
+Now check if the persistent volume claim is bound with the persistent volume
+```
+kubectl get pv,pvc
+```
+The expected output is
+<pre>
+</pre>
+
+Now check if wordpress and mysql Pods are running
+```
+kubectl get po
+```
+
+Now check if the wordpress and mysql services are created
+```
+kubectl get svc
+```
+
+Now you can try accessing the wordpress web page from any web browser either within the CentOS Lab machine or from the Windows Lab machine web browser
+```
+http://master-node-ip
+http://worker1-node-ip
+http://worker2-node-ip
+```
+
