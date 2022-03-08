@@ -1,5 +1,5 @@
-  
 ## Setting up a 3 Node Kubernetes Cluster using kubeadm
+
 #### Disable Virtual Memory (swap parition) in Master and Worker Nodes
 ```
 sudo swapoff -a
@@ -351,7 +351,7 @@ rm -rf $HOME/.kube
      - third-party database developed as a separate opensource project which is used by Kubernetes
 
 
-## Kubernetes Jargons
+## ℹ️ Kubernetes Jargons
 
 Pod
   - is a Kubernetes Object
