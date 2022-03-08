@@ -78,4 +78,7 @@ You will get a page like shown in the screenshot below
 Now copy and paste the bearer token to login as shown in the screenshot below
 ![dashboard](dashboard-token.png)
 
+If all went butter smooth, you will get a similar page as shown below
+![dashboard](dashboard-final.png)
+
 
