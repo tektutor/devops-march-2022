@@ -1296,7 +1296,7 @@ Setcap is not installed, falling back to setuid
 Setting up net-tools (1.60-26ubuntu1) ...
 Processing triggers for libc-bin (2.23-0ubuntu11.3) ...
 root@ubuntu1:/# 
-</b>
+</pre>
 
 Find the IP address of ubuntu1 from ubuntu1 container shell
 ```
