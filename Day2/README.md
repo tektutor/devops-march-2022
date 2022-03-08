@@ -483,3 +483,34 @@ replicaset.apps/nginx-6888c79454   1         1         1       33s
 NAME                         READY   STATUS    RESTARTS   AGE
 pod/nginx-6888c79454-2cpfx   1/1     Running   0          33s
 </pre>
+
+## What internally happens in K8s cluster when we create a deployment?
+
+When you create a new deployment like so
+```
+kubectl create deployment nginx --image=nginx:1.18
+```
+
+1. kubectl sends a REST request to API Server to create a deployment with name "nginx" using image=nginx:1.18
+2. API Server then creates a Deployment object and stores the Deployment in etcd datastore
+3. As soon as a new Deployment is created, API Server sends an event something like "New Deployment Created"
+4. The Deployment Controller receives this event and then grabs the details from the event which then sends a REST API request to API Server
+   to create a ReplicaSet.
+5. The API Server creates a ReplicaSet object and stores that object in etcd datastore
+6. This triggers "New ReplicaSet Created" kind of event.
+7. ReplicaSet Controller will receive this event and then looks for how many replicas of Pod needs to created.
+8. ReplicaSet Contoller will make some REST API request to API Server to create so many Pods
+9. API Server then creates the requested number of Pod objects and stores it in the etcd datastore
+10. This triggers "New Pod Created" kind of event.
+11. The Scheduler receives this event, and then it identifies healthy nodes where these Pods can be deployed and intimates this to API Server
+    by making a REST call.
+12. API Server will get the node recommended suggested by Scheduler and it then updates the Pod definition stored in the etcd datastore.
+13. This triggers another event.
+14. This event is then received by kubelet agent running on those respective worker nodes.
+15. The kubelet agent then looks for the Container image in the local registry, if it is missing then it pulls the required container image in order to create the containers that needs to run inside the Pod.
+16. Kubelet constantly monitors the status and health of the Pod it created and reports it to API Server like heart-beat event update
+17. Any update from kubelet is received by API Server, and API Server keeps the respective Pod definitions stored in the etcd datastore updated.
+
+
+
+
