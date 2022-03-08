@@ -512,6 +512,100 @@ kubectl create deployment nginx --image=nginx:1.18
 17. Any update from kubelet is received by API Server, and API Server keeps the respective Pod definitions stored in the etcd datastore updated.
 
 
+## ⛹️‍ Lab - Finding more details about a master node
+```
+kubectl describe node/master.tektutor.org
+```
+
+The expected output is
+<pre>
+[jegan@master devops-march-2022]$ <b>kubectl describe node/master.tektutor.org</b>
+Name:               master.tektutor.org
+Roles:              control-plane,master
+Labels:             beta.kubernetes.io/arch=amd64
+                    beta.kubernetes.io/os=linux
+                    kubernetes.io/arch=amd64
+                    kubernetes.io/hostname=master.tektutor.org
+                    kubernetes.io/os=linux
+                    node-role.kubernetes.io/control-plane=
+                    node-role.kubernetes.io/master=
+                    node.kubernetes.io/exclude-from-external-load-balancers=
+Annotations:        kubeadm.alpha.kubernetes.io/cri-socket: /var/run/dockershim.sock
+                    node.alpha.kubernetes.io/ttl: 0
+                    projectcalico.org/IPv4Address: 192.168.167.134/24
+                    projectcalico.org/IPv4IPIPTunnelAddr: 192.168.63.64
+                    volumes.kubernetes.io/controller-managed-attach-detach: true
+CreationTimestamp:  Mon, 07 Mar 2022 20:45:51 -0800
+Taints:             node-role.kubernetes.io/master:NoSchedule
+Unschedulable:      false
+Lease:
+  HolderIdentity:  master.tektutor.org
+  AcquireTime:     <unset>
+  RenewTime:       Mon, 07 Mar 2022 23:27:14 -0800
+Conditions:
+  Type                 Status  LastHeartbeatTime                 LastTransitionTime                Reason                       Message
+  ----                 ------  -----------------                 ------------------                ------                       -------
+  NetworkUnavailable   False   Mon, 07 Mar 2022 21:01:07 -0800   Mon, 07 Mar 2022 21:01:07 -0800   CalicoIsUp                   Calico is running on this node
+  MemoryPressure       False   Mon, 07 Mar 2022 23:25:23 -0800   Mon, 07 Mar 2022 20:45:48 -0800   KubeletHasSufficientMemory   kubelet has sufficient memory available
+  DiskPressure         False   Mon, 07 Mar 2022 23:25:23 -0800   Mon, 07 Mar 2022 20:45:48 -0800   KubeletHasNoDiskPressure     kubelet has no disk pressure
+  PIDPressure          False   Mon, 07 Mar 2022 23:25:23 -0800   Mon, 07 Mar 2022 20:45:48 -0800   KubeletHasSufficientPID      kubelet has sufficient PID available
+  Ready                True    Mon, 07 Mar 2022 23:25:23 -0800   Mon, 07 Mar 2022 21:00:37 -0800   KubeletReady                 kubelet is posting ready status
+Addresses:
+  InternalIP:  192.168.167.134
+  Hostname:    master.tektutor.org
+Capacity:
+  cpu:                8
+  ephemeral-storage:  192796696Ki
+  hugepages-1Gi:      0
+  hugepages-2Mi:      0
+  memory:             32761636Ki
+  pods:               110
+Allocatable:
+  cpu:                8
+  ephemeral-storage:  177681434740
+  hugepages-1Gi:      0
+  hugepages-2Mi:      0
+  memory:             32659236Ki
+  pods:               110
+System Info:
+  Machine ID:                 00ebb070c9e0453c9df21160c377f1ac
+  System UUID:                97024D56-6FBE-2847-1627-F1B170DED4ED
+  Boot ID:                    90390758-3a29-4d7a-be8a-a6b5e16112fd
+  Kernel Version:             3.10.0-1160.el7.x86_64
+  OS Image:                   CentOS Linux 7 (Core)
+  Operating System:           linux
+  Architecture:               amd64
+  Container Runtime Version:  docker://20.10.12
+  Kubelet Version:            v1.23.4
+  Kube-Proxy Version:         v1.23.4
+PodCIDR:                      192.168.0.0/24
+PodCIDRs:                     192.168.0.0/24
+Non-terminated Pods:          (9 in total)
+  Namespace                   Name                                           CPU Requests  CPU Limits  Memory Requests  Memory Limits  Age
+  ---------                   ----                                           ------------  ----------  ---------------  -------------  ---
+  kube-system                 calico-kube-controllers-56fcbf9d6b-gxzzv       0 (0%)        0 (0%)      0 (0%)           0 (0%)         147m
+  kube-system                 calico-node-hv5w5                              250m (3%)     0 (0%)      0 (0%)           0 (0%)         147m
+  kube-system                 coredns-64897985d-9h5tz                        100m (1%)     0 (0%)      70Mi (0%)        170Mi (0%)     161m
+  kube-system                 coredns-64897985d-q7kj4                        100m (1%)     0 (0%)      70Mi (0%)        170Mi (0%)     161m
+  kube-system                 etcd-master.tektutor.org                       100m (1%)     0 (0%)      100Mi (0%)       0 (0%)         161m
+  kube-system                 kube-apiserver-master.tektutor.org             250m (3%)     0 (0%)      0 (0%)           0 (0%)         161m
+  kube-system                 kube-controller-manager-master.tektutor.org    200m (2%)     0 (0%)      0 (0%)           0 (0%)         161m
+  kube-system                 kube-proxy-5xq4m                               0 (0%)        0 (0%)      0 (0%)           0 (0%)         161m
+  kube-system                 kube-scheduler-master.tektutor.org             100m (1%)     0 (0%)      0 (0%)           0 (0%)         161m
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource           Requests     Limits
+  --------           --------     ------
+  cpu                1100m (13%)  0 (0%)
+  memory             240Mi (0%)   340Mi (1%)
+  ephemeral-storage  0 (0%)       0 (0%)
+  hugepages-1Gi      0 (0%)       0 (0%)
+  hugepages-2Mi      0 (0%)       0 (0%)
+Events:              <none>
+
+</pre>
+
+
 ## ⛹️‍♀️ Lab - Finding more details about a worker1 node
 ```
 kubectl describe node/worker1.tektutor.org
@@ -667,4 +761,6 @@ Allocated resources:
   hugepages-2Mi      0 (0%)     0 (0%)
 Events:              <none>
 </pre>
+
+
 
