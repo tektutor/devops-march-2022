@@ -484,7 +484,7 @@ NAME                         READY   STATUS    RESTARTS   AGE
 pod/nginx-6888c79454-2cpfx   1/1     Running   0          33s
 </pre>
 
-## What internally happens in K8s cluster when we create a deployment?
+## ℹ️ What internally happens in K8s cluster when we create a deployment?
 
 When you create a new deployment like so
 ```
