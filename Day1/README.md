@@ -1040,7 +1040,7 @@ As you can use, the database and table with data is intact. All credit goes to t
 
 # Docker Networking
 
-## Listing docker network types 
+## ⛹️‍♂️ Lab - Listing docker network types 
 ```
 docker network ls
 ```
@@ -1055,7 +1055,7 @@ NETWORK ID     NAME      DRIVER    SCOPE
 
 Bridge is the default type of network used by Docker.
 
-## Verify how many network inferaces are available in your lab machine
+## ⛹️‍♀️ Lab - Verify how many network inferaces are available in your lab machine
 ```
 ifconfig
 ```
@@ -1148,3 +1148,87 @@ bf60ab8473f9   host              host      local
 07888c842705   my-net-2          bridge    local</b>
 6830e8866357   none              null      local
 </pre>
+
+Let's dispose any containers running in our lab machine
+```
+docker rm -f $(docker ps -aq)
+```
+
+Let us now create two containers and connect them to one of the custom networks we created above
+```
+docker run -dit --name ubuntu1 --hostname ubuntu1 --network=my-net-1 ubuntu:16.04 /bin/bash
+docker run -dit --name ubuntu2 --hostname ubuntu2 --network=my-net-2 ubuntu:16.04 /bin/bash
+```
+The expected output is
+<pre>
+$(jegan@master.tektutor.org) > docker run -dit --name ubuntu1 --hostname ubuntu1 --network=my-net-1 ubuntu:16.04 /bin/bash
+Unable to find image 'ubuntu:16.04' locally
+16.04: Pulling from library/ubuntu
+58690f9b18fc: Pull complete 
+b51569e7c507: Pull complete 
+da8ef40b9eca: Pull complete 
+fb15d46c38dc: Pull complete 
+Digest: sha256:0f71fa8d4d2d4292c3c617fda2b36f6dabe5c8b6e34c3dc5b0d17d4e704bd39c
+Status: Downloaded newer image for ubuntu:16.04
+6fab05cb278040bf1d6b39606e010093c09328dc894e297badf5acc88f60925c
+
+$(jegan@master.tektutor.org) > <b>docker run -dit --name ubuntu2 --hostname ubuntu2 --network=my-net-2 ubuntu:16.04 /bin/bash</b>
+8def943d993652f785ab2f0b97febf19b1fda11f121b9c83e05f76b01838216c
+</pre>
+
+Listing the containers
+```
+docker ps
+```
+The expected output is
+<pre>
+
+</pre>
+
+Get inside ubuntu1 container and install network tools and ping utilities
+```
+docker exec -it ubuntu1 bash
+apt update && apt install -y net-tools iputils-ping
+```
+
+Find the IP address of ubuntu1 from ubuntu1 container shell
+```
+hostname -i
+```
+
+Try pinging ubuntu2 container
+```
+ping 172.19.0.2
+```
+The expected output is
+<pre>
+</pre>
+
+Now repeat the same from ubuntu2 container. Let's get inside ubuntu2 container
+```
+docker exec -it ubuntu2 bash
+apt update && apt install -y net-tools iputils-ping
+ping 172.18.0.2
+```
+
+The expected output is 
+<pre>
+</pre>
+
+Now investigate the IP routing table within ubuntu1 container
+```
+route
+```
+The expected output is
+<pre>
+</pre>
+
+
+Now investigate the IP routing table within ubuntu2 container
+```
+route
+```
+The expected output is
+<pre>
+</pre>
+
