@@ -1009,7 +1009,7 @@ Pushing custom docker image from local registry to Docker hub
 docker push tektutor/spring-ms:1.0
 ```
 
-## Creating a deploy with our custom docker image from docker hub
+## ⛹️‍♀️ Lab - Creating a deploy with our custom docker image from docker hub
 ```
 kubectl create deploy hello --image=tektutor/spring-ms:1.0
 ```
