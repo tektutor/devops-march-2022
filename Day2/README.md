@@ -776,3 +776,35 @@ worker1.tektutor.org   Ready    <none>                 146m   v1.23.4   192.168.
 worker2.tektutor.org   Ready    <none>                 143m   v1.23.4   192.168.167.136   <none>        CentOS Linux 7 (Core)   3.10.0-1160.el7.x86_64   docker://20.10.12
 [jegan@master devops-march-2022]$ 
 </pre>
+
+## Scaling up a nginx deployment to create more Pod instances
+```
+```
+
+The expected output is
+<pre>
+[jegan@master devops-march-2022]$ <b>kubectl scale deploy/nginx --replicas=6</b>
+deployment.apps/nginx scaled
+[jegan@master devops-march-2022]$ kubectl get po -w
+NAME                     READY   STATUS              RESTARTS   AGE
+nginx-6888c79454-2cpfx   1/1     Running             0          52m
+nginx-6888c79454-8gf8b   0/1     ContainerCreating   0          2s
+nginx-6888c79454-bs6zb   0/1     ContainerCreating   0          2s
+nginx-6888c79454-dcqqd   0/1     ContainerCreating   0          2s
+nginx-6888c79454-qqhhw   1/1     Running             0          2s
+nginx-6888c79454-v4t4w   1/1     Running             0          2s
+nginx-6888c79454-dcqqd   0/1     ContainerCreating   0          3s
+nginx-6888c79454-bs6zb   0/1     ContainerCreating   0          3s
+nginx-6888c79454-8gf8b   0/1     ContainerCreating   0          3s
+nginx-6888c79454-dcqqd   1/1     Running             0          23s
+nginx-6888c79454-bs6zb   1/1     Running             0          27s
+nginx-6888c79454-8gf8b   1/1     Running             0          31s
+^C[jegan@master devops-march-2022]$ kubectl get po 
+NAME                     READY   STATUS    RESTARTS   AGE
+nginx-6888c79454-2cpfx   1/1     Running   0          52m
+nginx-6888c79454-8gf8b   1/1     Running   0          35s
+nginx-6888c79454-bs6zb   1/1     Running   0          35s
+nginx-6888c79454-dcqqd   1/1     Running   0          35s
+nginx-6888c79454-qqhhw   1/1     Running   0          35s
+nginx-6888c79454-v4t4w   1/1     Running   0          35s
+</pre>
