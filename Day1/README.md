@@ -1100,7 +1100,7 @@ $(jegan@master.tektutor.org) > <b>ifconfig</b>
 </pre>
 
 In the above output, <b>docker0</b> is the default bridge created by Docker.  While creating containers if the user
-hasn't mentioned a custom network to which the container must be connected then by default it gets connected to the <b>docker0</b> bridge network.  The docker0 bridge network has a subnet <b>172.17.0.0/16</b>.  Out of which <b>172.17.0.1</b> is assigned to the <b>docker0</b> bridge device which acts as a Gateway for all the containers that are part of <b>docker0</b> bridge network.
+hasn't mentioned a custom network to which the container must be connected then by default it gets connected to the <b>docker0</b> bridge network.  The <b>docker0</b> bridge network has a subnet <b>172.17.0.0/16</b>.  Out of which <b>172.17.0.1</b> is assigned to the <b>docker0</b> bridge device which acts as a Gateway for all the containers that are part of <b>docker0</b> bridge network.
 
 <b>ens33</b> is the Network Interface Card i.e Virtual ethernet device created by VMware Workstation as this machine is a Guest OS created within VMWare Workstation Pro.
 
