@@ -1305,12 +1305,12 @@ hostname -i
 The expected output is
 <pre>
 root@ubuntu1:/# hostname -i
-172.18.0.2
+172.19.0.2
 </pre>
 
 Try pinging ubuntu2 container
 ```
-ping 172.19.0.2
+ping 172.20.0.2
 ```
 The expected output is
 <pre>
@@ -1320,13 +1320,13 @@ Now repeat the same from ubuntu2 container. Let's get inside ubuntu2 container
 ```
 docker exec -it ubuntu2 bash
 apt update && apt install -y net-tools iputils-ping
-ping 172.18.0.2
+ping 172.19.0.2
 ```
 
 The expected output is 
 <pre>
-$(jegan@master.tektutor.org) > docker exec -it ubuntu2 bash
-root@ubuntu2:/# apt update && apt install -y net-tools iputils-ping
+$(jegan@master.tektutor.org) > <b>docker exec -it ubuntu2 bash</b>
+root@ubuntu2:/# <b>apt update && apt install -y net-tools iputils-ping</b>
 Get:1 http://archive.ubuntu.com/ubuntu xenial InRelease [247 kB]
 Get:2 http://security.ubuntu.com/ubuntu xenial-security InRelease [99.8 kB]
 Get:3 http://archive.ubuntu.com/ubuntu xenial-updates InRelease [99.8 kB]
@@ -1423,8 +1423,8 @@ Setting up iputils-ping (3:20121221-5ubuntu2) ...
 Setcap is not installed, falling back to setuid
 Setting up net-tools (1.60-26ubuntu1) ...
 Processing triggers for libc-bin (2.23-0ubuntu11.3) ...
-root@ubuntu2:/# hostname -i
-172.19.0.2
+root@ubuntu2:/# <b>hostname -i</b>
+172.20.0.2
 root@ubuntu2:/# 
 </pre>
 
@@ -1434,8 +1434,13 @@ route
 ```
 The expected output is
 <pre>
+root@ubuntu1:/# <b>route</b>
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+default         172.19.0.1      0.0.0.0         UG    0      0        0 eth0
+172.19.0.0      *               255.255.0.0     U     0      0        0 eth0
+root@ubuntu1:/# 
 </pre>
-
 
 Now investigate the IP routing table within ubuntu2 container
 ```
@@ -1443,5 +1448,11 @@ route
 ```
 The expected output is
 <pre>
+root@ubuntu2:/# <b>route</b>
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+default         172.20.0.1      0.0.0.0         UG    0      0        0 eth0
+172.20.0.0      *               255.255.0.0     U     0      0        0 eth0
+root@ubuntu2:/# 
 </pre>
 
