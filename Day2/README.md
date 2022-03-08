@@ -1,4 +1,4 @@
-## Setting up a 3 Node Kubernetes Cluster using kubeadm
+## ⛹️‍♂️ Lab - Setting up a 3 Node Kubernetes Cluster using kubeadm
 
 #### Disable Virtual Memory (swap parition) in Master and Worker Nodes
 ```
