@@ -483,3 +483,393 @@ replicaset.apps/nginx-6888c79454   1         1         1       33s
 NAME                         READY   STATUS    RESTARTS   AGE
 pod/nginx-6888c79454-2cpfx   1/1     Running   0          33s
 </pre>
+
+## What internally happens in K8s cluster when we create a deployment?
+
+When you create a new deployment like so
+```
+kubectl create deployment nginx --image=nginx:1.18
+```
+
+1. kubectl sends a REST request to API Server to create a deployment with name "nginx" using image=nginx:1.18
+2. API Server then creates a Deployment object and stores the Deployment in etcd datastore
+3. As soon as a new Deployment is created, API Server sends an event something like "New Deployment Created"
+4. The Deployment Controller receives this event and then grabs the details from the event which then sends a REST API request to API Server
+   to create a ReplicaSet.
+5. The API Server creates a ReplicaSet object and stores that object in etcd datastore
+6. This triggers "New ReplicaSet Created" kind of event.
+7. ReplicaSet Controller will receive this event and then looks for how many replicas of Pod needs to created.
+8. ReplicaSet Contoller will make some REST API request to API Server to create so many Pods
+9. API Server then creates the requested number of Pod objects and stores it in the etcd datastore
+10. This triggers "New Pod Created" kind of event.
+11. The Scheduler receives this event, and then it identifies healthy nodes where these Pods can be deployed and intimates this to API Server
+    by making a REST call.
+12. API Server will get the node recommended suggested by Scheduler and it then updates the Pod definition stored in the etcd datastore.
+13. This triggers another event.
+14. This event is then received by kubelet agent running on those respective worker nodes.
+15. The kubelet agent then looks for the Container image in the local registry, if it is missing then it pulls the required container image in order to create the containers that needs to run inside the Pod.
+16. Kubelet constantly monitors the status and health of the Pod it created and reports it to API Server like heart-beat event update
+17. Any update from kubelet is received by API Server, and API Server keeps the respective Pod definitions stored in the etcd datastore updated.
+
+
+## ⛹️‍ Lab - Finding more details about a master node
+```
+kubectl describe node/master.tektutor.org
+```
+
+The expected output is
+<pre>
+[jegan@master devops-march-2022]$ <b>kubectl describe node/master.tektutor.org</b>
+Name:               master.tektutor.org
+Roles:              control-plane,master
+Labels:             beta.kubernetes.io/arch=amd64
+                    beta.kubernetes.io/os=linux
+                    kubernetes.io/arch=amd64
+                    kubernetes.io/hostname=master.tektutor.org
+                    kubernetes.io/os=linux
+                    node-role.kubernetes.io/control-plane=
+                    node-role.kubernetes.io/master=
+                    node.kubernetes.io/exclude-from-external-load-balancers=
+Annotations:        kubeadm.alpha.kubernetes.io/cri-socket: /var/run/dockershim.sock
+                    node.alpha.kubernetes.io/ttl: 0
+                    projectcalico.org/IPv4Address: 192.168.167.134/24
+                    projectcalico.org/IPv4IPIPTunnelAddr: 192.168.63.64
+                    volumes.kubernetes.io/controller-managed-attach-detach: true
+CreationTimestamp:  Mon, 07 Mar 2022 20:45:51 -0800
+Taints:             node-role.kubernetes.io/master:NoSchedule
+Unschedulable:      false
+Lease:
+  HolderIdentity:  master.tektutor.org
+  AcquireTime:     <unset>
+  RenewTime:       Mon, 07 Mar 2022 23:27:14 -0800
+Conditions:
+  Type                 Status  LastHeartbeatTime                 LastTransitionTime                Reason                       Message
+  ----                 ------  -----------------                 ------------------                ------                       -------
+  NetworkUnavailable   False   Mon, 07 Mar 2022 21:01:07 -0800   Mon, 07 Mar 2022 21:01:07 -0800   CalicoIsUp                   Calico is running on this node
+  MemoryPressure       False   Mon, 07 Mar 2022 23:25:23 -0800   Mon, 07 Mar 2022 20:45:48 -0800   KubeletHasSufficientMemory   kubelet has sufficient memory available
+  DiskPressure         False   Mon, 07 Mar 2022 23:25:23 -0800   Mon, 07 Mar 2022 20:45:48 -0800   KubeletHasNoDiskPressure     kubelet has no disk pressure
+  PIDPressure          False   Mon, 07 Mar 2022 23:25:23 -0800   Mon, 07 Mar 2022 20:45:48 -0800   KubeletHasSufficientPID      kubelet has sufficient PID available
+  Ready                True    Mon, 07 Mar 2022 23:25:23 -0800   Mon, 07 Mar 2022 21:00:37 -0800   KubeletReady                 kubelet is posting ready status
+Addresses:
+  InternalIP:  192.168.167.134
+  Hostname:    master.tektutor.org
+Capacity:
+  cpu:                8
+  ephemeral-storage:  192796696Ki
+  hugepages-1Gi:      0
+  hugepages-2Mi:      0
+  memory:             32761636Ki
+  pods:               110
+Allocatable:
+  cpu:                8
+  ephemeral-storage:  177681434740
+  hugepages-1Gi:      0
+  hugepages-2Mi:      0
+  memory:             32659236Ki
+  pods:               110
+System Info:
+  Machine ID:                 00ebb070c9e0453c9df21160c377f1ac
+  System UUID:                97024D56-6FBE-2847-1627-F1B170DED4ED
+  Boot ID:                    90390758-3a29-4d7a-be8a-a6b5e16112fd
+  Kernel Version:             3.10.0-1160.el7.x86_64
+  OS Image:                   CentOS Linux 7 (Core)
+  Operating System:           linux
+  Architecture:               amd64
+  Container Runtime Version:  docker://20.10.12
+  Kubelet Version:            v1.23.4
+  Kube-Proxy Version:         v1.23.4
+PodCIDR:                      192.168.0.0/24
+PodCIDRs:                     192.168.0.0/24
+Non-terminated Pods:          (9 in total)
+  Namespace                   Name                                           CPU Requests  CPU Limits  Memory Requests  Memory Limits  Age
+  ---------                   ----                                           ------------  ----------  ---------------  -------------  ---
+  kube-system                 calico-kube-controllers-56fcbf9d6b-gxzzv       0 (0%)        0 (0%)      0 (0%)           0 (0%)         147m
+  kube-system                 calico-node-hv5w5                              250m (3%)     0 (0%)      0 (0%)           0 (0%)         147m
+  kube-system                 coredns-64897985d-9h5tz                        100m (1%)     0 (0%)      70Mi (0%)        170Mi (0%)     161m
+  kube-system                 coredns-64897985d-q7kj4                        100m (1%)     0 (0%)      70Mi (0%)        170Mi (0%)     161m
+  kube-system                 etcd-master.tektutor.org                       100m (1%)     0 (0%)      100Mi (0%)       0 (0%)         161m
+  kube-system                 kube-apiserver-master.tektutor.org             250m (3%)     0 (0%)      0 (0%)           0 (0%)         161m
+  kube-system                 kube-controller-manager-master.tektutor.org    200m (2%)     0 (0%)      0 (0%)           0 (0%)         161m
+  kube-system                 kube-proxy-5xq4m                               0 (0%)        0 (0%)      0 (0%)           0 (0%)         161m
+  kube-system                 kube-scheduler-master.tektutor.org             100m (1%)     0 (0%)      0 (0%)           0 (0%)         161m
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource           Requests     Limits
+  --------           --------     ------
+  cpu                1100m (13%)  0 (0%)
+  memory             240Mi (0%)   340Mi (1%)
+  ephemeral-storage  0 (0%)       0 (0%)
+  hugepages-1Gi      0 (0%)       0 (0%)
+  hugepages-2Mi      0 (0%)       0 (0%)
+Events:              <none>
+
+</pre>
+
+
+## ⛹️‍♀️ Lab - Finding more details about a worker1 node
+```
+kubectl describe node/worker1.tektutor.org
+```
+
+The expected output is
+<pre>
+[jegan@master devops-march-2022]$ <b>kubectl describe node/worker1.tektutor.org</b>
+Name:               worker1.tektutor.org
+Roles:              <none>
+Labels:             beta.kubernetes.io/arch=amd64
+                    beta.kubernetes.io/os=linux
+                    kubernetes.io/arch=amd64
+                    kubernetes.io/hostname=worker1.tektutor.org
+                    kubernetes.io/os=linux
+Annotations:        kubeadm.alpha.kubernetes.io/cri-socket: /var/run/dockershim.sock
+                    node.alpha.kubernetes.io/ttl: 0
+                    projectcalico.org/IPv4Address: 192.168.167.135/24
+                    projectcalico.org/IPv4IPIPTunnelAddr: 192.168.145.192
+                    volumes.kubernetes.io/controller-managed-attach-detach: true
+CreationTimestamp:  Mon, 07 Mar 2022 21:09:21 -0800
+Taints:             <none>
+Unschedulable:      false
+Lease:
+  HolderIdentity:  worker1.tektutor.org
+  AcquireTime:     <unset>
+  RenewTime:       Mon, 07 Mar 2022 23:29:37 -0800
+Conditions:
+  Type                 Status  LastHeartbeatTime                 LastTransitionTime                Reason                       Message
+  ----                 ------  -----------------                 ------------------                ------                       -------
+  NetworkUnavailable   False   Mon, 07 Mar 2022 21:10:40 -0800   Mon, 07 Mar 2022 21:10:40 -0800   CalicoIsUp                   Calico is running on this node
+  MemoryPressure       False   Mon, 07 Mar 2022 23:26:23 -0800   Mon, 07 Mar 2022 21:09:21 -0800   KubeletHasSufficientMemory   kubelet has sufficient memory available
+  DiskPressure         False   Mon, 07 Mar 2022 23:26:23 -0800   Mon, 07 Mar 2022 21:09:21 -0800   KubeletHasNoDiskPressure     kubelet has no disk pressure
+  PIDPressure          False   Mon, 07 Mar 2022 23:26:23 -0800   Mon, 07 Mar 2022 21:09:21 -0800   KubeletHasSufficientPID      kubelet has sufficient PID available
+  Ready                True    Mon, 07 Mar 2022 23:26:23 -0800   Mon, 07 Mar 2022 21:10:13 -0800   KubeletReady                 kubelet is posting ready status
+Addresses:
+  InternalIP:  192.168.167.135
+  Hostname:    worker1.tektutor.org
+Capacity:
+  cpu:                8
+  ephemeral-storage:  192796696Ki
+  hugepages-1Gi:      0
+  hugepages-2Mi:      0
+  memory:             32761636Ki
+  pods:               110
+Allocatable:
+  cpu:                8
+  ephemeral-storage:  177681434740
+  hugepages-1Gi:      0
+  hugepages-2Mi:      0
+  memory:             32659236Ki
+  pods:               110
+System Info:
+  Machine ID:                 00ebb070c9e0453c9df21160c377f1ac
+  System UUID:                C22E4D56-9C9E-196B-1FC8-729075838DC8
+  Boot ID:                    0b73fb22-8c21-41c8-9fee-f5e18115cd21
+  Kernel Version:             3.10.0-1160.el7.x86_64
+  OS Image:                   CentOS Linux 7 (Core)
+  Operating System:           linux
+  Architecture:               amd64
+  Container Runtime Version:  docker://20.10.12
+  Kubelet Version:            v1.23.4
+  Kube-Proxy Version:         v1.23.4
+PodCIDR:                      192.168.1.0/24
+PodCIDRs:                     192.168.1.0/24
+Non-terminated Pods:          (3 in total)
+  Namespace                   Name                      CPU Requests  CPU Limits  Memory Requests  Memory Limits  Age
+  ---------                   ----                      ------------  ----------  ---------------  -------------  ---
+  default                     nginx-6888c79454-2cpfx    0 (0%)        0 (0%)      0 (0%)           0 (0%)         44m
+  kube-system                 calico-node-bwztt         250m (3%)     0 (0%)      0 (0%)           0 (0%)         140m
+  kube-system                 kube-proxy-5nfzf          0 (0%)        0 (0%)      0 (0%)           0 (0%)         140m
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource           Requests   Limits
+  --------           --------   ------
+  cpu                250m (3%)  0 (0%)
+  memory             0 (0%)     0 (0%)
+  ephemeral-storage  0 (0%)     0 (0%)
+  hugepages-1Gi      0 (0%)     0 (0%)
+  hugepages-2Mi      0 (0%)     0 (0%)
+Events:              <none>
+[jegan@master devops-march-2022]$ kubectl describe node/worker2.tektutor.org
+Name:               worker2.tektutor.org
+Roles:              <none>
+Labels:             beta.kubernetes.io/arch=amd64
+                    beta.kubernetes.io/os=linux
+                    kubernetes.io/arch=amd64
+                    kubernetes.io/hostname=worker2.tektutor.org
+                    kubernetes.io/os=linux
+Annotations:        kubeadm.alpha.kubernetes.io/cri-socket: /var/run/dockershim.sock
+                    node.alpha.kubernetes.io/ttl: 0
+                    projectcalico.org/IPv4Address: 192.168.167.136/24
+                    projectcalico.org/IPv4IPIPTunnelAddr: 192.168.72.128
+                    volumes.kubernetes.io/controller-managed-attach-detach: true
+CreationTimestamp:  Mon, 07 Mar 2022 21:12:12 -0800
+Taints:             <none>
+Unschedulable:      false
+Lease:
+  HolderIdentity:  worker2.tektutor.org
+  AcquireTime:     <unset>
+  RenewTime:       Mon, 07 Mar 2022 23:30:28 -0800
+Conditions:
+  Type                 Status  LastHeartbeatTime                 LastTransitionTime                Reason                       Message
+  ----                 ------  -----------------                 ------------------                ------                       -------
+  NetworkUnavailable   False   Mon, 07 Mar 2022 21:13:32 -0800   Mon, 07 Mar 2022 21:13:32 -0800   CalicoIsUp                   Calico is running on this node
+  MemoryPressure       False   Mon, 07 Mar 2022 23:26:56 -0800   Mon, 07 Mar 2022 21:12:12 -0800   KubeletHasSufficientMemory   kubelet has sufficient memory available
+  DiskPressure         False   Mon, 07 Mar 2022 23:26:56 -0800   Mon, 07 Mar 2022 21:12:12 -0800   KubeletHasNoDiskPressure     kubelet has no disk pressure
+  PIDPressure          False   Mon, 07 Mar 2022 23:26:56 -0800   Mon, 07 Mar 2022 21:12:12 -0800   KubeletHasSufficientPID      kubelet has sufficient PID available
+  Ready                True    Mon, 07 Mar 2022 23:26:56 -0800   Mon, 07 Mar 2022 21:13:04 -0800   KubeletReady                 kubelet is posting ready status
+Addresses:
+  InternalIP:  192.168.167.136
+  Hostname:    worker2.tektutor.org
+Capacity:
+  cpu:                8
+  ephemeral-storage:  192796696Ki
+  hugepages-1Gi:      0
+  hugepages-2Mi:      0
+  memory:             32761636Ki
+  pods:               110
+Allocatable:
+  cpu:                8
+  ephemeral-storage:  177681434740
+  hugepages-1Gi:      0
+  hugepages-2Mi:      0
+  memory:             32659236Ki
+  pods:               110
+System Info:
+  Machine ID:                 00ebb070c9e0453c9df21160c377f1ac
+  System UUID:                9CAE4D56-D414-C40C-8AFC-E9D1CDC57C1C
+  Boot ID:                    b7d1e22d-ee9a-485b-aafc-36b7ca729fad
+  Kernel Version:             3.10.0-1160.el7.x86_64
+  OS Image:                   CentOS Linux 7 (Core)
+  Operating System:           linux
+  Architecture:               amd64
+  Container Runtime Version:  docker://20.10.12
+  Kubelet Version:            v1.23.4
+  Kube-Proxy Version:         v1.23.4
+PodCIDR:                      192.168.2.0/24
+PodCIDRs:                     192.168.2.0/24
+Non-terminated Pods:          (2 in total)
+  Namespace                   Name                 CPU Requests  CPU Limits  Memory Requests  Memory Limits  Age
+  ---------                   ----                 ------------  ----------  ---------------  -------------  ---
+  kube-system                 calico-node-vhf28    250m (3%)     0 (0%)      0 (0%)           0 (0%)         138m
+  kube-system                 kube-proxy-sprqs     0 (0%)        0 (0%)      0 (0%)           0 (0%)         138m
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource           Requests   Limits
+  --------           --------   ------
+  cpu                250m (3%)  0 (0%)
+  memory             0 (0%)     0 (0%)
+  ephemeral-storage  0 (0%)     0 (0%)
+  hugepages-1Gi      0 (0%)     0 (0%)
+  hugepages-2Mi      0 (0%)     0 (0%)
+Events:              <none>
+</pre>
+
+## ⛹️‍♂️ Lab - Listing nodes in wide mode
+```
+kubectl get nodes -o wide
+```
+
+The expected output is
+<pre>
+[jegan@master devops-march-2022]$ kubectl <b>get nodes -o wide</b>
+NAME                   STATUS   ROLES                  AGE    VERSION   INTERNAL-IP       EXTERNAL-IP   OS-IMAGE                KERNEL-VERSION           CONTAINER-RUNTIME
+master.tektutor.org    Ready    control-plane,master   169m   v1.23.4   192.168.167.134   <none>        CentOS Linux 7 (Core)   3.10.0-1160.el7.x86_64   docker://20.10.12
+worker1.tektutor.org   Ready    <none>                 146m   v1.23.4   192.168.167.135   <none>        CentOS Linux 7 (Core)   3.10.0-1160.el7.x86_64   docker://20.10.12
+worker2.tektutor.org   Ready    <none>                 143m   v1.23.4   192.168.167.136   <none>        CentOS Linux 7 (Core)   3.10.0-1160.el7.x86_64   docker://20.10.12
+[jegan@master devops-march-2022]$ 
+</pre>
+
+## Scaling up a nginx deployment to create more Pod instances
+```
+kubectl scale deploy/nginx --replicas=6
+kubectl get po -w
+kubectl get po
+```
+To come out of the watch mode, you need press Ctrl + C.
+
+
+The expected output is
+<pre>
+[jegan@master devops-march-2022]$ <b>kubectl scale deploy/nginx --replicas=6</b>
+deployment.apps/nginx scaled
+[jegan@master devops-march-2022]$ <b>kubectl get po -w</b>
+NAME                     READY   STATUS              RESTARTS   AGE
+nginx-6888c79454-2cpfx   1/1     Running             0          52m
+nginx-6888c79454-8gf8b   0/1     ContainerCreating   0          2s
+nginx-6888c79454-bs6zb   0/1     ContainerCreating   0          2s
+nginx-6888c79454-dcqqd   0/1     ContainerCreating   0          2s
+nginx-6888c79454-qqhhw   1/1     Running             0          2s
+nginx-6888c79454-v4t4w   1/1     Running             0          2s
+nginx-6888c79454-dcqqd   0/1     ContainerCreating   0          3s
+nginx-6888c79454-bs6zb   0/1     ContainerCreating   0          3s
+nginx-6888c79454-8gf8b   0/1     ContainerCreating   0          3s
+nginx-6888c79454-dcqqd   1/1     Running             0          23s
+nginx-6888c79454-bs6zb   1/1     Running             0          27s
+nginx-6888c79454-8gf8b   1/1     Running             0          31s
+^C[jegan@master devops-march-2022]$ <b>kubectl get po</b>
+NAME                     READY   STATUS    RESTARTS   AGE
+nginx-6888c79454-2cpfx   1/1     Running   0          52m
+nginx-6888c79454-8gf8b   1/1     Running   0          35s
+nginx-6888c79454-bs6zb   1/1     Running   0          35s
+nginx-6888c79454-dcqqd   1/1     Running   0          35s
+nginx-6888c79454-qqhhw   1/1     Running   0          35s
+nginx-6888c79454-v4t4w   1/1     Running   0          35s
+</pre>
+
+## ⛹️‍♂️ Lab - Scaling down nginx deployment
+```
+kubectl scale deploy/nginx --replicas=3
+```
+
+The expected output is
+<pre>
+[jegan@master devops-march-2022]$ <b>kubectl scale deploy/nginx --replicas=3</b>
+deployment.apps/nginx scaled
+</pre>
+
+## ⛹️‍♀️ Lab - Understanding use of labels in Kubernetes
+
+List all labels associated with deployments
+```
+kubectl get deploy --show-labels
+```
+
+List all labels associated with replicasets
+```
+kubectl get rs --show-lables
+```
+
+List all labels associated with pods
+```
+kubectl get po --show-labels
+```
+
+Listing pods that has a particular label matching a particular value
+```
+kubectl get po -l app=nginx
+```
+The expected output is
+<pre>
+[jegan@master devops-march-2022]$ <b>kubectl get po -l app=nginx</b>
+NAME                     READY   STATUS    RESTARTS   AGE
+nginx-6888c79454-2cpfx   1/1     Running   0          120m
+nginx-6888c79454-8gf8b   1/1     Running   0          68m
+nginx-6888c79454-8w95h   1/1     Running   0          60m
+nginx-6888c79454-dcqqd   1/1     Running   0          68m
+nginx-6888c79454-rgg8k   1/1     Running   0          60m
+nginx-6888c79454-zmrd8   1/1     Running   0          60m
+</pre>
+The number of pods listed might vary in your system. 
+
+
+Listing pods that has a label app=hello
+```
+kubectl get po -l app=hello
+```
+
+The expected output is
+<pre>
+[jegan@master devops-march-2022]$ <b>kubectl get rs -l app=hello</b>
+NAME               DESIRED   CURRENT   READY   AGE
+hello-66dc74bd76   1         1         1       100s
+</pre>
+
+
