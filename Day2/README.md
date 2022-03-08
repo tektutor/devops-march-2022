@@ -848,7 +848,7 @@ kubectl get po -l app=nginx
 ```
 The expected output is
 <pre>
-[jegan@master devops-march-2022]$ kubectl get po -l app=nginx
+[jegan@master devops-march-2022]$ <b>kubectl get po -l app=nginx</b>
 NAME                     READY   STATUS    RESTARTS   AGE
 nginx-6888c79454-2cpfx   1/1     Running   0          120m
 nginx-6888c79454-8gf8b   1/1     Running   0          68m
@@ -867,7 +867,7 @@ kubectl get po -l app=hello
 
 The expected output is
 <pre>
-[jegan@master devops-march-2022]$ kubectl get rs -l app=hello
+[jegan@master devops-march-2022]$ <b>kubectl get rs -l app=hello</b>
 NAME               DESIRED   CURRENT   READY   AGE
 hello-66dc74bd76   1         1         1       100s
 </pre>
