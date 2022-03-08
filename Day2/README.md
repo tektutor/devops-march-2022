@@ -512,7 +512,7 @@ kubectl create deployment nginx --image=nginx:1.18
 17. Any update from kubelet is received by API Server, and API Server keeps the respective Pod definitions stored in the etcd datastore updated.
 
 
-## Finding more details about a worker1 node
+## ⛹️‍♀️ Lab - Finding more details about a worker1 node
 ```
 kubectl describe node/worker1.tektutor.org
 ```
