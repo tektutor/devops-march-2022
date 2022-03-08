@@ -779,13 +779,18 @@ worker2.tektutor.org   Ready    <none>                 143m   v1.23.4   192.168.
 
 ## Scaling up a nginx deployment to create more Pod instances
 ```
+kubectl scale deploy/nginx --replicas=6
+kubectl get po -w
+kubectl get po
 ```
+To come out of the watch mode, you need press Ctrl + C.
+
 
 The expected output is
 <pre>
 [jegan@master devops-march-2022]$ <b>kubectl scale deploy/nginx --replicas=6</b>
 deployment.apps/nginx scaled
-[jegan@master devops-march-2022]$ kubectl get po -w
+[jegan@master devops-march-2022]$ <b>kubectl get po -w</b>
 NAME                     READY   STATUS              RESTARTS   AGE
 nginx-6888c79454-2cpfx   1/1     Running             0          52m
 nginx-6888c79454-8gf8b   0/1     ContainerCreating   0          2s
@@ -799,7 +804,7 @@ nginx-6888c79454-8gf8b   0/1     ContainerCreating   0          3s
 nginx-6888c79454-dcqqd   1/1     Running             0          23s
 nginx-6888c79454-bs6zb   1/1     Running             0          27s
 nginx-6888c79454-8gf8b   1/1     Running             0          31s
-^C[jegan@master devops-march-2022]$ kubectl get po 
+^C[jegan@master devops-march-2022]$ <b>kubectl get po</b>
 NAME                     READY   STATUS    RESTARTS   AGE
 nginx-6888c79454-2cpfx   1/1     Running   0          52m
 nginx-6888c79454-8gf8b   1/1     Running   0          35s
