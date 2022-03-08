@@ -75,6 +75,7 @@ http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kube
 You will get a page like shown in the screenshot below
 ![dashboard](dashboard.png)
 
-Now copy and paste the bearer token to login
+Now copy and paste the bearer token to login as shown in the screenshot below
+![dashboard](dashboard-token.png)
 
 
