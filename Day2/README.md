@@ -188,7 +188,7 @@ sudo systemctl restart kubelet
 kubeadm init --pod-network-cidr=192.168.0.0/16
 ```
 
-Do the below steps as rps user
+Do the below steps as non-admin user
 ```
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
