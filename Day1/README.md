@@ -1,43 +1,51 @@
 # Docker Overview
 
 ## Boot Loaders
-   - Boot loader system utility gets installed in MBR(Master Boot Record) of your Hard Disk
-   - Whenever the system is booted, CPU kind of initiates BIOS and BIOS after system self-test
-     it instructs the CPU to run the Boot Loader
+   - Boot loader system utility that gets installed in MBR(Master Boot Record) of your Hard Disk
+   - Whenever the system is booted, once BIOS system self-test is complete, it instructs the CPU to run the Boot Loader
    - Boot Loader then scans your hard disk looking for any OS
-   - In case Boot Loader detects more than one OS installed on your system it then give a menu
+   - In case Boot Loader detects more than one OS installed on your system it then gives a menu
      for you to choose which OS you wish to boot into
+   Examples below are 2 popular opensource Boot Loaders
    GRUB
     version 1
     version 2
    LILO (Linux Loaders)
 
 ## Virtualization
-  - Hypervisor
-  - Hypervisor is a general term that refers to Virtualization software
+  - Hypervisor refers to Virtualization software
+  - are of two types
+    Type - 1 ( runs on Bare metal - suitable for Workstations/Servers that are meant to host multiple VMs )
+    Type - 2 ( runs on Desktop/Workstations - suitable for your personal/official Laptops or primary work machine that has OS )
   - with this technology 
-      - you can boot many OS side by side on the same PC/Desktop/Workstation/Server
-      - is a combination of Hardware + Software
-  - Processors that supports Virtualization feature 
-      Intel
-        - VT-X
-      AMD
-        - AMD-V
+      - you can boot many OS side by side on the same PC/Desktop/Workstation/Server simultaneously
+      - is a combination of Hardware + Software technology
+  - Processors that supports Virtualization feature
+    Intel
+      - VT-X
+    AMD
+      - AMD-V
+  - With HyperThreading(Intel) or AMD CMT (Clustered Multi-threading Enabled)
+       - Intel/AMD Processor supports running 2 to 4 threads parallely
+       - i.e each Physical CPU core will be seen as 2 virtual cores or in some latest processors as 4 virtual cores
+       - hence if you have a Server Grade Processor with 512 cores, it may give you 512 x 2 = 1024 virtual cores or 
+         512 x 4 = 2048 cores depending on the Processor available on the Server
+
+  - Virtual Machines are assigned with Virtual Cores( aka Logical cores )
+  - Heavy weight technology
+      - Each Virtual Machines(VM) or the Guest OS requires dedicated hardware resources
+        - Dedicated CPU cores
+        - Dedicated RAM
+        - Dedicated Storage
   
-  - Heavy weight
-      - Virtual Machines or the Guest OS they require dedicated hardware resources
-           - Dedicated CPU cores
-           - Dedicated RAM
-           - Dedicated Storage
-  
-  - If you have a Processor that support Virtualization, you need to ensure that the virtualization
+  - If you have a Processor that supports Virtualization, you need to ensure that the virtualization
     feature is enabled in the BIOS.
 
-  - How many Virtual Machine(Guest OS)
+  - How many Virtual Machine(Guest OS) can be created in a PC/Workstation/Server
       - is limited by the Hardware resources available in the system
-      - Primary factor is Processor( no of cpu cores in the Processor )
-      - Amount of Random Access Memory available
-      - Storage ( Hard Disk capacity )
+      - Primary factor is Processor( i.e number of cpu cores in the Processor )
+      - Amount of Random Access Memory(RAM) available in the system
+      - Storage ( Hard Disk capacity ) available in the system
      
   - Some vendor spectific virtualization softwares
       VMWare
@@ -54,21 +62,48 @@
        - opensource and free
        - Kernel Virtual Manager
 
+## Let's say your organization needs 10000 webservers running in its own OS
 
-Before the Virtualization technology came into the Industry
-  - Let's say your organization needs 10000 webserver running in its own OS
-  - How many physical servers are required to setup 10000 web servers?
+### Without Virtualization Technology
+   - It requires 10000 Physical servers
 
+### Virtualization Technology Benefits
+  - Assuming the Server has Dual Sockets with each Processor supporting 512 cores
+  - with HyperThreading/CMT Enabled it will support 512 * 2 * 4 = 4096 virtual cores
+  - Hence 3 Physical Servers can technically support 10000 Virtual Machines as opposed to 10000 Physical Servers
+  - This results in huge cost-saving in terms of 
+         - OS License required for 3 Servers in the place of separate OS License for 10000 Servers
+         - Cost involved in buying 3 Physical Servers is much less compared to buying 10000 Physical Servers
+         - less real-estate cost for leasing data-center space
+         - less electricity bill as 3 servers will consume less power compared to 10000 Physical servers
+         - less cost is involved in sound proofing as the server room for 3 servers will be very small compared to the 
+           server room that has 10000 Physical servers
+
+### Virtualization Technology Drawbacks
+  - it is heavy weight
+  - the number of VMs a Server supports depends on how many CPU cores that Processor supports 
+  - RAM and Storage available in the Server
+  - Server Grade Processors with more cores are way too expensive, though cheaper compared to buying separate servers
+  - Developers/QA Team
+      - need many Virtual Machines to setup a production like Dev/QA environment
+      - if less Virtual Machines are available to Dev/QA certain issues can't be verified in Dev/QA environment
+      - i.e many issues will only occur in Prod while those bugs can't be reproduced as Dev/QA uses a single machine to setup
+        all the software components required to setup a single instance of their product
+      - as Dev/QA team generally doesn't involve Firewall/Proxy between Frontend and Backend, many practical scenaries are ignored
+        during their testing but in real world Production environment Firewall/Proxy are used and many Physical Servers 
+        or many Virtual Machines are used to setup different software components required for a single instance of a Product.
+      - Hence Dev/QA/Prod environments are way too different, this leads to many issues reported only in Production
+  - it isn't cost-effective for an organization to give 10~15 VMs per Engineer
 
 ## Containerization
  - light weight virtualization technology
     - containers doesn't require dedicated hardwares resources unlike Virtualization technology
  - containers are application process
- - application virtualization
+ - aka application virtualization
  - all the containers are normal application processess that share the same Host OS Kernel
  - containers are not Operating System
- - containers in many ways they appear like an OS/VM
- - containers has their shell file system
+ - containers in many ways appear like an OS/VM
+ - containers has their shell and file system
  - containers are allocated with IP address
  - containers has its own network stack ( 7 OSI Layers )
  - containers has its own NIC ( Network Interface Card - Software Defined Network )
@@ -77,11 +112,11 @@ Before the Virtualization technology came into the Industry
      1. Namespace - is used to separate or isolate containers from each other by letting them run it own namespace
      2. CGroups ( Control Groups )
          - resource quota allocation
-         - i.e it help in putting some restriction on how much CPU resources, RAM and Storage a particular container can use
+         - i.e it helps in applying some restriction on how much CPU resources, RAM and Storage a particular container can use
          - this is required to ensure that one single container does'nt take up all the H/W resources leaving other containers
            starve for H/W resources
 
-## Checking the version of docker installed
+## ⛹️‍♂️ Lab - Checking the version of docker installed
 ```
 docker --version
 ```
@@ -1019,3 +1054,13 @@ NETWORK ID     NAME      DRIVER    SCOPE
 </pre>
 
 Bridge is the default type of network used by Docker.
+
+## Verify how many network inferaces are available in your lab machine
+```
+ifconfig
+```
+You are expected to see an output similar to below
+<pre>
+</pre>
+
+## Create two custom docker network
