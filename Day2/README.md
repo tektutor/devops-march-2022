@@ -813,3 +813,14 @@ nginx-6888c79454-dcqqd   1/1     Running   0          35s
 nginx-6888c79454-qqhhw   1/1     Running   0          35s
 nginx-6888c79454-v4t4w   1/1     Running   0          35s
 </pre>
+
+## ⛹️‍♂️ Lab - Scaling down nginx deployment
+```
+kubectl scale deploy/nginx --replicas=3
+```
+
+The expected output is
+<pre>
+[jegan@master devops-march-2022]$ <b>kubectl scale deploy/nginx --replicas=3</b>
+deployment.apps/nginx scaled
+</pre>
