@@ -824,3 +824,50 @@ The expected output is
 [jegan@master devops-march-2022]$ <b>kubectl scale deploy/nginx --replicas=3</b>
 deployment.apps/nginx scaled
 </pre>
+
+## ⛹️‍♀️ Lab - Understanding use of labels in Kubernetes
+
+List all labels associated with deployments
+```
+kubectl get deploy --show-labels
+```
+
+List all labels associated with replicasets
+```
+kubectl get rs --show-lables
+```
+
+List all labels associated with pods
+```
+kubectl get po --show-labels
+```
+
+Listing pods that has a particular label matching a particular value
+```
+kubectl get po -l app=nginx
+```
+The expected output is
+<pre>
+[jegan@master devops-march-2022]$ kubectl get po -l app=nginx
+NAME                     READY   STATUS    RESTARTS   AGE
+nginx-6888c79454-2cpfx   1/1     Running   0          120m
+nginx-6888c79454-8gf8b   1/1     Running   0          68m
+nginx-6888c79454-8w95h   1/1     Running   0          60m
+nginx-6888c79454-dcqqd   1/1     Running   0          68m
+nginx-6888c79454-rgg8k   1/1     Running   0          60m
+nginx-6888c79454-zmrd8   1/1     Running   0          60m
+</pre>
+The number of pods listed might vary in your system. 
+
+
+Listing pods that has a label app=hello
+```
+kubectl get po -l app=hello
+```
+
+The expected output is
+<pre>
+[jegan@master devops-march-2022]$ kubectl get rs -l app=hello
+NAME               DESIRED   CURRENT   READY   AGE
+hello-66dc74bd76   1         1         1       100s
+</pre>
