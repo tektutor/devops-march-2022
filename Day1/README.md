@@ -1302,6 +1302,11 @@ Find the IP address of ubuntu1 from ubuntu1 container shell
 ```
 hostname -i
 ```
+The expected output is
+<pre>
+root@ubuntu1:/# hostname -i
+172.18.0.2
+</pre>
 
 Try pinging ubuntu2 container
 ```
@@ -1320,6 +1325,107 @@ ping 172.18.0.2
 
 The expected output is 
 <pre>
+$(jegan@master.tektutor.org) > docker exec -it ubuntu2 bash
+root@ubuntu2:/# apt update && apt install -y net-tools iputils-ping
+Get:1 http://archive.ubuntu.com/ubuntu xenial InRelease [247 kB]
+Get:2 http://security.ubuntu.com/ubuntu xenial-security InRelease [99.8 kB]
+Get:3 http://archive.ubuntu.com/ubuntu xenial-updates InRelease [99.8 kB]
+Get:4 http://security.ubuntu.com/ubuntu xenial-security/main amd64 Packages [2051 kB]
+Get:5 http://archive.ubuntu.com/ubuntu xenial-backports InRelease [97.4 kB]       
+Get:6 http://archive.ubuntu.com/ubuntu xenial/main amd64 Packages [1558 kB]       
+Get:7 http://archive.ubuntu.com/ubuntu xenial/restricted amd64 Packages [14.1 kB]
+Get:8 http://archive.ubuntu.com/ubuntu xenial/universe amd64 Packages [9827 kB]
+Get:9 http://security.ubuntu.com/ubuntu xenial-security/restricted amd64 Packages [15.9 kB]
+Get:10 http://security.ubuntu.com/ubuntu xenial-security/universe amd64 Packages [984 kB]
+Get:11 http://security.ubuntu.com/ubuntu xenial-security/multiverse amd64 Packages [8820 B]
+Get:12 http://archive.ubuntu.com/ubuntu xenial/multiverse amd64 Packages [176 kB]
+Get:13 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 Packages [2560 kB]
+Get:14 http://archive.ubuntu.com/ubuntu xenial-updates/restricted amd64 Packages [16.4 kB]
+Get:15 http://archive.ubuntu.com/ubuntu xenial-updates/universe amd64 Packages [1544 kB]
+Get:16 http://archive.ubuntu.com/ubuntu xenial-updates/multiverse amd64 Packages [26.2 kB]                                                                          
+Get:17 http://archive.ubuntu.com/ubuntu xenial-backports/main amd64 Packages [10.9 kB]                                                                              
+Get:18 http://archive.ubuntu.com/ubuntu xenial-backports/universe amd64 Packages [12.7 kB]                                                                          
+Fetched 19.3 MB in 6s (2919 kB/s)                                                                                                                                   
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+All packages are up to date.
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following additional packages will be installed:
+  libffi6 libgmp10 libgnutls-openssl27 libgnutls30 libhogweed4 libidn11 libnettle6 libp11-kit0 libtasn1-6
+Suggested packages:
+  gnutls-bin
+The following NEW packages will be installed:
+  iputils-ping libffi6 libgmp10 libgnutls-openssl27 libgnutls30 libhogweed4 libidn11 libnettle6 libp11-kit0 libtasn1-6 net-tools
+0 upgraded, 11 newly installed, 0 to remove and 0 not upgraded.
+Need to get 1482 kB of archives.
+After this operation, 4510 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu xenial/main amd64 libgmp10 amd64 2:6.1.0+dfsg-2 [240 kB]
+Get:2 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libnettle6 amd64 3.2-1ubuntu0.16.04.2 [93.7 kB]
+Get:3 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libhogweed4 amd64 3.2-1ubuntu0.16.04.2 [136 kB]
+Get:4 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libidn11 amd64 1.32-3ubuntu1.2 [46.5 kB]
+Get:5 http://archive.ubuntu.com/ubuntu xenial/main amd64 libffi6 amd64 3.2.1-4 [17.8 kB]
+Get:6 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libp11-kit0 amd64 0.23.2-5~ubuntu16.04.2 [107 kB]
+Get:7 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libtasn1-6 amd64 4.7-3ubuntu0.16.04.3 [43.5 kB]
+Get:8 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libgnutls30 amd64 3.4.10-4ubuntu1.9 [548 kB]
+Get:9 http://archive.ubuntu.com/ubuntu xenial-updates/main amd64 libgnutls-openssl27 amd64 3.4.10-4ubuntu1.9 [21.9 kB]
+Get:10 http://archive.ubuntu.com/ubuntu xenial/main amd64 iputils-ping amd64 3:20121221-5ubuntu2 [52.7 kB]
+Get:11 http://archive.ubuntu.com/ubuntu xenial/main amd64 net-tools amd64 1.60-26ubuntu1 [175 kB]
+Fetched 1482 kB in 2s (501 kB/s)   
+debconf: delaying package configuration, since apt-utils is not installed
+Selecting previously unselected package libgmp10:amd64.
+(Reading database ... 4785 files and directories currently installed.)
+Preparing to unpack .../libgmp10_2%3a6.1.0+dfsg-2_amd64.deb ...
+Unpacking libgmp10:amd64 (2:6.1.0+dfsg-2) ...
+Selecting previously unselected package libnettle6:amd64.
+Preparing to unpack .../libnettle6_3.2-1ubuntu0.16.04.2_amd64.deb ...
+Unpacking libnettle6:amd64 (3.2-1ubuntu0.16.04.2) ...
+Selecting previously unselected package libhogweed4:amd64.
+Preparing to unpack .../libhogweed4_3.2-1ubuntu0.16.04.2_amd64.deb ...
+Unpacking libhogweed4:amd64 (3.2-1ubuntu0.16.04.2) ...
+Selecting previously unselected package libidn11:amd64.
+Preparing to unpack .../libidn11_1.32-3ubuntu1.2_amd64.deb ...
+Unpacking libidn11:amd64 (1.32-3ubuntu1.2) ...
+Selecting previously unselected package libffi6:amd64.
+Preparing to unpack .../libffi6_3.2.1-4_amd64.deb ...
+Unpacking libffi6:amd64 (3.2.1-4) ...
+Selecting previously unselected package libp11-kit0:amd64.
+Preparing to unpack .../libp11-kit0_0.23.2-5~ubuntu16.04.2_amd64.deb ...
+Unpacking libp11-kit0:amd64 (0.23.2-5~ubuntu16.04.2) ...
+Selecting previously unselected package libtasn1-6:amd64.
+Preparing to unpack .../libtasn1-6_4.7-3ubuntu0.16.04.3_amd64.deb ...
+Unpacking libtasn1-6:amd64 (4.7-3ubuntu0.16.04.3) ...
+Selecting previously unselected package libgnutls30:amd64.
+Preparing to unpack .../libgnutls30_3.4.10-4ubuntu1.9_amd64.deb ...
+Unpacking libgnutls30:amd64 (3.4.10-4ubuntu1.9) ...
+Selecting previously unselected package libgnutls-openssl27:amd64.
+Preparing to unpack .../libgnutls-openssl27_3.4.10-4ubuntu1.9_amd64.deb ...
+Unpacking libgnutls-openssl27:amd64 (3.4.10-4ubuntu1.9) ...
+Selecting previously unselected package iputils-ping.
+Preparing to unpack .../iputils-ping_3%3a20121221-5ubuntu2_amd64.deb ...
+Unpacking iputils-ping (3:20121221-5ubuntu2) ...
+Selecting previously unselected package net-tools.
+Preparing to unpack .../net-tools_1.60-26ubuntu1_amd64.deb ...
+Unpacking net-tools (1.60-26ubuntu1) ...
+Processing triggers for libc-bin (2.23-0ubuntu11.3) ...
+Setting up libgmp10:amd64 (2:6.1.0+dfsg-2) ...
+Setting up libnettle6:amd64 (3.2-1ubuntu0.16.04.2) ...
+Setting up libhogweed4:amd64 (3.2-1ubuntu0.16.04.2) ...
+Setting up libidn11:amd64 (1.32-3ubuntu1.2) ...
+Setting up libffi6:amd64 (3.2.1-4) ...
+Setting up libp11-kit0:amd64 (0.23.2-5~ubuntu16.04.2) ...
+Setting up libtasn1-6:amd64 (4.7-3ubuntu0.16.04.3) ...
+Setting up libgnutls30:amd64 (3.4.10-4ubuntu1.9) ...
+Setting up libgnutls-openssl27:amd64 (3.4.10-4ubuntu1.9) ...
+Setting up iputils-ping (3:20121221-5ubuntu2) ...
+Setcap is not installed, falling back to setuid
+Setting up net-tools (1.60-26ubuntu1) ...
+Processing triggers for libc-bin (2.23-0ubuntu11.3) ...
+root@ubuntu2:/# hostname -i
+172.19.0.2
+root@ubuntu2:/# 
 </pre>
 
 Now investigate the IP routing table within ubuntu1 container
