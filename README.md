@@ -186,3 +186,36 @@ The expected ouput is
 REPOSITORY   TAG       IMAGE ID   CREATED   SIZE
 (jegan@tektutor.org$)>
 </pre>
+
+## DevOps
+- automate what you do
+- convert whatever services you manually provide into source code
+- Configuration Management Tools
+   - Puppet
+   - Ansible
+   - Chef
+   - Salt/SaltStack
+- Container Orchestration Tools
+    - Docker SWARM
+    - Google Kubernetes
+    - RedHat OpenShift
+- CI/CD tools
+   - Jenkins(Opensource) or Cloudbees(Enterprise)
+   - Bamboo 
+   - Team City
+   - Microsoft Team Foundation Server (TFS)
+- Version Control Softwares
+   - CVS, Perforce, ClearCase
+   - GitHub
+   - GitLab
+- Build Tools
+    - make, cmake, ant, maven, grade, etc.,
+
+## Configuration Management Tools
+- are used by DevOps engineers ( System Administrators to automate software installation/configuration )
+
+## Container Orchestration Platform
+- manages containers
+- it platforms that make your application Highly Available
+- SRE
+
