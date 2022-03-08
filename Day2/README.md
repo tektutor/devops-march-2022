@@ -512,5 +512,159 @@ kubectl create deployment nginx --image=nginx:1.18
 17. Any update from kubelet is received by API Server, and API Server keeps the respective Pod definitions stored in the etcd datastore updated.
 
 
+## Finding more details about a worker1 node
+```
+kubectl describe node/worker1.tektutor.org
+```
 
+The expected output is
+<pre>
+[jegan@master devops-march-2022]$ <b>kubectl describe node/worker1.tektutor.org</b>
+Name:               worker1.tektutor.org
+Roles:              <none>
+Labels:             beta.kubernetes.io/arch=amd64
+                    beta.kubernetes.io/os=linux
+                    kubernetes.io/arch=amd64
+                    kubernetes.io/hostname=worker1.tektutor.org
+                    kubernetes.io/os=linux
+Annotations:        kubeadm.alpha.kubernetes.io/cri-socket: /var/run/dockershim.sock
+                    node.alpha.kubernetes.io/ttl: 0
+                    projectcalico.org/IPv4Address: 192.168.167.135/24
+                    projectcalico.org/IPv4IPIPTunnelAddr: 192.168.145.192
+                    volumes.kubernetes.io/controller-managed-attach-detach: true
+CreationTimestamp:  Mon, 07 Mar 2022 21:09:21 -0800
+Taints:             <none>
+Unschedulable:      false
+Lease:
+  HolderIdentity:  worker1.tektutor.org
+  AcquireTime:     <unset>
+  RenewTime:       Mon, 07 Mar 2022 23:29:37 -0800
+Conditions:
+  Type                 Status  LastHeartbeatTime                 LastTransitionTime                Reason                       Message
+  ----                 ------  -----------------                 ------------------                ------                       -------
+  NetworkUnavailable   False   Mon, 07 Mar 2022 21:10:40 -0800   Mon, 07 Mar 2022 21:10:40 -0800   CalicoIsUp                   Calico is running on this node
+  MemoryPressure       False   Mon, 07 Mar 2022 23:26:23 -0800   Mon, 07 Mar 2022 21:09:21 -0800   KubeletHasSufficientMemory   kubelet has sufficient memory available
+  DiskPressure         False   Mon, 07 Mar 2022 23:26:23 -0800   Mon, 07 Mar 2022 21:09:21 -0800   KubeletHasNoDiskPressure     kubelet has no disk pressure
+  PIDPressure          False   Mon, 07 Mar 2022 23:26:23 -0800   Mon, 07 Mar 2022 21:09:21 -0800   KubeletHasSufficientPID      kubelet has sufficient PID available
+  Ready                True    Mon, 07 Mar 2022 23:26:23 -0800   Mon, 07 Mar 2022 21:10:13 -0800   KubeletReady                 kubelet is posting ready status
+Addresses:
+  InternalIP:  192.168.167.135
+  Hostname:    worker1.tektutor.org
+Capacity:
+  cpu:                8
+  ephemeral-storage:  192796696Ki
+  hugepages-1Gi:      0
+  hugepages-2Mi:      0
+  memory:             32761636Ki
+  pods:               110
+Allocatable:
+  cpu:                8
+  ephemeral-storage:  177681434740
+  hugepages-1Gi:      0
+  hugepages-2Mi:      0
+  memory:             32659236Ki
+  pods:               110
+System Info:
+  Machine ID:                 00ebb070c9e0453c9df21160c377f1ac
+  System UUID:                C22E4D56-9C9E-196B-1FC8-729075838DC8
+  Boot ID:                    0b73fb22-8c21-41c8-9fee-f5e18115cd21
+  Kernel Version:             3.10.0-1160.el7.x86_64
+  OS Image:                   CentOS Linux 7 (Core)
+  Operating System:           linux
+  Architecture:               amd64
+  Container Runtime Version:  docker://20.10.12
+  Kubelet Version:            v1.23.4
+  Kube-Proxy Version:         v1.23.4
+PodCIDR:                      192.168.1.0/24
+PodCIDRs:                     192.168.1.0/24
+Non-terminated Pods:          (3 in total)
+  Namespace                   Name                      CPU Requests  CPU Limits  Memory Requests  Memory Limits  Age
+  ---------                   ----                      ------------  ----------  ---------------  -------------  ---
+  default                     nginx-6888c79454-2cpfx    0 (0%)        0 (0%)      0 (0%)           0 (0%)         44m
+  kube-system                 calico-node-bwztt         250m (3%)     0 (0%)      0 (0%)           0 (0%)         140m
+  kube-system                 kube-proxy-5nfzf          0 (0%)        0 (0%)      0 (0%)           0 (0%)         140m
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource           Requests   Limits
+  --------           --------   ------
+  cpu                250m (3%)  0 (0%)
+  memory             0 (0%)     0 (0%)
+  ephemeral-storage  0 (0%)     0 (0%)
+  hugepages-1Gi      0 (0%)     0 (0%)
+  hugepages-2Mi      0 (0%)     0 (0%)
+Events:              <none>
+[jegan@master devops-march-2022]$ kubectl describe node/worker2.tektutor.org
+Name:               worker2.tektutor.org
+Roles:              <none>
+Labels:             beta.kubernetes.io/arch=amd64
+                    beta.kubernetes.io/os=linux
+                    kubernetes.io/arch=amd64
+                    kubernetes.io/hostname=worker2.tektutor.org
+                    kubernetes.io/os=linux
+Annotations:        kubeadm.alpha.kubernetes.io/cri-socket: /var/run/dockershim.sock
+                    node.alpha.kubernetes.io/ttl: 0
+                    projectcalico.org/IPv4Address: 192.168.167.136/24
+                    projectcalico.org/IPv4IPIPTunnelAddr: 192.168.72.128
+                    volumes.kubernetes.io/controller-managed-attach-detach: true
+CreationTimestamp:  Mon, 07 Mar 2022 21:12:12 -0800
+Taints:             <none>
+Unschedulable:      false
+Lease:
+  HolderIdentity:  worker2.tektutor.org
+  AcquireTime:     <unset>
+  RenewTime:       Mon, 07 Mar 2022 23:30:28 -0800
+Conditions:
+  Type                 Status  LastHeartbeatTime                 LastTransitionTime                Reason                       Message
+  ----                 ------  -----------------                 ------------------                ------                       -------
+  NetworkUnavailable   False   Mon, 07 Mar 2022 21:13:32 -0800   Mon, 07 Mar 2022 21:13:32 -0800   CalicoIsUp                   Calico is running on this node
+  MemoryPressure       False   Mon, 07 Mar 2022 23:26:56 -0800   Mon, 07 Mar 2022 21:12:12 -0800   KubeletHasSufficientMemory   kubelet has sufficient memory available
+  DiskPressure         False   Mon, 07 Mar 2022 23:26:56 -0800   Mon, 07 Mar 2022 21:12:12 -0800   KubeletHasNoDiskPressure     kubelet has no disk pressure
+  PIDPressure          False   Mon, 07 Mar 2022 23:26:56 -0800   Mon, 07 Mar 2022 21:12:12 -0800   KubeletHasSufficientPID      kubelet has sufficient PID available
+  Ready                True    Mon, 07 Mar 2022 23:26:56 -0800   Mon, 07 Mar 2022 21:13:04 -0800   KubeletReady                 kubelet is posting ready status
+Addresses:
+  InternalIP:  192.168.167.136
+  Hostname:    worker2.tektutor.org
+Capacity:
+  cpu:                8
+  ephemeral-storage:  192796696Ki
+  hugepages-1Gi:      0
+  hugepages-2Mi:      0
+  memory:             32761636Ki
+  pods:               110
+Allocatable:
+  cpu:                8
+  ephemeral-storage:  177681434740
+  hugepages-1Gi:      0
+  hugepages-2Mi:      0
+  memory:             32659236Ki
+  pods:               110
+System Info:
+  Machine ID:                 00ebb070c9e0453c9df21160c377f1ac
+  System UUID:                9CAE4D56-D414-C40C-8AFC-E9D1CDC57C1C
+  Boot ID:                    b7d1e22d-ee9a-485b-aafc-36b7ca729fad
+  Kernel Version:             3.10.0-1160.el7.x86_64
+  OS Image:                   CentOS Linux 7 (Core)
+  Operating System:           linux
+  Architecture:               amd64
+  Container Runtime Version:  docker://20.10.12
+  Kubelet Version:            v1.23.4
+  Kube-Proxy Version:         v1.23.4
+PodCIDR:                      192.168.2.0/24
+PodCIDRs:                     192.168.2.0/24
+Non-terminated Pods:          (2 in total)
+  Namespace                   Name                 CPU Requests  CPU Limits  Memory Requests  Memory Limits  Age
+  ---------                   ----                 ------------  ----------  ---------------  -------------  ---
+  kube-system                 calico-node-vhf28    250m (3%)     0 (0%)      0 (0%)           0 (0%)         138m
+  kube-system                 kube-proxy-sprqs     0 (0%)        0 (0%)      0 (0%)           0 (0%)         138m
+Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource           Requests   Limits
+  --------           --------   ------
+  cpu                250m (3%)  0 (0%)
+  memory             0 (0%)     0 (0%)
+  ephemeral-storage  0 (0%)     0 (0%)
+  hugepages-1Gi      0 (0%)     0 (0%)
+  hugepages-2Mi      0 (0%)     0 (0%)
+Events:              <none>
+</pre>
 
