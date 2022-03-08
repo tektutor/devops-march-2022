@@ -1097,8 +1097,8 @@ $(jegan@master.tektutor.org) > <b>ifconfig</b>
         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 </pre>
 
-In the above output, docker0 is the default bridge created by Docker.  While creating containers if the user
-hasn't mentioned a custom network to which the container must be connected then by default it gets connected to the docker0 bridge network.  The docker0 bridge network has a subnet 172.17.0.0/16.  Out of which 172.17.0.1 is assigned to the docker0 bridge device which acts as a Gateway for all the containers that are part of docker0 bridge network.
+In the above output, <b>docker0</b> is the default bridge created by Docker.  While creating containers if the user
+hasn't mentioned a custom network to which the container must be connected then by default it gets connected to the docker0 bridge network.  The docker0 bridge network has a subnet <b>172.17.0.0/16</b>.  Out of which <b>172.17.0.1</b> is assigned to the docker0 bridge device which acts as a Gateway for all the containers that are part of docker0 bridge network.
 
 <b>ens33</b> is the Network Interface Card i.e Virtual ethernet device created by VMware Workstation as this machine is a Guest OS created within VMWare Workstation Pro.
 
@@ -1161,7 +1161,7 @@ docker run -dit --name ubuntu2 --hostname ubuntu2 --network=my-net-2 ubuntu:16.0
 ```
 The expected output is
 <pre>
-$(jegan@master.tektutor.org) > docker run -dit --name ubuntu1 --hostname ubuntu1 --network=my-net-1 ubuntu:16.04 /bin/bash
+$(jegan@master.tektutor.org) > <b>docker run -dit --name ubuntu1 --hostname ubuntu1 --network=my-net-1 ubuntu:16.04 /bin/bash</b>
 Unable to find image 'ubuntu:16.04' locally
 16.04: Pulling from library/ubuntu
 58690f9b18fc: Pull complete 
