@@ -1112,6 +1112,7 @@ The expected output is
         }
     }
 ]
+</pre>
 
 ## Listing containers running in the master node(current node)
 ```
@@ -1141,5 +1142,4 @@ itfbq58jyabl   webservice.4   httpd:latest   worker1.tektutor.org   Running     
 ID             NAME           IMAGE          NODE                   DESIRED STATE   CURRENT STATE            ERROR     PORTS
 30dfubpwrr9j   webservice.2   httpd:latest   worker2.tektutor.org   Running         Running 14 minutes ago             
 3uz7n4hshyy9   webservice.5   httpd:latest   worker2.tektutor.org   Running         Running 10 minutes ago     
-</pre>
 </pre>
