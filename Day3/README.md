@@ -81,7 +81,7 @@ Now copy and paste the bearer token to login as shown in the screenshot below
 If all went butter smooth, you will get a similar page as shown below
 ![dashboard](dashboard-final.png)
 
-## Installing Helm Kubernetes package manager
+## ⛹️‍♀️ Lab - Installing Helm Kubernetes package manager
 ```
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 chmod 700 get_helm.sh
@@ -104,7 +104,7 @@ kubectl apply -f https://raw.githubusercontent.com/mysql/mysql-operator/trunk/de
 
 The expected output is
 <pre>
-[jegan@tektutor.org ~]$ kubectl apply -f https://raw.githubusercontent.com/mysql/mysql-operator/trunk/deploy/deploy-crds.yaml
+[jegan@tektutor.org ~]$ <b>kubectl apply -f https://raw.githubusercontent.com/mysql/mysql-operator/trunk/deploy/deploy-crds.yaml</b>
 customresourcedefinition.apiextensions.k8s.io/innodbclusters.mysql.oracle.com created
 customresourcedefinition.apiextensions.k8s.io/mysqlbackups.mysql.oracle.com created
 customresourcedefinition.apiextensions.k8s.io/clusterkopfpeerings.zalando.org created
@@ -118,7 +118,7 @@ kubectl get deployment -n mysql-operator mysql-operator
 
 The expected output is
 <pre>
-jegan@tektutor.org ~]$ kubectl apply -f https://raw.githubusercontent.com/mysql/mysql-operator/trunk/deploy/deploy-operator.yaml
+jegan@tektutor.org ~]$ <b>kubectl apply -f https://raw.githubusercontent.com/mysql/mysql-operator/trunk/deploy/deploy-operator.yaml</b>
 serviceaccount/mysql-sidecar-sa created
 clusterrole.rbac.authorization.k8s.io/mysql-operator created
 clusterrole.rbac.authorization.k8s.io/mysql-sidecar created
@@ -139,10 +139,10 @@ kubectl create secret generic mypwds \
 
 The expected output is
 <pre>
-[jegan@tektutor.org ~]$ kubectl create secret generic mypwds \
+[jegan@tektutor.org ~]$ <b>kubectl create secret generic mypwds \
 >         --from-literal=rootUser=root \
 >         --from-literal=rootHost=% \
->         --from-literal=rootPassword="root"
+>         --from-literal=rootPassword="root"</b>
 secret/mypwds created
 </pre>
 
