@@ -1112,4 +1112,34 @@ The expected output is
         }
     }
 ]
+
+## Listing containers running in the master node(current node)
+```
+docker node ps
+```
+
+The expected output is
+<pre>
+[jegan@master ~]$ <b>docker node ps</b>
+ID             NAME           IMAGE          NODE                  DESIRED STATE   CURRENT STATE            ERROR     PORTS
+yfw5ghse3uvc   webservice.3   httpd:latest   master.tektutor.org   Running         Running 10 minutes ago             
+0kdcz103zgs5   webservice.6   httpd:latest   master.tektutor.org   Running         Running 6 minutes ago           
+</pre>
+
+## Listing containers running in a worker node
+```
+docker node ps worker1.tektutor.org
+```
+
+The expected output is
+<pre>
+jegan@master ~]$ <b>docker node ps worker1.tektutor.org</b>
+ID             NAME           IMAGE          NODE                   DESIRED STATE   CURRENT STATE            ERROR     PORTS
+oxxt3dv1f432   webservice.1   httpd:latest   worker1.tektutor.org   Running         Running 14 minutes ago             
+itfbq58jyabl   webservice.4   httpd:latest   worker1.tektutor.org   Running         Running 10 minutes ago             
+[jegan@master ~]$ docker node ps worker2.tektutor.org
+ID             NAME           IMAGE          NODE                   DESIRED STATE   CURRENT STATE            ERROR     PORTS
+30dfubpwrr9j   webservice.2   httpd:latest   worker2.tektutor.org   Running         Running 14 minutes ago             
+3uz7n4hshyy9   webservice.5   httpd:latest   worker2.tektutor.org   Running         Running 10 minutes ago     
+</pre>
 </pre>
