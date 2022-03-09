@@ -63,7 +63,7 @@ kubectl -n kubernetes-dashboard get secret $(kubectl -n kubernetes-dashboard get
 
 The expected output is
 <pre>
-[jegan@master k8s-dashboard]$ kubectl -n kubernetes-dashboard get secret $(kubectl -n kubernetes-dashboard get sa/admin-user -o jsonpath="{.secrets[0].name}") -o go-template="{{.data.token | base64decode}}"
+[jegan@master.tektutor.org k8s-dashboard]$ kubectl -n kubernetes-dashboard get secret $(kubectl -n kubernetes-dashboard get sa/admin-user -o jsonpath="{.secrets[0].name}") -o go-template="{{.data.token | base64decode}}"
 eyJhbGciOiJSUzI1NiIsImtpZCI6Ikt6elV0ZkU4TmNQX2hTRF9aemdFREdlemNzZWJrNGc1NmlvajEtUmhleWMifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlcm5ldGVzLWRhc2hib2FyZCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJhZG1pbi11c2VyLXRva2VuLTVzaGM0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQubmFtZSI6ImFkbWluLXVzZXIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiI1ZDI2MmQ4Ni00ZTVhLTQyNzEtYTI1Yi1lYzVjZDhhNzIwNWYiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6a3ViZXJuZXRlcy1kYXNoYm9hcmQ6YWRtaW4tdXNlciJ9.DxK3ckF6eGy_cZr6uPHY8JC0e8S-11TUxSGixUBGeTBTfD2fm05MhFqaPFZ45SzuWQjTyna9ytIwxKB0gKBo06LwX4paYd1kcOH6fjgB0sxLLobn8hN6eNEnrCMbQjeMTwuqjx-HGftJLxjrulksoNaMdwu6cEMzK0NSOt3XgmnTWEv4kbdeGwLAC0zO8UV2uOG-shxV7I0BETWxF49cGCgRGB_4wtjWU44a6TTmY84ONn535Toumo_KL4e-SaXE2WTsmOmSeMrmXZdTUIEZCt3z3CDT-LfRxR-ZiAq9Q8_W-gIcXplqSp8ww5KCkOgjbhJRk6RCWlYUZinZtb_Z5g[jegan@master k8s-dashboard]$ 
 </pre>
 
@@ -91,10 +91,10 @@ kubectl apply -f python-rest-dep.yml
 ```
 The expected output is
 <pre>
-[jegan@master configmaps]$ kubectl apply -f python-rest-dep.yml 
+[jegan@master.tektutor.org configmaps]$ kubectl apply -f python-rest-dep.yml 
 service/hello-ms unchanged
 deployment.apps/hello-ms created
-[jegan@master configmaps]$ kubectl get deploy,rs,po,svc
+[jegan@master.tektutor.org configmaps]$ kubectl get deploy,rs,po,svc
 NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
 deployment.apps/hello-ms   0/2     2            0           16s
 
@@ -109,7 +109,7 @@ pod/mycluster-0                 0/2     Pending             0          11h
 NAME                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
 service/hello-ms     NodePort    10.108.133.62   <none>        80:31500/TCP   65s
 service/kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP        24h
-[jegan@master configmaps]$ kubectl get deploy,rs,po,svc
+[jegan@master.tektutor.org configmaps]$ kubectl get deploy,rs,po,svc
 NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
 deployment.apps/hello-ms   0/2     2            0           25s
 
@@ -124,19 +124,19 @@ pod/mycluster-0                 0/2     Pending             0          11h
 NAME                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
 service/hello-ms     NodePort    10.108.133.62   <none>        80:31500/TCP   74s
 service/kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP        24h
-[jegan@master configmaps]$ kubectl get po -w
+[jegan@master.tektutor.org configmaps]$ kubectl get po -w
 NAME                        READY   STATUS              RESTARTS   AGE
 hello-ms-8689d768fc-4cfzj   0/1     ContainerCreating   0          29s
 hello-ms-8689d768fc-v852x   0/1     ContainerCreating   0          29s
 mycluster-0                 0/2     Pending             0          11h
 hello-ms-8689d768fc-4cfzj   1/1     Running             0          34s
 hello-ms-8689d768fc-v852x   1/1     Running             0          34s
-^C[jegan@master configmaps]$ kubectl get po 
+^C[jegan@master.tektutor.org configmaps]$ kubectl get po 
 NAME                        READY   STATUS    RESTARTS   AGE
 hello-ms-8689d768fc-4cfzj   1/1     Running   0          38s
 hello-ms-8689d768fc-v852x   1/1     Running   0          38s
 mycluster-0                 0/2     Pending   0          11h
-[jegan@master configmaps]$ kubectl get svc
+[jegan@master.tektutor.org configmaps]$ kubectl get svc
 NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
 hello-ms     NodePort    10.108.133.62   <none>        80:31500/TCP   94s
 kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP        24h
@@ -158,13 +158,13 @@ Endpoints:                192.168.145.230:80,192.168.72.166:80
 Session Affinity:         None
 External Traffic Policy:  Cluster
 Events:                   <none>
-[jegan@master configmaps]$ cat /etc/hosts
+[jegan@master.tektutor.org configmaps]$ cat /etc/hosts
 127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
 ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
 192.168.167.134 master.tektutor.org
 192.168.167.135 worker1.tektutor.org
 192.168.167.136 worker2.tektutor.org
-[jegan@master configmaps]$ curl http://master.tektutor.org:31500/hello
+[jegan@master.tektutor.org configmaps]$ curl http://master.tektutor.org:31500/hello
 Hello Kubernetes! /usr/lib/java/jdk1.8 /usr/share/maven hello
 </pre>
 
