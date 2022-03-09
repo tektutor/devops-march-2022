@@ -267,3 +267,47 @@ Session Affinity:  NoneAs the Kubernetes mysql operator isn't officially tested/
 Events:            <none>
 </pre>
 
+#### Connecting to one of the mysql pod in the mysql cluster
+
+List the pods
+```
+kubectl get po
+```
+
+The expected output is
+<pre>
+[jegan@tektutor.org ~]$ <b>kubectl get po</b>
+NAME                                READY   STATUS    RESTARTS      AGE
+mycluster-0                         2/2     Running   0             36m
+mycluster-1                         2/2     Running   0             34m
+mycluster-2                         2/2     Running   0             33m
+mycluster-router-7d5b6496f7-6z5jp   1/1     Running   0             9s
+</pre>
+
+```
+kubectl exec -it mycluster-0 -c mysql sh
+```
+
+The expected output is
+<pre>
+[jegan@minikube ~]$ <b>kubectl exec -it mycluster-0 -c mysql sh</b>
+kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.
+sh-4.4# mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 201
+Server version: 8.0.28 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> exit
+Bye
+sh-4.4# exit
+exit
+</pre>
