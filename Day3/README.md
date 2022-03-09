@@ -973,3 +973,20 @@ jegan@master.tektutor.org ~]$ curl http://master.tektutor.org
 [jegan@master.tektutor.org ~]$ curl http://worker2.tektutor.org
 <html><body><h1>It works!</h1></body></html>
 </pre>
+
+## Listing all the containers that are part of service
+```
+docker service ps webservice
+```
+
+The expected output is
+<pre>
+[jegan@master ~]$ <b>docker service ps webservice</b>
+ID             NAME           IMAGE          NODE                   DESIRED STATE   CURRENT STATE            ERROR     PORTS
+oxxt3dv1f432   webservice.1   httpd:latest   worker1.tektutor.org   Running         Running 5 minutes ago              
+30dfubpwrr9j   webservice.2   httpd:latest   worker2.tektutor.org   Running         Running 5 minutes ago              
+yfw5ghse3uvc   webservice.3   httpd:latest   master.tektutor.org    Running         Running 5 minutes ago              
+itfbq58jyabl   webservice.4   httpd:latest   worker1.tektutor.org   Running         Running 34 seconds ago             
+3uz7n4hshyy9   webservice.5   httpd:latest   worker2.tektutor.org   Running         Running 34 seconds ago             
+0kdcz103zgs5   webservice.6   httpd:latest   master.tektutor.org    Running         Running 33 seconds ago       
+</pre>
