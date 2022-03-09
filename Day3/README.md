@@ -95,7 +95,7 @@ https://operatorhub.io/
 ```
 
 
-## ⛹️‍♂️ Lab - Installing mysql Kubernetes Operator from Operator Hub
+## ⛹️‍♂️ Lab - Installing mysql Kubernetes Operator
 
 ```
 kubectl apply -f https://raw.githubusercontent.com/mysql/mysql-operator/trunk/deploy/deploy-crds.yaml
