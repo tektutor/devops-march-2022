@@ -188,7 +188,7 @@ kubectl create secret generic mypwds \
 The expected output is
 <pre>
 [jegan@tektutor.org ~]$ <b>kubectl create secret generic mypwds \
->         --from-literal=rootUser=root \
+>         --from-literal=rootUser=root \minikube
 >         --from-literal=rootHost=% \
 >         --from-literal=rootPassword="root"</b>
 secret/mypwds created
@@ -311,3 +311,85 @@ Bye
 sh-4.4# exit
 exit
 </pre>
+
+
+# Installing Docker compose
+```
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+docker-compose --version
+```
+The expected output is
+<pre>
+[jegan@tektutor.org ~]$ <b>sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose</b>
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   664  100   664    0     0   2365      0 --:--:-- --:--:-- --:--:--  2379
+100 12.1M  100 12.1M    0     0  6954k      0  0:00:01  0:00:01 --:--:-- 14.7M
+[jegan@minikube ~]$ <b>sudo chmod +x /usr/local/bin/docker-compose</b>
+[jegan@minikube ~]$ <b>docker-compose --version</b>
+docker-compose version 1.29.2, build 5becea4c
+</pre>
+
+## Deploying a wordpress website using docker compose
+```
+cd ~/devops-march-2022
+git pull
+cd Day3/docker-compose
+docker-compose up -d
+```
+
+The expected output is
+<pre>
+[jegan@tektutor.org docker-compose]$ <b>docker-compose up -d</b>
+Creating network "docker-compose_default" with the default driver
+Creating volume "docker-compose_db_data" with default driver
+Creating volume "docker-compose_wordpress_data" with default driver
+Pulling db (mysql:5.7)...
+5.7: Pulling from library/mysql
+15115158dd02: Pull complete
+d733f6778b18: Pull complete
+1cc7a6c74a04: Pull complete
+c4364028a805: Pull complete
+82887163f0f6: Pull complete
+28abcb7f57e0: Pull complete
+46d27a431703: Pull complete
+146a7517cdca: Pull complete
+ac645a526e45: Pull complete
+a292dcc315cc: Pull complete
+ff70b7ef8a8b: Pull complete
+Digest: sha256:66d52e6baa8093820c09fec56992a5ee734f17e9fad8ef5ffc31597b231bd048
+Status: Downloaded newer image for mysql:5.7
+Pulling wordpress (wordpress:latest)...
+latest: Pulling from library/wordpress
+f7a1c6dad281: Pull complete
+418d05f34fc8: Pull complete
+12340edc305c: Pull complete
+505a3ac77996: Pull complete
+508288175cbf: Pull complete
+55c636ebd5df: Pull complete
+22c6b8d33038: Pull complete
+cccff9c73797: Pull complete
+afeecbf566d0: Pull complete
+b548443661a4: Pull complete
+72f7ec62b71e: Pull complete
+4808d5297e6b: Pull complete
+c2c7571acfb2: Pull complete
+e8ecc30daa09: Pull complete
+3c1b193d2787: Pull complete
+823e3e1414fb: Pull complete
+19dd60bfa8ef: Pull complete
+d5c6a8e69185: Pull complete
+5b66af88c668: Pull complete
+eb1a09902add: Pull complete
+61ba9d4485cc: Pull complete
+Digest: sha256:bfef766f0372017edf32b8a8207e9fd420490a4973867d7b82bca9dc3180d97e
+Status: Downloaded newer image for wordpress:latest
+Creating docker-compose_db_1 ... done
+Creating docker-compose_wordpress_1 ... done
+</pre>
+
+Now you may try accessing the wordpress site from Google Chrome web browser @ http://localhost:8000
+
+The expected output is shown in the screenshot below
+![wordpress](wordpress-dc.png)
