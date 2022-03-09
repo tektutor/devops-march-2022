@@ -95,76 +95,122 @@ https://operatorhub.io/
 ```
 
 
-## ⛹️‍♂️ Lab - Installing etcd Kubernetes Operator from Operator Hub
-
-Let's install Operator Lifecycle Manager (OLM) before installing any K8s operator
+## ⛹️‍♂️ Lab - Installing mysql Kubernetes Operator from Operator Hub
 
 ```
-curl -sL https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.20.0/install.sh | bash -s v0.20.0
+kubectl apply -f https://raw.githubusercontent.com/mysql/mysql-operator/trunk/deploy/deploy-crds.yaml
+kubectl apply -f https://raw.githubusercontent.com/mysql/mysql-operator/trunk/deploy/deploy-operator.yaml
 ```
 
 The expected output is
 <pre>
-[jegan@master Day3]$ <b>curl -sL https://github.com/operator-framework/operator-lifecycle-manager/releases/download/v0.20.0/install.sh | bash -s v0.20.0</b>
-
-customresourcedefinition.apiextensions.k8s.io/catalogsources.operators.coreos.com created
-customresourcedefinition.apiextensions.k8s.io/clusterserviceversions.operators.coreos.com created
-customresourcedefinition.apiextensions.k8s.io/installplans.operators.coreos.com created
-customresourcedefinition.apiextensions.k8s.io/olmconfigs.operators.coreos.com created
-customresourcedefinition.apiextensions.k8s.io/operatorconditions.operators.coreos.com created
-customresourcedefinition.apiextensions.k8s.io/operatorgroups.operators.coreos.com created
-customresourcedefinition.apiextensions.k8s.io/operators.operators.coreos.com created
-customresourcedefinition.apiextensions.k8s.io/subscriptions.operators.coreos.com created
-customresourcedefinition.apiextensions.k8s.io/catalogsources.operators.coreos.com condition met
-customresourcedefinition.apiextensions.k8s.io/clusterserviceversions.operators.coreos.com condition met
-customresourcedefinition.apiextensions.k8s.io/installplans.operators.coreos.com condition met
-customresourcedefinition.apiextensions.k8s.io/olmconfigs.operators.coreos.com condition met
-customresourcedefinition.apiextensions.k8s.io/operatorconditions.operators.coreos.com condition met
-customresourcedefinition.apiextensions.k8s.io/operatorgroups.operators.coreos.com condition met
-customresourcedefinition.apiextensions.k8s.io/operators.operators.coreos.com condition met
-customresourcedefinition.apiextensions.k8s.io/subscriptions.operators.coreos.com condition met
-namespace/olm created
-namespace/operators created
-serviceaccount/olm-operator-serviceaccount created
-clusterrole.rbac.authorization.k8s.io/system:controller:operator-lifecycle-manager created
-clusterrolebinding.rbac.authorization.k8s.io/olm-operator-binding-olm created
-olmconfig.operators.coreos.com/cluster created
-deployment.apps/olm-operator created
-deployment.apps/catalog-operator created
-clusterrole.rbac.authorization.k8s.io/aggregate-olm-edit created
-clusterrole.rbac.authorization.k8s.io/aggregate-olm-view created
-operatorgroup.operators.coreos.com/global-operators created
-operatorgroup.operators.coreos.com/olm-operators created
-clusterserviceversion.operators.coreos.com/packageserver created
-catalogsource.operators.coreos.com/operatorhubio-catalog created
-Waiting for deployment "olm-operator" rollout to finish: 0 of 1 updated replicas are available...
-deployment "olm-operator" successfully rolled out
-Waiting for deployment "catalog-operator" rollout to finish: 0 of 1 updated replicas are available...
-deployment "catalog-operator" successfully rolled out
-Package server phase: Installing
-Package server phase: Succeeded
-deployment "packageserver" successfully rolled out
+[jegan@tektutor.org ~]$ kubectl apply -f https://raw.githubusercontent.com/mysql/mysql-operator/trunk/deploy/deploy-crds.yaml
+customresourcedefinition.apiextensions.k8s.io/innodbclusters.mysql.oracle.com created
+customresourcedefinition.apiextensions.k8s.io/mysqlbackups.mysql.oracle.com created
+customresourcedefinition.apiextensions.k8s.io/clusterkopfpeerings.zalando.org created
+customresourcedefinition.apiextensions.k8s.io/kopfpeerings.zalando.org created
 </pre>
 
-Let's now install etcd operator
+Let's check the deploy status
 ```
-kubectl create -f https://operatorhub.io/install/etcd.yaml
+kubectl get deployment -n mysql-operator mysql-operator
 ```
 
 The expected output is
 <pre>
-[jegan@master etcd-k8s-opertors]$ <b>kubectl create -f https://operatorhub.io/install/etcd.yaml</b>
-namespace/my-etcd created
-operatorgroup.operators.coreos.com/operatorgroup created
-subscription.operators.coreos.com/my-etcd created
+jegan@tektutor.org ~]$ kubectl apply -f https://raw.githubusercontent.com/mysql/mysql-operator/trunk/deploy/deploy-operator.yaml
+serviceaccount/mysql-sidecar-sa created
+clusterrole.rbac.authorization.k8s.io/mysql-operator created
+clusterrole.rbac.authorization.k8s.io/mysql-sidecar created
+clusterrolebinding.rbac.authorization.k8s.io/mysql-operator-rolebinding created
+clusterkopfpeering.zalando.org/mysql-operator created
+namespace/mysql-operator created
+serviceaccount/mysql-operator-sa created
+deployment.apps/mysql-operator created
 </pre>
 
-Let's watch the Operators pods
+Let's configure mysql root password as a Kubernetes secrets
 ```
-kubectl get csv -n my-etcd
+kubectl create secret generic mypwds \
+        --from-literal=rootUser=root \
+        --from-literal=rootHost=% \
+        --from-literal=rootPassword="root"
 ```
 
 The expected output is
 <pre>
+[jegan@tektutor.org ~]$ kubectl create secret generic mypwds \
+>         --from-literal=rootUser=root \
+>         --from-literal=rootHost=% \
+>         --from-literal=rootPassword="root"
+secret/mypwds created
+</pre>
 
+Let's create the sample mysql cluster now
+```
+kubectl apply -f https://raw.githubusercontent.com/mysql/mysql-operator/trunk/samples/sample-cluster.yaml
+```
+
+The expected output is
+<pre>
+[jegan@tektutor.org ~]$ <b>kubectl apply -f https://raw.githubusercontent.com/mysql/mysql-operator/trunk/samples/sample-cluster.yaml</b>
+innodbcluster.mysql.oracle.com/mycluster created
+</pre>
+
+Let's watch the mysql cluster creation status
+```
+kubectl get innodbcluster --watch
+```
+
+The expected output is
+<pre>
+jegan@tektutor.org ~]$ kubectl get innodbcluster --watch
+NAME        STATUS    ONLINE   INSTANCES   ROUTERS   AGE
+mycluster   PENDING   0        3           1         10s
+mycluster   PENDING   0        3           1         84s
+mycluster   INITIALIZING   0        3           1         84s
+mycluster   INITIALIZING   0        3           1         84s
+mycluster   INITIALIZING   0        3           1         84s
+mycluster   INITIALIZING   0        3           1         85s
+mycluster   INITIALIZING   0        3           1         89s
+mycluster   ONLINE         1        3           1         89s
+</pre>
+
+Let's check the cluster service
+```
+kubectl get service mycluster
+kubectl describe service mycluster
+```
+
+The expected output is
+<pre>
+[jegan@tektutor.org ~]$ <b>kubectl get service mycluster</b>
+NAME        TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                               AGE
+mycluster   ClusterIP   10.108.210.32   <none>        6446/TCP,6448/TCP,6447/TCP,6449/TCP   2m14s
+[jegan@minikube ~]$ <b>kubectl describe service mycluster</b>
+Name:              mycluster
+Namespace:         default
+Labels:            mysql.oracle.com/cluster=mycluster
+                   tier=mysql
+Annotations:       <none>
+Selector:          component=mysqlrouter,mysql.oracle.com/cluster=mycluster,tier=mysql
+Type:              ClusterIP
+IP Family Policy:  SingleStack
+IP Families:       IPv4
+IP:                10.108.210.32
+IPs:               10.108.210.32
+Port:              mysql  6446/TCP
+TargetPort:        6446/TCP
+Endpoints:         172.17.0.5:6446
+Port:              mysqlx  6448/TCP
+TargetPort:        6448/TCP
+Endpoints:         172.17.0.5:6448
+Port:              mysql-ro  6447/TCP
+TargetPort:        6447/TCP
+Endpoints:         172.17.0.5:6447
+Port:              mysqlx-ro  6449/TCP
+TargetPort:        6449/TCP
+Endpoints:         172.17.0.5:6449
+Session Affinity:  None
+Events:            <none>
 </pre>
