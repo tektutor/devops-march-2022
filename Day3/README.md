@@ -1188,3 +1188,25 @@ wb80lgbkrbwh8a3gyasnhrr3x     master.tektutor.org    Ready     Active           
 zzu5d1mn1fo17qnclwuwn9hei *   worker1.tektutor.org   Ready     Active         Leader           20.10.12
 pv1ebwvxb8npbnt45hj61s5kw     worker2.tektutor.org   Ready     Active                          20.10.12
 </pre>
+
+## ⛹️‍♀️ Lab - Removing a worker node from the SWARM cluster
+```
+docker node ls
+```
+
+The expected output is
+<pre>
+[jegan@worker1 ~]$ <b>docker node ls</b>
+ID                            HOSTNAME               STATUS    AVAILABILITY   MANAGER STATUS   ENGINE VERSION
+wb80lgbkrbwh8a3gyasnhrr3x     master.tektutor.org    Ready     Active                          20.10.12
+zzu5d1mn1fo17qnclwuwn9hei *   worker1.tektutor.org   Ready     Active         Leader           20.10.12
+pv1ebwvxb8npbnt45hj61s5kw     worker2.tektutor.org   Ready     Active                          20.10.12
+[jegan@worker1 ~]$ <b>docker node rm worker2.tektutor.org</b>
+Error response from daemon: rpc error: code = FailedPrecondition desc = node pv1ebwvxb8npbnt45hj61s5kw is not down and can't be removed
+[jegan@worker1 ~]$ <b>docker node rm worker2.tektutor.org --force</b>
+worker2.tektutor.org
+[jegan@worker1 ~]$ <b>docker node ls</b>
+ID                            HOSTNAME               STATUS    AVAILABILITY   MANAGER STATUS   ENGINE VERSION
+wb80lgbkrbwh8a3gyasnhrr3x     master.tektutor.org    Ready     Active                          20.10.12
+zzu5d1mn1fo17qnclwuwn9hei *   worker1.tektutor.org   Ready     Active         Leader           20.10.12
+</pre>
