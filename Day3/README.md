@@ -81,6 +81,99 @@ Now copy and paste the bearer token to login as shown in the screenshot below
 If all went butter smooth, you will get a similar page as shown below
 ![dashboard](dashboard-final.png)
 
+## ⛹️‍♂️ Lab - Understanding the use of Config Maps in K8s applications
+```
+cd ~/devops-march-2022
+git pull
+cd Day3/configmaps
+kubectl apply -f configmap.yml
+kubectl apply -f python-rest-dep.yml
+```
+The expected output is
+<pre>
+[jegan@master configmaps]$ kubectl apply -f python-rest-dep.yml 
+service/hello-ms unchanged
+deployment.apps/hello-ms created
+[jegan@master configmaps]$ kubectl get deploy,rs,po,svc
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/hello-ms   0/2     2            0           16s
+
+NAME                                  DESIRED   CURRENT   READY   AGE
+replicaset.apps/hello-ms-8689d768fc   2         2         0       16s
+
+NAME                            READY   STATUS              RESTARTS   AGE
+pod/hello-ms-8689d768fc-4cfzj   0/1     ContainerCreating   0          15s
+pod/hello-ms-8689d768fc-v852x   0/1     ContainerCreating   0          15s
+pod/mycluster-0                 0/2     Pending             0          11h
+
+NAME                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+service/hello-ms     NodePort    10.108.133.62   <none>        80:31500/TCP   65s
+service/kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP        24h
+[jegan@master configmaps]$ kubectl get deploy,rs,po,svc
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/hello-ms   0/2     2            0           25s
+
+NAME                                  DESIRED   CURRENT   READY   AGE
+replicaset.apps/hello-ms-8689d768fc   2         2         0       25s
+
+NAME                            READY   STATUS              RESTARTS   AGE
+pod/hello-ms-8689d768fc-4cfzj   0/1     ContainerCreating   0          24s
+pod/hello-ms-8689d768fc-v852x   0/1     ContainerCreating   0          24s
+pod/mycluster-0                 0/2     Pending             0          11h
+
+NAME                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+service/hello-ms     NodePort    10.108.133.62   <none>        80:31500/TCP   74s
+service/kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP        24h
+[jegan@master configmaps]$ kubectl get po -w
+NAME                        READY   STATUS              RESTARTS   AGE
+hello-ms-8689d768fc-4cfzj   0/1     ContainerCreating   0          29s
+hello-ms-8689d768fc-v852x   0/1     ContainerCreating   0          29s
+mycluster-0                 0/2     Pending             0          11h
+hello-ms-8689d768fc-4cfzj   1/1     Running             0          34s
+hello-ms-8689d768fc-v852x   1/1     Running             0          34s
+^C[jegan@master configmaps]$ kubectl get po 
+NAME                        READY   STATUS    RESTARTS   AGE
+hello-ms-8689d768fc-4cfzj   1/1     Running   0          38s
+hello-ms-8689d768fc-v852x   1/1     Running   0          38s
+mycluster-0                 0/2     Pending   0          11h
+[jegan@master configmaps]$ kubectl get svc
+NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+hello-ms     NodePort    10.108.133.62   <none>        80:31500/TCP   94s
+kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP        24h
+[jegan@master configmaps]$ kubectl describe svc/hello-ms
+Name:                     hello-ms
+Namespace:                default
+Labels:                   app=hello-ms
+Annotations:              <none>
+Selector:                 app=hello-ms
+Type:                     NodePort
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       10.108.133.62
+IPs:                      10.108.133.62
+Port:                     <unset>  80/TCP
+TargetPort:               80/TCP
+NodePort:                 <unset>  31500/TCP
+Endpoints:                192.168.145.230:80,192.168.72.166:80
+Session Affinity:         None
+External Traffic Policy:  Cluster
+Events:                   <none>
+[jegan@master configmaps]$ cat /etc/hosts
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+192.168.167.134 master.tektutor.org
+192.168.167.135 worker1.tektutor.org
+192.168.167.136 worker2.tektutor.org
+[jegan@master configmaps]$ curl http://master.tektutor.org:31500
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<title>404 Not Found</title>
+<h1>Not Found</h1>
+<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>
+[jegan@master configmaps]$ curl http://master.tektutor.org:31500/hello
+Hello Kubernetes! /usr/lib/java/jdk1.8 /usr/share/maven hello
+</pre>
+
+
 ## ⛹️‍♀️ Lab - Installing Helm Kubernetes package manager
 ```
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
