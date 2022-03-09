@@ -1143,3 +1143,19 @@ ID             NAME           IMAGE          NODE                   DESIRED STAT
 30dfubpwrr9j   webservice.2   httpd:latest   worker2.tektutor.org   Running         Running 14 minutes ago             
 3uz7n4hshyy9   webservice.5   httpd:latest   worker2.tektutor.org   Running         Running 10 minutes ago     
 </pre>
+
+## ⛹️‍♂️ Lab - Promoting a worker node in swarm as master
+```
+docker node promote worker1.tektutor.org
+```
+
+The expected output is
+<pre>
+[jegan@master ~]$ <b>docker node promote worker1.tektutor.org</b>
+Node worker1.tektutor.org promoted to a manager in the swarm.
+[jegan@master ~]$ docker node ls
+ID                            HOSTNAME               STATUS    AVAILABILITY   MANAGER STATUS   ENGINE VERSION
+wb80lgbkrbwh8a3gyasnhrr3x *   master.tektutor.org    Ready     Active         Leader           20.10.12
+zzu5d1mn1fo17qnclwuwn9hei     worker1.tektutor.org   Ready     Active         Reachable        20.10.12
+pv1ebwvxb8npbnt45hj61s5kw     worker2.tektutor.org   Ready     Active                          20.10.12
+</pre>
