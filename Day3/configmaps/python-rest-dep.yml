@@ -1,0 +1,57 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: hello-ms 
+  name: hello-ms
+  namespace: default
+spec:
+  ports:
+  - nodePort: 31500
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: hello-ms
+  type: NodePort
+...
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: hello-ms
+  name: hello-ms
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hello-ms
+  template:
+    metadata:
+      labels:
+        app: hello-ms
+    spec:
+      containers:
+      - image: tektutor/python-hello-ms:3.0 
+        name: hello-ms
+        env:
+        - name: MESSAGE
+          valueFrom:
+             configMapKeyRef:
+               name: my-config-map
+               key: greeting_msg
+        - name: JDK_HOME 
+          valueFrom:
+             configMapKeyRef:
+               name: my-config-map
+               key: jdk_home 
+        - name: M2_HOME 
+          valueFrom:
+             configMapKeyRef:
+               name: my-config-map
+               key: m2_home 
+...

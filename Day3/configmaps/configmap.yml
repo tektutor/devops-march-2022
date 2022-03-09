@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-config-map
+data:
+  greeting_msg: "Hello Kubernetes!"
+  jdk_home: "/usr/lib/java/jdk1.8"
+  m2_home: "/usr/share/maven"
