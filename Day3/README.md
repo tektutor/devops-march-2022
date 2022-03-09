@@ -290,7 +290,7 @@ kubectl exec -it mycluster-0 -c mysql sh
 
 The expected output is
 <pre>
-[jegan@minikube ~]$ <b>kubectl exec -it mycluster-0 -c mysql sh</b>
+[jegan@tektutor.org ~]$ <b>kubectl exec -it mycluster-0 -c mysql sh</b>
 kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.
 sh-4.4# mysql -u root -p
 Enter password: 
@@ -313,7 +313,7 @@ exit
 </pre>
 
 
-# Installing Docker compose
+# ⛹️‍♀️ Lab - Installing Docker compose
 The assumption is, you already have installed Docker.
 
 ```
@@ -408,8 +408,8 @@ hostname
 
 The expected output is
 <pre>
-[jegan@master ~]$ <b>sudo hostnamectl set-hostname master.tektutor.org</b>
-[jegan@master ~]$ <b>hostname</b>
+[jegan@master.tektutor.org ~]$ <b>sudo hostnamectl set-hostname master.tektutor.org</b>
+[jegan@master.tektutor.org ~]$ <b>hostname</b>
 master.tektutor.org
 </pre>
 
@@ -420,8 +420,8 @@ hostname
 ```
 The expected output is
 <pre>
-[jegan@master ~]$ <b>sudo hostnamectl set-hostname worker1.tektutor.org</b>
-[jegan@master ~]$ <b>hostname</b>
+[jegan@master.tektutor.org ~]$ <b>sudo hostnamectl set-hostname worker1.tektutor.org</b>
+[jegan@master.tektutor.org ~]$ <b>hostname</b>
 worker1.tektutor.org
 </pre>
 
@@ -432,8 +432,8 @@ hostname
 ```
 The expected output is
 <pre>
-[jegan@master ~]$ <b>sudo hostnamectl set-hostname worker2.tektutor.org</b>
-[jegan@master ~]$ <b>hostname</b>
+[jegan@master.tektutor.org ~]$ <b>sudo hostnamectl set-hostname worker2.tektutor.org</b>
+[jegan@master.tektutor.org ~]$ <b>hostname</b>
 worker2.tektutor.org
 </pre>
 
@@ -446,7 +446,7 @@ ifconfig
 ```
 
 <pre>
-[jegan@master ~]$ <b>ifconfig</b>
+[jegan@master.tektutor.org ~]$ <b>ifconfig</b>
 docker0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
         inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
         ether 02:42:31:e6:cf:af  txqueuelen 0  (Ethernet)
@@ -490,7 +490,7 @@ ifconfig
 ```
 The expected output is
 <pre>
-[jegan@worker1 ~]$ ifconfig
+[jegan@worker1.tektutor.org ~]$ ifconfig
 docker0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
         inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
         ether 02:42:c1:ed:c3:ac  txqueuelen 0  (Ethernet)
@@ -536,7 +536,7 @@ ifconfig
 
 The expected output is
 <pre>
-[jegan@worker2 ~]$ ifconfig
+[jegan@worker2.tektutor.org ~]$ ifconfig
 docker0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
         inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
         ether 02:42:02:38:64:8b  txqueuelen 0  (Ethernet)
@@ -608,17 +608,17 @@ Make sure you hit enter after pasting the above set of commands as the last comm
 
 The expected output is
 <pre>
-[jegan@master ~]$ sudo firewall-cmd --permanent --add-port=2376/tcp
+[jegan@master.tektutor.org ~]$ sudo firewall-cmd --permanent --add-port=2376/tcp
 success
-[jegan@master ~]$ sudo firewall-cmd --permanent --add-port=2377/tcp
+[jegan@master.tektutor.org ~]$ sudo firewall-cmd --permanent --add-port=2377/tcp
 success
-[jegan@master ~]$ sudo firewall-cmd --permanent --add-port=7946/tcp
+[jegan@master.tektutor.org ~]$ sudo firewall-cmd --permanent --add-port=7946/tcp
 success
-[jegan@master ~]$ sudo firewall-cmd --permanent --add-port=80/tcp
+[jegan@master.tektutor.org ~]$ sudo firewall-cmd --permanent --add-port=80/tcp
 success
-[jegan@master ~]$ sudo firewall-cmd --permanent --add-port=7946/udp
+[jegan@master.tektutor.org ~]$ sudo firewall-cmd --permanent --add-port=7946/udp
 success
-[jegan@master ~]$ sudo firewall-cmd --permanent --add-port=4789/udp
+[jegan@master.tektutor.org ~]$ sudo firewall-cmd --permanent --add-port=4789/udp
 </pre>
 
 Reload the firewall and restart docker in master, worker1 and worker2 machines
@@ -629,9 +629,9 @@ sudo systemctl restart docker
 
 The expected output is
 <pre>
-[jegan@master ~]$ <b>sudo firewall-cmd --reload</b>
+[jegan@master.tektutor.org ~]$ <b>sudo firewall-cmd --reload</b>
 success
-[jegan@master ~]$ <b>sudo systemctl restart docker</b>
+[jegan@master.tektutor.org ~]$ <b>sudo systemctl restart docker</b>
 </pre>
 
 ## Installing Docker in master, worker1 and worker2 machines
@@ -655,7 +655,7 @@ The best apart about Docker SWARM setup is, the swarm init completes in couple o
 
 The expected output is
 <pre>
-[jegan@master ~]$ docker swarm init --advertise-addr 192.168.167.148
+[jegan@master.tektutor.org ~]$ docker swarm init --advertise-addr 192.168.167.148
 Swarm initialized: current node (4qr9183sgep3fsqvssrj23sk5) is now a manager.
 
 To add a worker to this swarm, run the following command:
@@ -675,7 +675,7 @@ docker swarm join --token SWMTKN-1-1xnzx71zqtirr44hsatx5112v0ifs06yhgi6o8dkzw4ds
 ```
 The expected output is
 <pre>
-[jegan@worker1 ~]$ <b>docker swarm join --token SWMTKN-1-1xnzx71zqtirr44hsatx5112v0ifs06yhgi6o8dkzw4dsn46mk-d51dmom6b5uddafejg5t9y6mi 192.168.167.148:2377</b>
+[jegan@worker1.tektutor.org ~]$ <b>docker swarm join --token SWMTKN-1-1xnzx71zqtirr44hsatx5112v0ifs06yhgi6o8dkzw4dsn46mk-d51dmom6b5uddafejg5t9y6mi 192.168.167.148:2377</b>
 
 This node joined a swarm as a worker.
 </pre>
@@ -687,7 +687,7 @@ docker swarm join --token SWMTKN-1-1xnzx71zqtirr44hsatx5112v0ifs06yhgi6o8dkzw4ds
 
 The expected output is
 <pre>
-[jegan@worker2 ~]$ <b>docker swarm join --token SWMTKN-1-1xnzx71zqtirr44hsatx5112v0ifs06yhgi6o8dkzw4dsn46mk-d51dmom6b5uddafejg5t9y6mi 192.168.167.148:2377</b>
+[jegan@worker2.tektutor.org ~]$ <b>docker swarm join --token SWMTKN-1-1xnzx71zqtirr44hsatx5112v0ifs06yhgi6o8dkzw4dsn46mk-d51dmom6b5uddafejg5t9y6mi 192.168.167.148:2377</b>
 
 This node joined a swarm as a worker.
 </pre>
@@ -699,7 +699,7 @@ docker node ls
 
 The expected output is
 <pre>
-[jegan@master ~]$ <b>docker node ls</b>
+[jegan@master.tektutor.org ~]$ <b>docker node ls</b>
 ID                            HOSTNAME               STATUS    AVAILABILITY   MANAGER STATUS   ENGINE VERSION
 4qr9183sgep3fsqvssrj23sk5 *   master.tektutor.org    Ready     Active         Leader           20.10.12
 okhsitvtejzypencfecuwnew7     worker1.tektutor.org   Ready     Active                          20.10.12
@@ -707,3 +707,31 @@ rg477e7mkape0o2pb1r7hgv6j     worker2.tektutor.org   Ready     Active           
 </pre>
 
 Congratulations! you Docker SWARM cluster is ready to use.
+
+## Let's create a httpd service in Docker SWARM
+```
+docker service create -p 80:80 --name webservice --replicas 3 httpd
+```
+
+The expected output is
+<pre>
+[jegan@master.tektutor.org ~]$ <b>docker service create -p 80:80 --name webservice --replicas 3 httpd</b>
+bwu7w2schucsexybb1bskwys3
+overall progress: 3 out of 3 tasks 
+1/3: running   [==================================================>] 
+2/3: running   [==================================================>] 
+3/3: running   [==================================================>] 
+verify: Service converged 
+</pre>
+
+You may now try listing the service as shown below
+```
+docker service ls
+```
+
+The expected output is
+<pre>
+[jegan@master.tektutor.org ~]$ <b>docker service ls</b>
+ID             NAME         MODE         REPLICAS   IMAGE          PORTS
+bwu7w2schucs   webservice   replicated   3/3        httpd:latest   *:80->80/tcp
+</pre>
