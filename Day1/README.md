@@ -62,6 +62,8 @@
        - opensource and free
        - Kernel Virtual Manager
 
+![typ2hypervisor](../Type2Hypervisor.png)
+
 ## Let's say your organization needs 10000 webservers running in its own OS
 
 ### Without Virtualization Technology
