@@ -61,8 +61,8 @@
       KVM
        - opensource and free
        - Kernel Virtual Manager
-
-![typ2hypervisor](Typ2Hypervisor.png)
+![type1hypervisor](Type1Hypervisor.png)
+![type2hypervisor](Typ2Hypervisor.png)
 
 ## Let's say your organization needs 10000 webservers running in its own OS
 
