@@ -1159,3 +1159,32 @@ wb80lgbkrbwh8a3gyasnhrr3x *   master.tektutor.org    Ready     Active         Le
 zzu5d1mn1fo17qnclwuwn9hei     worker1.tektutor.org   Ready     Active         Reachable        20.10.12
 pv1ebwvxb8npbnt45hj61s5kw     worker2.tektutor.org   Ready     Active                          20.10.12
 </pre>
+
+## ⛹️‍♂️ Lab - Demoting active master to worker
+```
+docker node demote master.tektutor.org
+```
+
+The expected output is
+<pre>
+[jegan@master ~]$ <b>docker node demote master.tektutor.org</b>
+Manager master.tektutor.org demoted in the swarm.
+[jegan@master ~]$ docker node ls
+Error response from daemon: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing dial unix /var/run/docker/swarm/control.sock: connect: no such file or directory"
+</pre>
+
+As you can observe above, the moment a node is demoted from master to worker, it can't execute swarm commands anymore.
+
+Let's head over to worker1 node to observe it has become active master
+```
+docker node ls
+```
+
+The expected output is
+<pre>
+[jegan@worker1 ~]$ <b>docker node ls</b>
+ID                            HOSTNAME               STATUS    AVAILABILITY   MANAGER STATUS   ENGINE VERSION
+wb80lgbkrbwh8a3gyasnhrr3x     master.tektutor.org    Ready     Active                          20.10.12
+zzu5d1mn1fo17qnclwuwn9hei *   worker1.tektutor.org   Ready     Active         Leader           20.10.12
+pv1ebwvxb8npbnt45hj61s5kw     worker2.tektutor.org   Ready     Active                          20.10.12
+</pre>
