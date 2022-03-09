@@ -735,3 +735,19 @@ The expected output is
 ID             NAME         MODE         REPLICAS   IMAGE          PORTS
 bwu7w2schucs   webservice   replicated   3/3        httpd:latest   *:80->80/tcp
 </pre>
+
+You could now try accessing the httpd service as shown below
+```
+curl http://master.tektutor.org
+curl http://worker1.tektutor.org
+curl http://worker2.tektutor.org
+```
+The expected output is
+<pre>
+jegan@master.tektutor.org ~]$ curl http://master.tektutor.org
+<html><body><h1>It works!</h1></body></html>
+[jegan@master.tektutor.org ~]$ curl http://worker1.tektutor.org
+<html><body><h1>It works!</h1></body></html>
+[jegan@master.tektutor.org ~]$ curl http://worker2.tektutor.org
+<html><body><h1>It works!</h1></body></html>
+</pre>
