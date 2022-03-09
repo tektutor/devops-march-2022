@@ -164,11 +164,6 @@ Events:                   <none>
 192.168.167.134 master.tektutor.org
 192.168.167.135 worker1.tektutor.org
 192.168.167.136 worker2.tektutor.org
-[jegan@master configmaps]$ curl http://master.tektutor.org:31500
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
-<title>404 Not Found</title>
-<h1>Not Found</h1>
-<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>
 [jegan@master configmaps]$ curl http://master.tektutor.org:31500/hello
 Hello Kubernetes! /usr/lib/java/jdk1.8 /usr/share/maven hello
 </pre>
