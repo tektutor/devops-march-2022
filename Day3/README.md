@@ -179,7 +179,7 @@ kubectl apply -f my-secret.yml
 
 The expected output is
 <pre>
-[jegan@master secrets]$ kubectl apply -f my-secret.yml 
+[jegan@master.tektutor.org secrets]$ <b>kubectl apply -f my-secret.yml</b>
 secret/mysecret created
 </pre>
 
@@ -189,7 +189,7 @@ kubectl apply -f another-pod.yml
 ```
 The expected output is
 <pre>
-[jegan@master secrets]$ kubectl apply -f another-pod.yml 
+[jegan@master.tektutor.org secrets]$ <b>kubectl apply -f another-pod.yml</b>
 pod/another-pod created
 </pre>
 
@@ -199,7 +199,7 @@ kubectl get po
 ```
 The expected output is
 <pre>
-[jegan@master secrets]$ <b>kubectl get po</b>
+[jegan@master.tektutor.org secrets]$ <b>kubectl get po</b>
 NAME                        READY   STATUS              RESTARTS   AGE
 <b>another-pod                 1/1     Running             0          5m36s</b>
 hello-ms-8689d768fc-4cfzj   1/1     Running             0          41m
@@ -210,7 +210,7 @@ Get inside the Pod shell to inspect the secret values
 
 The expected output is
 <pre>
-[jegan@master secrets]$ <b>kubectl exec -it my-secret-pod sh</b>
+[jegan@master.tektutor.org secrets]$ <b>kubectl exec -it my-secret-pod sh</b>
 kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.
 / # echo $SECRET_USERNAME
 <b>admin</b>
@@ -242,9 +242,9 @@ helm package wordpress
 
 The expected output is
 <pre>
-[jegan@minikube helm]$ <b>helm package wordpress</b>
+[jegan@tektutor.org helm]$ <b>helm package wordpress</b>
 Successfully packaged chart and saved it to: /home/jegan/devops-march-2022/Day3/helm/wordpress-0.1.0.tgz
-[jegan@minikube helm]$ ls
+[jegan@minikube.tektutor.org helm]$ ls
 wordpress  <b>wordpress-0.1.0.tgz</b>
 </pre>
 
@@ -254,7 +254,7 @@ helm install wordpress wordpress-0.1.0.tgz
 ```
 The expected output is
 <pre>
-[jegan@minikube helm]$ helm install wordpress wordpress-0.1.0.tgz 
+[jegan@minikube.tektutor.org helm]$ helm install wordpress wordpress-0.1.0.tgz 
 NAME: wordpress
 LAST DEPLOYED: Tue Mar  8 22:56:17 2022
 NAMESPACE: default
@@ -265,7 +265,7 @@ TEST SUITE: None
 
 You can list the helm packages installed into K8s cluster as shown below
 ```
-[jegan@minikube helm]$ helm list
+[jegan@minikube.tektutor.org helm]$ helm list
 NAME     	NAMESPACE	REVISION	UPDATED                                	STATUS  	CHART          	APP VERSION
 wordpress	default  	1       	2022-03-08 22:56:17.470900864 -0800 PST	deployed	wordpress-0.1.0	1.16.0     
 ```
@@ -277,7 +277,7 @@ kubectl get deploy,svc,po
 
 The expected output is
 <pre>
-[jegan@minikube helm]$ kubectl get pv,pvc,deploy,svc,po
+[jegan@minikube.tektutor.org helm]$ kubectl get pv,pvc,deploy,svc,po
 NAME                                                        CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                         STORAGECLASS   REASON   AGE
 persistentvolume/mysql-pv-volume                            1Gi        RWX            Retain           Bound    default/mysql-pv-claim        manual                  12s
 persistentvolume/pvc-b5e263f7-9aed-4895-bf54-a61686e3acb1   2Gi        RWO            Delete           Bound    default/datadir-mycluster-2   standard                6h50m
@@ -316,9 +316,6 @@ The port 31765 is the NodePort associated with the wordpress NodePort service.
 For your reference the wordpress looks as shown below
 ![wordpress](wordpress-helm.png)
 
-
-
-
 ## ⛹️‍♀️ Lab - Installing minikube kubernetes
 For detailed installation instructions, you may refer the official documentation @ https://minikube.sigs.k8s.io/docs/start/
 
@@ -328,11 +325,11 @@ sudo install minikube-linux-amd64 /usr/local/bin/minikube
 ```
 The expected output is
 <pre>
-jegan@tektutor.org ~]$ <b>curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64</b>
+jegan@minkube.tektutor.org ~]$ <b>curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64</b>
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100 69.2M  100 69.2M    0     0  19.7M      0  0:00:03  0:00:03 --:--:-- 19.7M
-[jegan@tektutor.org ~]$ <b>sudo install minikube-linux-amd64 /usr/local/bin/minikube</b>
+[jegan@minikube.tektutor.org ~]$ <b>sudo install minikube-linux-amd64 /usr/local/bin/minikube</b>
 </pre>
 
 Starting minikube cluster
@@ -341,7 +338,7 @@ minikube start
 ```
 
 <pre>
-[jegan@tektutor.org ~]$ <b>minikube start</b>
+[jegan@minikube.tektutor.org ~]$ <b>minikube start</b>
 😄  minikube v1.25.2 on Centos 7.9.2009
 ✨  Automatically selected the docker driver. Other choices: none, ssh
 👍  Starting control plane node minikube in cluster minikube
@@ -363,7 +360,7 @@ minikube start
 
 You may now try listing the nodes in the minikube cluster
 ```
-jegan@minikube ~]$ <b>kubectl get nodes</b>
+jegan@minikube.tektutor.org ~]$ <b>kubectl get nodes</b>
 NAME       STATUS   ROLES                  AGE   VERSION
 minikube   Ready    control-plane,master   33s   v1.23.3
 ```
@@ -377,7 +374,7 @@ kubectl apply -f https://raw.githubusercontent.com/mysql/mysql-operator/trunk/de
 
 The expected output is
 <pre>
-[jegan@tektutor.org ~]$ <b>kubectl apply -f https://raw.githubusercontent.com/mysql/mysql-operator/trunk/deploy/deploy-crds.yaml</b>
+[jegan@minikube.tektutor.org ~]$ <b>kubectl apply -f https://raw.githubusercontent.com/mysql/mysql-operator/trunk/deploy/deploy-crds.yaml</b>
 customresourcedefinition.apiextensions.k8s.io/innodbclusters.mysql.oracle.com created
 customresourcedefinition.apiextensions.k8s.io/mysqlbackups.mysql.oracle.com created
 customresourcedefinition.apiextensions.k8s.io/clusterkopfpeerings.zalando.org created
@@ -391,7 +388,7 @@ kubectl get deployment -n mysql-operator mysql-operator
 
 The expected output is
 <pre>
-jegan@tektutor.org ~]$ <b>kubectl apply -f https://raw.githubusercontent.com/mysql/mysql-operator/trunk/deploy/deploy-operator.yaml</b>
+jegan@minikube.tektutor.org ~]$ <b>kubectl apply -f https://raw.githubusercontent.com/mysql/mysql-operator/trunk/deploy/deploy-operator.yaml</b>
 serviceaccount/mysql-sidecar-sa created
 clusterrole.rbac.authorization.k8s.io/mysql-operator created
 clusterrole.rbac.authorization.k8s.io/mysql-sidecar created
@@ -412,7 +409,7 @@ kubectl create secret generic mypwds \
 
 The expected output is
 <pre>
-[jegan@tektutor.org ~]$ <b>kubectl create secret generic mypwds \
+[jegan@minibube.tektutor.org ~]$ <b>kubectl create secret generic mypwds \
 >         --from-literal=rootUser=root \minikube
 >         --from-literal=rootHost=% \
 >         --from-literal=rootPassword="root"</b>
@@ -426,7 +423,7 @@ kubectl apply -f https://raw.githubusercontent.com/mysql/mysql-operator/trunk/sa
 
 The expected output is
 <pre>
-[jegan@tektutor.org ~]$ <b>kubectl apply -f https://raw.githubusercontent.com/mysql/mysql-operator/trunk/samples/sample-cluster.yaml</b>
+[jegan@minikube.tektutor.org ~]$ <b>kubectl apply -f https://raw.githubusercontent.com/mysql/mysql-operator/trunk/samples/sample-cluster.yaml</b>
 innodbcluster.mysql.oracle.com/mycluster created
 </pre>
 
@@ -437,7 +434,7 @@ kubectl get innodbcluster --watch
 
 The expected output is
 <pre>
-jegan@tektutor.org ~]$ kubectl get innodbcluster --watch
+jegan@minikube.tektutor.org ~]$ kubectl get innodbcluster --watch
 NAME        STATUS    ONLINE   INSTANCES   ROUTERS   AGE
 mycluster   PENDING   0        3           1         10s
 mycluster   PENDING   0        3           1         84s
@@ -457,10 +454,10 @@ kubectl describe service mycluster
 
 The expected output is
 <pre>
-[jegan@tektutor.org ~]$ <b>kubectl get service mycluster</b>
+[jegan@minikube.tektutor.org ~]$ <b>kubectl get service mycluster</b>
 NAME        TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                               AGE
 mycluster   ClusterIP   10.108.210.32   <none>        6446/TCP,6448/TCP,6447/TCP,6449/TCP   2m14s
-[jegan@minikube ~]$ <b>kubectl describe service mycluster</b>
+[jegan@minikube.tektutor.org ~]$ <b>kubectl describe service mycluster</b>
 Name:              mycluster
 Namespace:         default
 Labels:            mysql.oracle.com/cluster=mycluster
@@ -501,7 +498,7 @@ kubectl get po
 
 The expected output is
 <pre>
-[jegan@tektutor.org ~]$ <b>kubectl get po</b>
+[jegan@minikube.tektutor.org ~]$ <b>kubectl get po</b>
 NAME                                READY   STATUS    RESTARTS      AGE
 mycluster-0                         2/2     Running   0             36m
 mycluster-1                         2/2     Running   0             34m
@@ -515,7 +512,7 @@ kubectl exec -it mycluster-0 -c mysql sh
 
 The expected output is
 <pre>
-[jegan@tektutor.org ~]$ <b>kubectl exec -it mycluster-0 -c mysql sh</b>
+[jegan@minikube.tektutor.org ~]$ <b>kubectl exec -it mycluster-0 -c mysql sh</b>
 kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.
 sh-4.4# mysql -u root -p
 Enter password: 
@@ -548,13 +545,13 @@ docker-compose --version
 ```
 The expected output is
 <pre>
-[jegan@tektutor.org ~]$ <b>sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose</b>
+[jegan@minikube.tektutor.org ~]$ <b>sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose</b>
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100   664  100   664    0     0   2365      0 --:--:-- --:--:-- --:--:--  2379
 100 12.1M  100 12.1M    0     0  6954k      0  0:00:01  0:00:01 --:--:-- 14.7M
-[jegan@minikube ~]$ <b>sudo chmod +x /usr/local/bin/docker-compose</b>
-[jegan@minikube ~]$ <b>docker-compose --version</b>
+[jegan@minikube.tektutor.org ~]$ <b>sudo chmod +x /usr/local/bin/docker-compose</b>
+[jegan@minikube.tektutor.org ~]$ <b>docker-compose --version</b>
 docker-compose version 1.29.2, build 5becea4c
 </pre>
 
