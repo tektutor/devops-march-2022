@@ -94,8 +94,56 @@ This portal has many open source ready made Kubernetes Operators that can be ins
 https://operatorhub.io/
 ```
 
+## ⛹️‍♀️ Lab - Installing minikube kubernetes
+For detailed installation instructions, you may refer the official documentation @ https://minikube.sigs.k8s.io/docs/start/
 
-## ⛹️‍♂️ Lab - Installing mysql Kubernetes Operator
+```
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
+```
+The expected output is
+<pre>
+jegan@tektutor.org ~]$ <b>curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64</b>
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 69.2M  100 69.2M    0     0  19.7M      0  0:00:03  0:00:03 --:--:-- 19.7M
+[jegan@tektutor.org ~]$ <b>sudo install minikube-linux-amd64 /usr/local/bin/minikube</b>
+</pre>
+
+Starting minikube cluster
+```
+minikube start
+```
+
+<pre>
+[jegan@tektutor.org ~]$ <b>minikube start</b>
+😄  minikube v1.25.2 on Centos 7.9.2009
+✨  Automatically selected the docker driver. Other choices: none, ssh
+👍  Starting control plane node minikube in cluster minikube
+🚜  Pulling base image ...
+💾  Downloading Kubernetes v1.23.3 preload ...
+    > preloaded-images-k8s-v17-v1...: 505.68 MiB / 505.68 MiB  100.00% 13.33 Mi
+    > gcr.io/k8s-minikube/kicbase: 379.06 MiB / 379.06 MiB  100.00% 5.48 MiB p/
+🔥  Creating docker container (CPUs=2, Memory=7900MB) ...
+🐳  Preparing Kubernetes v1.23.3 on Docker 20.10.12 ...
+    ▪ kubelet.housekeeping-interval=5m
+    ▪ Generating certificates and keys ...
+    ▪ Booting up control plane ...
+    ▪ Configuring RBAC rules ...
+🔎  Verifying Kubernetes components...
+    ▪ Using image gcr.io/k8s-minikube/storage-provisioner:v5
+🌟  Enabled addons: default-storageclass, storage-provisioner
+🏄  Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
+</pre>
+
+You may now try listing the nodes in the minikube cluster
+```
+jegan@minikube ~]$ <b>kubectl get nodes</b>
+NAME       STATUS   ROLES                  AGE   VERSION
+minikube   Ready    control-plane,master   33s   v1.23.3
+```
+
+## ⛹️‍♂️ Lab - Installing mysql Kubernetes Operator in the minikube K8s cluster
 
 ```
 kubectl apply -f https://raw.githubusercontent.com/mysql/mysql-operator/trunk/deploy/deploy-crds.yaml
@@ -202,7 +250,9 @@ IPs:               10.108.210.32
 Port:              mysql  6446/TCP
 TargetPort:        6446/TCP
 Endpoints:         172.17.0.5:6446
-Port:              mysqlx  6448/TCP
+Port:              mysqlx  6448/TCPAs the Kubernetes mysql operator isn't officially tested/supported in latest version of Kubernetes v1.24
+100
+
 TargetPort:        6448/TCP
 Endpoints:         172.17.0.5:6448
 Port:              mysql-ro  6447/TCP
@@ -211,6 +261,9 @@ Endpoints:         172.17.0.5:6447
 Port:              mysqlx-ro  6449/TCP
 TargetPort:        6449/TCP
 Endpoints:         172.17.0.5:6449
-Session Affinity:  None
+Session Affinity:  NoneAs the Kubernetes mysql operator isn't officially tested/supported in latest version of Kubernetes v1.24
+100
+
 Events:            <none>
 </pre>
+
