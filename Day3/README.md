@@ -1262,3 +1262,20 @@ The expected output is
 [jegan@worker2 ~]$ <b>docker swarm join --token SWMTKN-1-3c8ro83wf3zq3can6avco8eou4fprtjjlnf544mk0l2bh1kz84-34ogluajqprteumx91j8twcjf 192.168.167.135:2377</b>
 This node joined a swarm as a worker.
 </pre>
+
+As the worker2 rejoined the swarm cluster, let's update it the master node
+```
+docker node update worker2.tektutor.org
+docker node ls
+```
+
+The expected output is
+<pre>
+[jegan@worker1 ~]$ <b>docker node update worker2.tektutor.org</b>
+worker2.tektutor.org
+[jegan@worker1 ~]$ <b>docker node ls</b>
+ID                            HOSTNAME               STATUS    AVAILABILITY   MANAGER STATUS   ENGINE VERSION
+wb80lgbkrbwh8a3gyasnhrr3x     master.tektutor.org    Ready     Active                          20.10.12
+zzu5d1mn1fo17qnclwuwn9hei *   worker1.tektutor.org   Ready     Active         Leader           20.10.12
+i2fxie84hq6s53ylndvit66lo     worker2.tektutor.org   Ready     Active                          20.10.12
+</pre>
