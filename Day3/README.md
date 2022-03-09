@@ -990,3 +990,126 @@ itfbq58jyabl   webservice.4   httpd:latest   worker1.tektutor.org   Running     
 3uz7n4hshyy9   webservice.5   httpd:latest   worker2.tektutor.org   Running         Running 34 seconds ago             
 0kdcz103zgs5   webservice.6   httpd:latest   master.tektutor.org    Running         Running 33 seconds ago       
 </pre>
+
+## Inspecting swarm node for details about the node
+```
+docker node inspect self
+```
+
+The expected output is
+<pre>
+[jegan@master ~]$ <b>docker node inspect self</b>
+[
+    {
+        "ID": "wb80lgbkrbwh8a3gyasnhrr3x",
+        "Version": {
+            "Index": 9
+        },
+        "CreatedAt": "2022-03-09T09:58:18.053153568Z",
+        "UpdatedAt": "2022-03-09T09:58:18.163238019Z",
+        "Spec": {
+            "Labels": {},
+            "Role": "manager",
+            "Availability": "active"
+        },
+        "Description": {
+            "Hostname": "master.tektutor.org",
+            "Platform": {
+                "Architecture": "x86_64",
+                "OS": "linux"
+            },
+            "Resources": {
+                "NanoCPUs": 8000000000,
+                "MemoryBytes": 33547915264
+            },
+            "Engine": {
+                "EngineVersion": "20.10.12",
+                "Plugins": [
+                    {
+                        "Type": "Log",
+                        "Name": "awslogs"
+                    },
+                    {
+                        "Type": "Log",
+                        "Name": "fluentd"
+                    },
+                    {
+                        "Type": "Log",
+                        "Name": "gcplogs"
+                    },
+                    {
+                        "Type": "Log",
+                        "Name": "gelf"
+                    },
+                    {
+                        "Type": "Log",
+                        "Name": "journald"
+                    },
+                    {
+                        "Type": "Log",
+                        "Name": "json-file"
+                    },
+                    {
+                        "Type": "Log",
+                        "Name": "local"
+                    },
+                    {
+                        "Type": "Log",
+                        "Name": "logentries"
+                    },
+                    {
+                        "Type": "Log",
+                        "Name": "splunk"
+                    },
+                    {
+                        "Type": "Log",
+                        "Name": "syslog"
+                    },
+                    {
+                        "Type": "Network",
+                        "Name": "bridge"
+                    },
+                    {
+                        "Type": "Network",
+                        "Name": "host"
+                    },
+                    {
+                        "Type": "Network",
+                        "Name": "ipvlan"
+                    },
+                    {
+                        "Type": "Network",
+                        "Name": "macvlan"
+                    },
+                    {
+                        "Type": "Network",
+                        "Name": "null"
+                    },
+                    {
+                        "Type": "Network",
+                        "Name": "overlay"
+                    },
+                    {
+                        "Type": "Volume",
+                        "Name": "local"
+                    }
+                ]
+            },
+            "TLSInfo": {
+                "TrustRoot": "-----BEGIN CERTIFICATE-----\nMIIBajCCARCgAwIBAgIUWMfWjld3JA8EIRKqfY49KLLyHhowCgYIKoZIzj0EAwIw\nEzERMA8GA1UEAxMIc3dhcm0tY2EwHhcNMjIwMzA5MDk1MzAwWhcNNDIwMzA0MDk1\nMzAwWjATMREwDwYDVQQDEwhzd2FybS1jYTBZMBMGByqGSM49AgEGCCqGSM49AwEH\nA0IABCrxQ1Qzz3rc+AxnJ79l6SWgtywn94fy5DfmH3OpLzZAy1Rn2Pp3IPgbZBJb\nDTKp8CAJrjSJsbUSDqYlpnvZQASjQjBAMA4GA1UdDwEB/wQEAwIBBjAPBgNVHRMB\nAf8EBTADAQH/MB0GA1UdDgQWBBQH+0QpNzBKbEIHgCkupLDi21ngnTAKBggqhkjO\nPQQDAgNIADBFAiEA/dPwyzWmcYBXR8vlz6RYIZ3piQx4hyB+Y4F5+2ZZzUkCIFmd\nifP5EWzSzYRjcgkj532cdWE6X8qs7PWkDeaZB7+8\n-----END CERTIFICATE-----\n",
+                "CertIssuerSubject": "MBMxETAPBgNVBAMTCHN3YXJtLWNh",
+                "CertIssuerPublicKey": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEKvFDVDPPetz4DGcnv2XpJaC3LCf3h/LkN+Yfc6kvNkDLVGfY+ncg+BtkElsNMqnwIAmuNImxtRIOpiWme9lABA=="
+            }
+        },
+        "Status": {
+            "State": "ready",
+            "Addr": "192.168.167.151"
+        },
+        "ManagerStatus": {
+            "Leader": true,
+            "Reachability": "reachable",
+            "Addr": "192.168.167.151:2377"
+        }
+    }
+]
+</pre>
