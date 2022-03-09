@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress
+  labels:
+    app: wordpress
+spec:
+  selector:
+    matchLabels:
+      app: wordpress
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: wordpress
+        tier: frontend
+    spec:
+      containers:
+        - image: wordpress:4.8-apache
+          name: wordpress
+          env:
+            - name: WORDPRESS_DB_HOST 
+              value: mysql-service
+
+            - name: WORDPRESS_DB_PASSWORD
+              value: root
+          ports:
+            - containerPort: 80 
+              name: wordpress
