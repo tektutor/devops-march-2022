@@ -231,6 +231,93 @@ This portal has many open source ready made Kubernetes Operators that can be ins
 ```
 https://operatorhub.io/
 ```
+## ⛹️‍♂️ Lab - Create our own custom Helm Chart package for wordpress application and deploy into K8s cluster
+```
+cd ~/devops-march-2022
+git pull
+
+cd Day3/helm/wordpress
+helm package wordpress
+```
+
+The expected output is
+<pre>
+[jegan@minikube helm]$ <b>helm package wordpress</b>
+Successfully packaged chart and saved it to: /home/jegan/devops-march-2022/Day3/helm/wordpress-0.1.0.tgz
+[jegan@minikube helm]$ ls
+wordpress  <b>wordpress-0.1.0.tgz</b>
+</pre>
+
+It's time to install our custom wordpress helm chart into K8s cluster
+```
+helm install wordpress wordpress-0.1.0.tgz
+```
+The expected output is
+<pre>
+[jegan@minikube helm]$ helm install wordpress wordpress-0.1.0.tgz 
+NAME: wordpress
+LAST DEPLOYED: Tue Mar  8 22:56:17 2022
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+</pre>
+
+You can list the helm packages installed into K8s cluster as shown below
+```
+[jegan@minikube helm]$ helm list
+NAME     	NAMESPACE	REVISION	UPDATED                                	STATUS  	CHART          	APP VERSION
+wordpress	default  	1       	2022-03-08 22:56:17.470900864 -0800 PST	deployed	wordpress-0.1.0	1.16.0     
+```
+
+You can now see the deploy,service,pods and its persistent volume and claim
+```
+kubectl get deploy,svc,po
+```
+
+The expected output is
+<pre>
+[jegan@minikube helm]$ kubectl get pv,pvc,deploy,svc,po
+NAME                                                        CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                         STORAGECLASS   REASON   AGE
+persistentvolume/mysql-pv-volume                            1Gi        RWX            Retain           Bound    default/mysql-pv-claim        manual                  12s
+persistentvolume/pvc-b5e263f7-9aed-4895-bf54-a61686e3acb1   2Gi        RWO            Delete           Bound    default/datadir-mycluster-2   standard                6h50m
+persistentvolume/pvc-df80fbca-c26d-4824-809b-80d5cfc8b9ea   2Gi        RWO            Delete           Bound    default/datadir-mycluster-0   standard                6h53m
+persistentvolume/pvc-fd9eed9b-54c2-4ffe-bbba-d5dd2ba3437e   2Gi        RWO            Delete           Bound    default/datadir-mycluster-1   standard                6h51m
+
+NAME                                        STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+persistentvolumeclaim/datadir-mycluster-0   Bound    pvc-df80fbca-c26d-4824-809b-80d5cfc8b9ea   2Gi        RWO            standard       6h53m
+persistentvolumeclaim/datadir-mycluster-1   Bound    pvc-fd9eed9b-54c2-4ffe-bbba-d5dd2ba3437e   2Gi        RWO            standard       6h51m
+persistentvolumeclaim/datadir-mycluster-2   Bound    pvc-b5e263f7-9aed-4895-bf54-a61686e3acb1   2Gi        RWO            standard       6h50m
+persistentvolumeclaim/mysql-pv-claim        Bound    mysql-pv-volume                            1Gi        RWX            manual         12s
+
+NAME                        READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/mysql       0/1     1            0           12s
+deployment.apps/wordpress   1/1     1            1           12s
+
+NAME                        TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+service/kubernetes          ClusterIP   10.96.0.1        <none>        443/TCP        6h56m
+service/mysql-service       ClusterIP   10.97.172.15     <none>        3306/TCP       12s
+service/wordpress-service   NodePort    10.102.182.133   <none>        80:31765/TCP   12s
+
+NAME                             READY   STATUS    RESTARTS   AGE
+pod/mysql-84b659854b-xqzkt       0/1     Pending   0          12s
+pod/wordpress-7d5bc6876b-65mr6   1/1     Running   0          12s
+</pre>
+
+Let the pods move to Running and Ready state before you attempt to access the wordpress web page.
+
+In case mysql started first and then wordpress started next, you may have to scale down the wordpress to 0 and then to 1 to workaround the issue. We don't have much control here, as wordpress works that way :)
+
+Now see if you can access the wordpress page from chrome web browser
+http://<any-k8s-node-ip>:31765
+
+The port 31765 is the NodePort associated with the wordpress NodePort service.
+
+For your reference the wordpress looks as shown below
+![wordpress](wordpress-helm.png)
+
+
+
 
 ## ⛹️‍♀️ Lab - Installing minikube kubernetes
 For detailed installation instructions, you may refer the official documentation @ https://minikube.sigs.k8s.io/docs/start/
