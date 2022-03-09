@@ -555,7 +555,7 @@ The expected output is
 docker-compose version 1.29.2, build 5becea4c
 </pre>
 
-## Deploying a wordpress website using docker compose
+## ⛹️‍♂️ Lab - Deploying a wordpress website using docker compose
 ```
 cd ~/devops-march-2022
 git pull
@@ -618,7 +618,7 @@ Now you may try accessing the wordpress site from Google Chrome web browser @ ht
 The expected output is shown in the screenshot below
 ![wordpress](wordpress-dc.png)
 
-# Installing Docker SWARM Cluster
+# ⛹️‍♂️ Lab - Installing Docker SWARM Cluster
 
 Assumption is you have 3 Virtual Machines or 3 machines with CentOS 7.x pre-installed with admin access. 
 
@@ -856,7 +856,7 @@ success
 [jegan@master.tektutor.org ~]$ <b>sudo systemctl restart docker</b>
 </pre>
 
-## Installing Docker in master, worker1 and worker2 machines
+## ⛹️‍♀️ Lab - Installing Docker in master, worker1 and worker2 machines
 ```
 sudo yum install -y yum-utils -y
 sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
@@ -930,7 +930,7 @@ rg477e7mkape0o2pb1r7hgv6j     worker2.tektutor.org   Ready     Active           
 
 Congratulations! you Docker SWARM cluster is ready to use.
 
-## Let's create a httpd service in Docker SWARM
+## ⛹️‍♂️ Lab - Let's create a httpd service in Docker SWARM
 ```
 docker service create -p 80:80 --name webservice --replicas 3 httpd
 ```
@@ -974,7 +974,7 @@ jegan@master.tektutor.org ~]$ curl http://master.tektutor.org
 <html><body><h1>It works!</h1></body></html>
 </pre>
 
-## Listing all the containers that are part of service
+## ⛹️‍♀️ Lab - Listing all the containers that are part of service
 ```
 docker service ps webservice
 ```
@@ -991,7 +991,7 @@ itfbq58jyabl   webservice.4   httpd:latest   worker1.tektutor.org   Running     
 0kdcz103zgs5   webservice.6   httpd:latest   master.tektutor.org    Running         Running 33 seconds ago       
 </pre>
 
-## Inspecting swarm node for details about the node
+## ⛹️‍♀️ Lab - Inspecting swarm node for details about the node
 ```
 docker node inspect self
 ```
@@ -1114,7 +1114,7 @@ The expected output is
 ]
 </pre>
 
-## Listing containers running in the master node(current node)
+## ⛹️‍♂️ Lab - Listing containers running in the master node(current node)
 ```
 docker node ps
 ```
@@ -1127,7 +1127,7 @@ yfw5ghse3uvc   webservice.3   httpd:latest   master.tektutor.org   Running      
 0kdcz103zgs5   webservice.6   httpd:latest   master.tektutor.org   Running         Running 6 minutes ago           
 </pre>
 
-## Listing containers running in a worker node
+## ⛹️‍♀️ Lab - Listing containers running in a worker node
 ```
 docker node ps worker1.tektutor.org
 ```
