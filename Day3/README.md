@@ -168,6 +168,56 @@ Events:                   <none>
 Hello Kubernetes! /usr/lib/java/jdk1.8 /usr/share/maven hello
 </pre>
 
+## ⛹️‍♂️ Lab - Understanding the use of secrets in K8s applications
+```
+cd ~/devops-march-2022
+git pull
+cd Day3/secrets
+
+kubectl apply -f my-secret.yml
+```
+
+The expected output is
+<pre>
+[jegan@master secrets]$ kubectl apply -f my-secret.yml 
+secret/mysecret created
+</pre>
+
+Now let's create the application Pod that fetches the secret data
+```
+kubectl apply -f another-pod.yml
+```
+The expected output is
+<pre>
+[jegan@master secrets]$ kubectl apply -f another-pod.yml 
+pod/another-pod created
+</pre>
+
+Now let's list the po
+```
+kubectl get po 
+```
+The expected output is
+<pre>
+[jegan@master secrets]$ <b>kubectl get po</b>
+NAME                        READY   STATUS              RESTARTS   AGE
+<b>another-pod                 1/1     Running             0          5m36s</b>
+hello-ms-8689d768fc-4cfzj   1/1     Running             0          41m
+hello-ms-8689d768fc-v852x   1/1     Running             0          41m
+</pre>
+
+Get inside the Pod shell to inspect the secret values
+
+The expected output is
+<pre>
+[jegan@master secrets]$ <b>kubectl exec -it my-secret-pod sh</b>
+kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.
+/ # echo $SECRET_USERNAME
+<b>admin</b>
+/ # echo $SECRET_PASSWORD
+<b>my-secret-password</b>
+/ # exit
+</pre>
 
 ## ⛹️‍♀️ Lab - Installing Helm Kubernetes package manager
 ```
