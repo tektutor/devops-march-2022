@@ -1210,3 +1210,55 @@ ID                            HOSTNAME               STATUS    AVAILABILITY   MA
 wb80lgbkrbwh8a3gyasnhrr3x     master.tektutor.org    Ready     Active                          20.10.12
 zzu5d1mn1fo17qnclwuwn9hei *   worker1.tektutor.org   Ready     Active         Leader           20.10.12
 </pre>
+
+## ⛹️‍♂️ Lab - Rejoining a node back into the SWARM cluster
+```
+```
+
+First we need to execute the below command the node that needs to rejoin the cluster
+```
+docker swarm leave
+```
+
+The expected output is
+<pre>
+[jegan@worker2 ~]$ <b>docker swarm leave</b>
+Node left the swarm.
+</pre>
+
+Let's try rejoin the worker2 back into the SWARM cluster with the old token
+```
+docker swarm join --token SWMTKN-1-3c8ro83wf3zq3can6avco8eou4fprtjjlnf544mk0l2bh1kz84-34ogluajqprteumx91j8twcjf 192.168.167.151:2377
+```
+
+The expeced output is
+<pre>
+[jegan@worker2 ~]$ <b>docker swarm join --token SWMTKN-1-3c8ro83wf3zq3can6avco8eou4fprtjjlnf544mk0l2bh1kz84-34ogluajqprteumx91j8twcjf 192.168.167.151:2377</b>
+Error response from daemon: rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing dial tcp 192.168.167.151:2377: connect: connection refused"
+</pre>
+
+As you can observe from the above output, the token expires, hence we need to recreate a new token for this worker to join back the cluster.
+
+We need to execute the below command in the master node
+```
+docker swarm join-token worker
+```
+
+The expected output is
+<pre>
+[jegan@worker1 ~]$ <b>docker swarm join-token worker</b>
+To add a worker to this swarm, run the following command:
+
+    docker swarm join --token SWMTKN-1-3c8ro83wf3zq3can6avco8eou4fprtjjlnf544mk0l2bh1kz84-34ogluajqprteumx91j8twcjf 192.168.167.135:2377
+</pre>
+
+Let's now use the new join token in the worker2 node to rejoin the cluster
+```
+docker swarm join --token SWMTKN-1-3c8ro83wf3zq3can6avco8eou4fprtjjlnf544mk0l2bh1kz84-34ogluajqprteumx91j8twcjf 192.168.167.135:2377
+```
+
+The expected output is
+<pre>
+[jegan@worker2 ~]$ <b>docker swarm join --token SWMTKN-1-3c8ro83wf3zq3can6avco8eou4fprtjjlnf544mk0l2bh1kz84-34ogluajqprteumx91j8twcjf 192.168.167.135:2377</b>
+This node joined a swarm as a worker.
+</pre>
