@@ -314,6 +314,8 @@ exit
 
 
 # Installing Docker compose
+The assumption is, you already have installed Docker.
+
 ```
 sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
@@ -393,3 +395,315 @@ Now you may try accessing the wordpress site from Google Chrome web browser @ ht
 
 The expected output is shown in the screenshot below
 ![wordpress](wordpress-dc.png)
+
+# Installing Docker SWARM Cluster
+
+Assumption is you have 3 Virtual Machines or 3 machines with CentOS 7.x pre-installed with admin access. 
+
+Let us login to master virtual machine and change the hostname
+```
+sudo hostnamectl set-hostname master.tektutor.org
+hostname
+```
+
+The expected output is
+<pre>
+[jegan@master ~]$ <b>sudo hostnamectl set-hostname master.tektutor.org</b>
+[jegan@master ~]$ <b>hostname</b>
+master.tektutor.org
+</pre>
+
+Now let's login to worker 1 virtual machine and change its hostname 
+```
+sudo hostnamectl set-hostname worker1.tektutor.org
+hostname
+```
+The expected output is
+<pre>
+[jegan@master ~]$ <b>sudo hostnamectl set-hostname worker1.tektutor.org</b>
+[jegan@master ~]$ <b>hostname</b>
+worker1.tektutor.org
+</pre>
+
+Let's now login to worker 2 virtual machine and change its hostname 
+```
+sudo hostnamectl set-hostname worker2.tektutor.org
+hostname
+```
+The expected output is
+<pre>
+[jegan@master ~]$ <b>sudo hostnamectl set-hostname worker2.tektutor.org</b>
+[jegan@master ~]$ <b>hostname</b>
+worker2.tektutor.org
+</pre>
+
+Now let's update the /etc/hosts files on all 3 Virtual Machines
+
+We need to find the IP Address of master, worker1 and worker2 Virtual Machines
+Let's find master VM IP
+```
+ifconfig
+```
+
+<pre>
+[jegan@master ~]$ <b>ifconfig</b>
+docker0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
+        ether 02:42:31:e6:cf:af  txqueuelen 0  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+<b>ens33: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.167.148  netmask 255.255.255.0  broadcast 192.168.167.255
+        inet6 fe80::f473:e071:f35b:8868  prefixlen 64  scopeid 0x20<link>
+        ether 00:0c:29:47:b4:27  txqueuelen 1000  (Ethernet)
+        RX packets 287  bytes 82763 (80.8 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 210  bytes 23484 (22.9 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</b>
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 32  bytes 2592 (2.5 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 32  bytes 2592 (2.5 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+virbr0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 192.168.122.1  netmask 255.255.255.0  broadcast 192.168.122.255
+        ether 52:54:00:b7:aa:ea  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+</pre>
+
+In my case, master VM IP is 192.168.167.148, your master VM IP might vary.
+
+Let's head over to worker1 VM
+```
+ifconfig
+```
+The expected output is
+<pre>
+[jegan@worker1 ~]$ ifconfig
+docker0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
+        ether 02:42:c1:ed:c3:ac  txqueuelen 0  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+<b>ens33: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.167.149  netmask 255.255.255.0  broadcast 192.168.167.255
+        inet6 fe80::4433:c0c7:387a:6242  prefixlen 64  scopeid 0x20<link>
+        inet6 fe80::f473:e071:f35b:8868  prefixlen 64  scopeid 0x20<link>
+        ether 00:0c:29:92:50:eb  txqueuelen 1000  (Ethernet)
+        RX packets 268  bytes 79613 (77.7 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 241  bytes 26742 (26.1 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</b>
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 32  bytes 2592 (2.5 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 32  bytes 2592 (2.5 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+virbr0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 192.168.122.1  netmask 255.255.255.0  broadcast 192.168.122.255
+        ether 52:54:00:b7:aa:ea  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+</pre>
+
+In my lab setup, worker1 VM IP happens to be 192.168.167.149, you note down your worker1 IP.
+
+Let's head over to worker2 VM
+```
+ifconfig
+```
+
+The expected output is
+<pre>
+[jegan@worker2 ~]$ ifconfig
+docker0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
+        ether 02:42:02:38:64:8b  txqueuelen 0  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+<b>ens33: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.167.150  netmask 255.255.255.0  broadcast 192.168.167.255
+        inet6 fe80::4433:c0c7:387a:6242  prefixlen 64  scopeid 0x20<link>
+        inet6 fe80::f473:e071:f35b:8868  prefixlen 64  scopeid 0x20<link>
+        inet6 fe80::7c66:639e:b31b:125f  prefixlen 64  scopeid 0x20<link>
+        ether 00:0c:29:62:55:6b  txqueuelen 1000  (Ethernet)
+        RX packets 213  bytes 70680 (69.0 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 249  bytes 28644 (27.9 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</b>
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 32  bytes 2592 (2.5 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 32  bytes 2592 (2.5 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+virbr0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 192.168.122.1  netmask 255.255.255.0  broadcast 192.168.122.255
+        ether 52:54:00:b7:aa:ea  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+</pre>
+My worker2 IP happens to be 192.168.167.150.
+
+We need to update master, worker1 and worker2 /etc/hosts as shown below
+```
+sudo vim /etc/hosts
+```
+And append the IP address as shown below
+<pre>
+192.168.167.148 master.tektutor.org
+192.168.167.149 worker1.tektutor.org
+192.168.167.150 worker2.tektutor.org
+</pre>
+
+The modified file looks as below
+<pre>
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+192.168.167.148 master.tektutor.org
+192.168.167.149 worker1.tektutor.org
+192.168.167.150 worker2.tektutor.org
+</pre>
+
+## Configure firewall to open up ports required for Docker SWARM in master, worker1 and worker2 machines
+```
+sudo firewall-cmd --permanent --add-port=2376/tcp
+sudo firewall-cmd --permanent --add-port=2377/tcp
+sudo firewall-cmd --permanent --add-port=7946/tcp
+sudo firewall-cmd --permanent --add-port=80/tcp
+sudo firewall-cmd --permanent --add-port=7946/udp
+sudo firewall-cmd --permanent --add-port=4789/udp
+```
+Make sure you hit enter after pasting the above set of commands as the last command will not get executed otherwise.
+
+The expected output is
+<pre>
+[jegan@master ~]$ sudo firewall-cmd --permanent --add-port=2376/tcp
+success
+[jegan@master ~]$ sudo firewall-cmd --permanent --add-port=2377/tcp
+success
+[jegan@master ~]$ sudo firewall-cmd --permanent --add-port=7946/tcp
+success
+[jegan@master ~]$ sudo firewall-cmd --permanent --add-port=80/tcp
+success
+[jegan@master ~]$ sudo firewall-cmd --permanent --add-port=7946/udp
+success
+[jegan@master ~]$ sudo firewall-cmd --permanent --add-port=4789/udp
+</pre>
+
+Reload the firewall and restart docker in master, worker1 and worker2 machines
+```
+sudo firewall-cmd --reload
+sudo systemctl restart docker
+```
+
+The expected output is
+<pre>
+[jegan@master ~]$ <b>sudo firewall-cmd --reload</b>
+success
+[jegan@master ~]$ <b>sudo systemctl restart docker</b>
+</pre>
+
+## Installing Docker in master, worker1 and worker2 machines
+```
+sudo yum install -y yum-utils -y
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+sudo yum install docker-ce docker-ce-cli containerd.io -y
+sudo systemctl enable docker
+sudo systemctl start docker
+sudo usermod -aG docker $USER
+newgrp docker
+```
+
+## Bootstrap the SWARM master node
+
+In the command below, the IP address 192.168.167.148 is the master node IP, replace it with your master VM IP address
+```
+docker swarm init --advertise-addr 192.168.167.148
+```
+The best apart about Docker SWARM setup is, the swarm init completes in couple of seconds.
+
+The expected output is
+<pre>
+[jegan@master ~]$ docker swarm init --advertise-addr 192.168.167.148
+Swarm initialized: current node (4qr9183sgep3fsqvssrj23sk5) is now a manager.
+
+To add a worker to this swarm, run the following command:
+
+    docker swarm join --token SWMTKN-1-1xnzx71zqtirr44hsatx5112v0ifs06yhgi6o8dkzw4dsn46mk-d51dmom6b5uddafejg5t9y6mi 192.168.167.148:2377
+
+To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructions.
+</pre>
+
+We need to copy the join token command and execute that in worker1 and worker2 machines
+
+worker1 VM
+
+You need to copy this command from your terminal as the tokens will be different.
+```
+docker swarm join --token SWMTKN-1-1xnzx71zqtirr44hsatx5112v0ifs06yhgi6o8dkzw4dsn46mk-d51dmom6b5uddafejg5t9y6mi 192.168.167.148:2377
+```
+The expected output is
+<pre>
+[jegan@worker1 ~]$ <b>docker swarm join --token SWMTKN-1-1xnzx71zqtirr44hsatx5112v0ifs06yhgi6o8dkzw4dsn46mk-d51dmom6b5uddafejg5t9y6mi 192.168.167.148:2377</b>
+
+This node joined a swarm as a worker.
+</pre>
+
+We need to join worker2 VM similarly
+```
+docker swarm join --token SWMTKN-1-1xnzx71zqtirr44hsatx5112v0ifs06yhgi6o8dkzw4dsn46mk-d51dmom6b5uddafejg5t9y6mi 192.168.167.148:2377
+```
+
+The expected output is
+<pre>
+[jegan@worker2 ~]$ <b>docker swarm join --token SWMTKN-1-1xnzx71zqtirr44hsatx5112v0ifs06yhgi6o8dkzw4dsn46mk-d51dmom6b5uddafejg5t9y6mi 192.168.167.148:2377</b>
+
+This node joined a swarm as a worker.
+</pre>
+
+We can now check if all nodes are added in the Docker SWARM cluster from master node as shown below
+```
+docker node ls
+```
+
+The expected output is
+<pre>
+[jegan@master ~]$ <b>docker node ls</b>
+ID                            HOSTNAME               STATUS    AVAILABILITY   MANAGER STATUS   ENGINE VERSION
+4qr9183sgep3fsqvssrj23sk5 *   master.tektutor.org    Ready     Active         Leader           20.10.12
+okhsitvtejzypencfecuwnew7     worker1.tektutor.org   Ready     Active                          20.10.12
+rg477e7mkape0o2pb1r7hgv6j     worker2.tektutor.org   Ready     Active                          20.10.12
+</pre>
+
+Congratulations! you Docker SWARM cluster is ready to use.
