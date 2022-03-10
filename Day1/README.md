@@ -78,12 +78,12 @@
   - with HyperThreading/CMT Enabled it will support 512 * 2 * 4 = 4096 virtual cores
   - Hence 3 Physical Servers can technically support 10000 Virtual Machines as opposed to 10000 Physical Servers
   - This results in huge cost-saving in terms of 
-         - OS License required for 3 Servers in the place of separate OS License for 10000 Servers
-         - Cost involved in buying 3 Physical Servers is much less compared to buying 10000 Physical Servers
-         - less real-estate cost for leasing data-center space
-         - less electricity bill as 3 servers will consume less power compared to 10000 Physical servers
-         - less cost is involved in sound proofing as the server room for 3 servers will be very small compared to the 
-           server room that has 10000 Physical servers
+    - OS License required for 3 Servers in the place of separate OS License for 10000 Servers
+    - Cost involved in buying 3 Physical Servers is much less compared to buying 10000 Physical Servers
+    - less real-estate cost for leasing data-center space
+    - less electricity bill as 3 servers will consume less power compared to 10000 Physical servers
+    - less cost is involved in sound proofing as the server room for 3 servers will be very small compared to the 
+      server room that has 10000 Physical servers
 
 ### Virtualization Technology Drawbacks
   - it is heavy weight
