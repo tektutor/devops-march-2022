@@ -171,7 +171,7 @@ docker pull hello-world:latest
 
 The expected ouput is
 <pre>
-jegan@tektutor:~$ <b>docker pull hello-world:latest</b>
+jegan@tektutor.org:~$ <b>docker pull hello-world:latest</b>
 latest: Pulling from library/hello-world
 2db29710123e: Pull complete 
 Digest: sha256:97a379f4f88575512824f3b352bc03cd75e239179eea0fecc38e597b2209f49a
@@ -186,7 +186,7 @@ docker images
 
 The expected output is
 <pre>
-jegan@tektutor:~$ <b>docker images</b>
+jegan@tektutor.org:~$ <b>docker images</b>
 REPOSITORY                                TAG       IMAGE ID       CREATED        SIZE
 docker.bintray.io/jfrog/artifactory-oss   latest    547c6957fc54   4 weeks ago    993MB
 sonarqube                                 latest    4ac4842c584e   5 weeks ago    520MB
@@ -200,7 +200,7 @@ docker info
 
 The expected output is
 <pre>
-jegan@tektutor:~$ <b>docker info</b>
+jegan@tektutor.org:~$ <b>docker info</b>
 Client:
  Context:    default
  Debug Mode: false
@@ -261,7 +261,7 @@ docker run hello-world:latest
 ```
 The expected output is
 <pre>
-jegan@tektutor:~$ <b>docker run hello-world:latest</b>
+jegan@tektutor.org:~$ <b>docker run hello-world:latest</b>
 
 Hello from Docker!
 This message shows that your installation appears to be working correctly.
@@ -318,11 +318,11 @@ docker rename <old-container-name> <new-container-name>
 
 The expected output is
 <pre>
-jegan@tektutor:~$ <b>docker ps -a</b>
+jegan@tektutor.org:~$ <b>docker ps -a</b>
 CONTAINER ID   IMAGE                COMMAND    CREATED              STATUS                          PORTS     NAMES
 74f23bc4b3d8   hello-world:latest   "/hello"   About a minute ago   Exited (0) About a minute ago             <b>sharp_wescoff</b>
-jegan@tektutor:~$ <b>docker rename sharp_wescoff hello1</b>
-jegan@tektutor:~$ <b>docker ps -a</b>
+jegan@tektutor.org:~$ <b>docker rename sharp_wescoff hello1</b>
+jegan@tektutor.org:~$ <b>docker ps -a</b>
 CONTAINER ID   IMAGE                COMMAND    CREATED         STATUS                     PORTS     NAMES
 74f23bc4b3d8   hello-world:latest   "/hello"   3 minutes ago   Exited (0) 3 minutes ago             <b>hello1</b>
 </pre>
@@ -334,7 +334,7 @@ docker run -it --name ubuntu1 --hostname ubuntu1 ubuntu:16.04 /bin/bash
 
 The expected output is
 <pre>
-jegan@tektutor:~$ <b>docker run -it --name ubuntu1 --hostname ubuntu1 ubuntu:16.04 /bin/bash</b>
+jegan@tektutor.org:~$ <b>docker run -it --name ubuntu1 --hostname ubuntu1 ubuntu:16.04 /bin/bash</b>
 Unable to find image 'ubuntu:16.04' locally
 16.04: Pulling from library/ubuntu
 58690f9b18fc: Pull complete 
@@ -363,7 +363,7 @@ docker inspect ubuntu:16.04
 ```
 The expected output is
 <pre>
-jegan@tektutor:~$ <b>docker inspect ubuntu:16.04</b>
+jegan@tektutor.org:~$ <b>docker inspect ubuntu:16.04</b>
 [
     {
         "Id": "sha256:b6f50765242581c887ff1acc2511fa2d885c52d8fb3ac8c4bba131fd86567f2e",
@@ -463,29 +463,29 @@ docker stop <container-name>
 ```
 The expected output is
 <pre>
-egan@tektutor:~$ <b>docker ps</b>
+jegan@tektutor.org:~$ <b>docker ps</b>
 CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
-jegan@tektutor:~$ <b>docker ps -a</b>
+jegan@tektutor.org:~$ <b>docker ps -a</b>
 CONTAINER ID   IMAGE          COMMAND       CREATED          STATUS                     PORTS     NAMES
 12fc64f9d46d   ubuntu:16.04   "/bin/bash"   13 minutes ago   Exited (0) 9 minutes ago             ubuntu1
-jegan@tektutor:~$ <b>docker start ubuntu1</b>
+jegan@tektutor.org:~$ <b>docker start ubuntu1</b>
 ubuntu1
-jegan@tektutor:~$ <b>docker ps</b>
+jegan@tektutor.org:~$ <b>docker ps</b>
 CONTAINER ID   IMAGE          COMMAND       CREATED          STATUS         PORTS     NAMES
 12fc64f9d46d   ubuntu:16.04   "/bin/bash"   13 minutes ago   Up 3 seconds             ubuntu1
-jegan@tektutor:~$ <b>docker stop 12fc64f9d46d</b>
+jegan@tektutor.org:~$ <b>docker stop 12fc64f9d46d</b>
 12fc64f9d46d
-jegan@tektutor:~$ <b>docker ps -a</b>
+jegan@tektutor.org:~$ <b>docker ps -a</b>
 CONTAINER ID   IMAGE          COMMAND       CREATED          STATUS                      PORTS     NAMES
 12fc64f9d46d   ubuntu:16.04   "/bin/bash"   16 minutes ago   Exited (0) 14 seconds ago             ubuntu1
-jegan@tektutor:~$ <b>docker start ubuntu1</b>
+jegan@tektutor.org:~$ <b>docker start ubuntu1</b>
 ubuntu1
-jegan@tektutor:~$ <b>docker ps -a</b>
+jegan@tektutor.org:~$ <b>docker ps -a</b>
 CONTAINER ID   IMAGE          COMMAND       CREATED          STATUS         PORTS     NAMES
 12fc64f9d46d   ubuntu:16.04   "/bin/bash"   16 minutes ago   Up 4 seconds             ubuntu1
-jegan@tektutor:~$ <b>docker stop ubuntu1</b>
+jegan@tektutor.org:~$ <b>docker stop ubuntu1</b>
 ubuntu1
-jegan@tektutor:~$ <b>docker ps -a</b>
+jegan@tektutor.org:~$ <b>docker ps -a</b>
 CONTAINER ID   IMAGE          COMMAND       CREATED          STATUS                     PORTS     NAMES
 12fc64f9d46d   ubuntu:16.04   "/bin/bash"   16 minutes ago   Exited (0) 3 seconds ago             ubuntu1
 </pre>
@@ -499,12 +499,12 @@ docker start <container-name>
 
 The expected output is
 <pre>
-jegan@tektutor:~$ <b>docker ps -a</b>
+jegan@tektutor.org:~$ <b>docker ps -a</b>
 CONTAINER ID   IMAGE          COMMAND       CREATED          STATUS                     PORTS     NAMES
 12fc64f9d46d   ubuntu:16.04   "/bin/bash"   13 minutes ago   Exited (0) 9 minutes ago             ubuntu1
-jegan@tektutor:~$ <b>docker start ubuntu1</b>
+jegan@tektutor.org:~$ <b>docker start ubuntu1</b>
 ubuntu1
-jegan@tektutor:~$ <b>docker ps</b>
+jegan@tektutor.org:~$ <b>docker ps</b>
 CONTAINER ID   IMAGE          COMMAND       CREATED          STATUS         PORTS     NAMES
 12fc64f9d46d   ubuntu:16.04   "/bin/bash"   13 minutes ago   Up 3 seconds             ubuntu1
 </pre>
@@ -545,12 +545,12 @@ docker rm <container-id>
 ```
 The expected output is
 <pre>
-jegan@tektutor:~$ <b>docker ps -a</b>
+jegan@tektutor.org:~$ <b>docker ps -a</b>
 CONTAINER ID   IMAGE                COMMAND    CREATED         STATUS                     PORTS     NAMES
 74f23bc4b3d8   hello-world:latest   "/hello"   3 minutes ago   Exited (0) 3 minutes ago             hello1
-jegan@tektutor:~$ <b>docker rm hello1</b>
+jegan@tektutor.org:~$ <b>docker rm hello1</b>
 hello1
-jegan@tektutor:~$ <b>docker ps -a</b>
+jegan@tektutor.org:~$ <b>docker ps -a</b>
 CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 </pre>
 
@@ -579,17 +579,17 @@ docker run -dit --name ubuntu3 --hostname ubuntu3 ubuntu:16.04 /bin/bash
 
 The expected output is
 <pre>
-jegan@tektutor:~$ docker run -dit --name c1 --hostname c1 ubuntu:16.04 /bin/bash
+jegan@tektutor.org:~$ docker run -dit --name c1 --hostname c1 ubuntu:16.04 /bin/bash
 d7d967b44e66dea236e53a4601d7de4b1b084dec2c689d207b4c3a56020d2402
-jegan@tektutor:~$ docker run -dit --name c2 --hostname c2 ubuntu:16.04 /bin/bash
+jegan@tektutor.org:~$ docker run -dit --name c2 --hostname c2 ubuntu:16.04 /bin/bash
 c2300b0295720269c5cbc46e476e30b8dafb8f74e56a54b0b392f8a170e758cb
-jegan@tektutor:~$ docker run -dit --name c3 --hostname c3 ubuntu:18.04 /bin/bash
+jegan@tektutor.org:~$ docker run -dit --name c3 --hostname c3 ubuntu:18.04 /bin/bash
 56fa26cafe8185005ec95fad4cff1462f0125aec1e0541dea293c99493b0cb51
-jegan@tektutor:~$ docker run -dit --name ubuntu1 --hostname ubuntu1 ubuntu:16.04 /bin/bash
+jegan@tektutor.org:~$ docker run -dit --name ubuntu1 --hostname ubuntu1 ubuntu:16.04 /bin/bash
 c3d8d619df9b3d9bdf6393d6ea423d9f05997209afe041c6e15991bfdd288232
-jegan@tektutor:~$ docker run -dit --name ubuntu2 --hostname ubuntu2 ubuntu:16.04 /bin/bash
+jegan@tektutor.org:~$ docker run -dit --name ubuntu2 --hostname ubuntu2 ubuntu:16.04 /bin/bash
 65f057bca098a3e6b6fb243cd2cdd63a2e28a6c20607bfd8166e459c4e9887ab
-jegan@tektutor:~$ docker run -dit --name ubuntu3 --hostname ubuntu3 ubuntu:16.04 /bin/bash
+jegan@tektutor.org:~$ docker run -dit --name ubuntu3 --hostname ubuntu3 ubuntu:16.04 /bin/bash
 e7167bb5e79765bfdcead88f9fe3b2018279650344135e5fec0c61a6c9887729
 </pre>
 
@@ -600,7 +600,7 @@ docker ps
 
 The expected output is
 <pre>
-jegan@tektutor:~$ docker ps
+jegan@tektutor.org:~$ docker ps
 CONTAINER ID   IMAGE          COMMAND       CREATED          STATUS          PORTS     NAMES
 e7167bb5e797   ubuntu:16.04   "/bin/bash"   47 seconds ago   Up 46 seconds             ubuntu3
 65f057bca098   ubuntu:16.04   "/bin/bash"   50 seconds ago   Up 48 seconds             ubuntu2
@@ -617,7 +617,7 @@ docker ps -a -f ancestor=ubuntu:18.04
 ```
 Let us now list all running containers whose image is ubuntu:18.04
 <pre>
-jegan@tektutor:~$ docker ps -a -f ancestor=ubuntu:18.04
+jegan@tektutor.org:~$ docker ps -a -f ancestor=ubuntu:18.04
 CONTAINER ID   IMAGE          COMMAND       CREATED         STATUS                      PORTS     NAMES
 56fa26cafe81   ubuntu:18.04   "/bin/bash"   2 minutes ago   Exited (0) 21 seconds ago             c3
 </pre>
@@ -630,7 +630,7 @@ docker ps --filter status=running
 
 The expected output is
 <pre>
-jegan@tektutor:~$ docker ps --filter status=running
+jegan@tektutor.org:~$ docker ps --filter status=running
 CONTAINER ID   IMAGE          COMMAND       CREATED         STATUS         PORTS     NAMES
 e7167bb5e797   ubuntu:16.04   "/bin/bash"   4 minutes ago   Up 4 minutes             ubuntu3
 65f057bca098   ubuntu:16.04   "/bin/bash"   4 minutes ago   Up 4 minutes             ubuntu2
@@ -647,7 +647,7 @@ docker ps --filter status=exited
 
 The expected output is
 <pre>
-jegan@tektutor:~$ docker ps --filter status=exited
+jegan@tektutor.org:~$ docker ps --filter status=exited
 CONTAINER ID   IMAGE          COMMAND       CREATED         STATUS                     PORTS     NAMES
 56fa26cafe81   ubuntu:18.04   "/bin/bash"   5 minutes ago   Exited (0) 4 minutes ago             c3
 </pre>
@@ -659,7 +659,7 @@ docker ps --filter status=exited --filter ancestor=ubuntu:18.04
 
 The expected output is
 <pre>
-jegan@tektutor:~$ docker ps --filter status=exited --filter ancestor=ubuntu:18.04
+jegan@tektutor.org:~$ docker ps --filter status=exited --filter ancestor=ubuntu:18.04
 CONTAINER ID   IMAGE          COMMAND       CREATED         STATUS                     PORTS     NAMES
 56fa26cafe81   ubuntu:18.04   "/bin/bash"   8 minutes ago   Exited (0) 7 minutes ago             c3
 </pre>
@@ -672,7 +672,7 @@ docker run -d --name db1 --hostname db1 -e MYSQL_ROOT_PASSWORD=root mysql:latest
 The expected output is
 
 <pre>
-jegan@tektutor:~$ <b>docker run -d --name db1 --hostname db1 -e MYSQL_ROOT_PASSWORD=root mysql:latest</b>
+jegan@tektutor.org:~$ <b>docker run -d --name db1 --hostname db1 -e MYSQL_ROOT_PASSWORD=root mysql:latest</b>
 Unable to find image 'mysql:latest' locally
 latest: Pulling from library/mysql
 15115158dd02: Pull complete 
@@ -698,7 +698,7 @@ docker ps
 ```
 The expected output is
 <pre>
-jegan@tektutor:~$ <b>docker ps</b>
+jegan@tektutor.org:~$ <b>docker ps</b>
 CONTAINER ID   IMAGE          COMMAND                  CREATED         STATUS         PORTS                 NAMES
 ae04c45f030c   mysql:latest   "docker-entrypoint.s…"   2 minutes ago   Up 2 minutes   3306/tcp, 33060/tcp   db1
 </pre>
@@ -712,7 +712,7 @@ hostname -i
 
 The expected output is
 <pre>
-jegan@tektutor:~$ docker exec -it db1 sh
+jegan@tektutor.org:~$ docker exec -it db1 sh
 # hostname
 db1
 # ls
@@ -832,11 +832,11 @@ SHOW DATABASES;
 
 The expected output is
 <pre>
-jegan@tektutor:~$ docker rm -f db1
+jegan@tektutor.org:~$ docker rm -f db1
 db1
-jegan@tektutor:~$ docker run -d --name db1 --hostname db1 -e MYSQL_ROOT_PASSWORD=root mysql:latest
+jegan@tektutor.org:~$ docker run -d --name db1 --hostname db1 -e MYSQL_ROOT_PASSWORD=root mysql:latest
 2da413c6eff6015ff636b107becedc6fd42aad2583f82b1556232dddbafbf491
-jegan@tektutor:~$ docker exec -it db1 sh
+jegan@tektutor.org:~$ docker exec -it db1 sh
 # mysql -u root -p 
 Enter password: 
 Welcome to the MySQL monitor.  Commands end with ; or \g.
@@ -875,7 +875,7 @@ mkdir -p /tmp/mysql
 ```
 The expected output is
 <pre>
-jegan@tektutor:~$ mkdir -p /tmp/mysql
+jegan@tektutor.org:~$ mkdir -p /tmp/mysql
 </pre>
 
 Let's create a new db1 mysql container using /tmp/mysql local hostpath as the persistent volume which is mounted inside the container at path /var/lib/mysql.
@@ -886,9 +886,9 @@ docker ps
 
 The expected output is
 <pre>
-jegan@tektutor:~$ docker run -d --name db1 --hostname db1 -e MYSQL_ROOT_PASSWORD=root -v /tmp/mysql:/var/lib/mysql mysql:latest
+jegan@tektutor.org:~$ docker run -d --name db1 --hostname db1 -e MYSQL_ROOT_PASSWORD=root -v /tmp/mysql:/var/lib/mysql mysql:latest
 65239ff45071700bbc43795b8520ba90b77fdeee7de10fa3730894308c70f1c6
-jegan@tektutor:~$ docker ps
+jegan@tektutor.org:~$ docker ps
 CONTAINER ID   IMAGE          COMMAND                  CREATED         STATUS        PORTS                 NAMES
 65239ff45071   mysql:latest   "docker-entrypoint.s…"   3 seconds ago   Up 1 second   3306/tcp, 33060/tcp   db1
 </pre>
@@ -969,7 +969,7 @@ mysql> SELECT * FROM Training;
 mysql> exit
 Bye
 # exit
-jegan@tektutor:~$ docker rm -f db1
+jegan@tektutor.org:~$ docker rm -f db1
 db1
 </pre>
 
@@ -987,9 +987,9 @@ SELECT * FROM Training;
 
 The expected output is
 <pre>
-jegan@tektutor:~$ docker run -d --name db1 --hostname db1 -e MYSQL_ROOT_PASSWORD=root -v /tmp/mysql:/var/lib/mysql mysql:latest
+jegan@tektutor.org:~$ docker run -d --name db1 --hostname db1 -e MYSQL_ROOT_PASSWORD=root -v /tmp/mysql:/var/lib/mysql mysql:latest
 34277dd48a895d12673bd89a715f86fc09acee0f454728d01687b65f04b6bb0f
-jegan@tektutor:~$ docker exec -it db1 sh
+jegan@tektutor.org:~$ docker exec -it db1 sh
 # mysql -u root -p
 Enter password: 
 Welcome to the MySQL monitor.  Commands end with ; or \g.
@@ -1054,7 +1054,7 @@ docker network ls
 ```
 
 <pre>
-jegan@tektutor:~$ <b>docker network ls</b>
+jegan@tektutor.org:~$ <b>docker network ls</b>
 NETWORK ID     NAME      DRIVER    SCOPE
 00305de8fb69   bridge    bridge    local
 9371e925f813   host      host      local
