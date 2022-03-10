@@ -132,7 +132,7 @@ The expected output is
 Docker version 20.10.12, build e91ed57
 </pre>
 
-##  ⛹️‍♀️ Lab - Checking the status of Docker Enginer (Daemon/Service)
+##  ⛹️‍♀️ Lab - Checking the status of Docker Application Engine (Daemon/Service)
 ```
 sudo systemctl status docker
 ```
