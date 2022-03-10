@@ -26,7 +26,7 @@
     - AMD Processor
       - Virtualization Feature - AMD-V
   - With HyperThreading(Intel) or AMD CMT (Clustered Multi-threading Enabled)
-       - Intel/AMD Processor supports running 2 to 4 threads parallely
+       - Intel/AMD core supports running 2 to 4 threads parallely
        - i.e each Physical CPU core will be seen as 2 virtual cores or in some latest processors as 4 virtual cores
        - hence if you have a Server Grade Processor with 512 cores, it may give you 512 x 2 = 1024 virtual cores or 
          512 x 4 = 2048 cores depending on the Processor available on the Server
