@@ -1,3 +1,6 @@
+# For Consulting/Training enquiries
+  You may reach me - jegan@tektutor.org
+
 # DevOps Lab setup
 
 ## What is the reason to choose CentOS 7.9 while CentOS 8.x is available
