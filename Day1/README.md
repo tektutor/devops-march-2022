@@ -48,17 +48,17 @@
       - Storage ( Hard Disk capacity ) available in the system
      
   - Some vendor spectific virtualization softwares
-      VMWare
+    - VMWare
         - VMWare workstation Pro
         - VMWare Fusion ( Mac )
         - VMWare vSphere (Bare metal Hypervisor)
-      Microsoft
+    - Microsoft
         - Hyper-v ( Comes with Windows 10 Pro or later out of the box )
-      Oracle
+    - Oracle
         - VirtualBox (Free)
 
-      Parallels ( Mac )
-      KVM
+    - Parallels ( Mac )
+    - KVM
        - opensource and free
        - Kernel Virtual Manager
 
