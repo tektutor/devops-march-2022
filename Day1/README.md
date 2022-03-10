@@ -15,11 +15,11 @@
 ## Virtualization
   - Hypervisor refers to Virtualization software
   - are of two types
-    Type - 1 ( runs on Bare metal - suitable for Workstations/Servers that are meant to host multiple VMs )
-    Type - 2 ( runs on Desktop/Workstations - suitable for your personal/official Laptops or primary work machine that has OS )
+    - Type - 1 ( runs on Bare metal - suitable for Workstations/Servers that are meant to host multiple VMs )
+    - Type - 2 ( runs on Desktop/Workstations - suitable for your personal/official Laptops or primary work machine that has OS )
   - with this technology 
-      - you can boot many OS side by side on the same PC/Desktop/Workstation/Server simultaneously
-      - is a combination of Hardware + Software technology
+    - you can boot many OS side by side on the same PC/Desktop/Workstation/Server simultaneously
+    - is a combination of Hardware + Software technology
   - Processors that supports Virtualization feature
     Intel
       - VT-X
