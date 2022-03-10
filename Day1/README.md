@@ -65,7 +65,7 @@
 
 | Type 1 Hypervisor                       | Type 2 Hypervisor                        |
 | --------------------------------------- | ---------------------------------------- |
-| ![type1hypervisor](T1.png) | ![type2hypervisor](T2.png)   |
+| ![type1hypervisor](T0.png) | ![type2hypervisor](T0.png)   |
 
 
 ## Let's say your organization needs 10000 webservers running in its own OS
