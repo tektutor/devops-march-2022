@@ -95,7 +95,7 @@
       - if less Virtual Machines are available to Dev/QA certain issues can't be verified in Dev/QA environment
       - i.e many issues will only occur in Prod while those bugs can't be reproduced as Dev/QA uses a single machine to setup
         all the software components required to setup a single instance of their product
-      - as Dev/QA team generally doesn't involve Firewall/Proxy between Frontend and Backend, many practical scenaries are ignored
+      - as Dev/QA team generally doesn't setup Firewall/Proxy between Frontend and Backend, many practical scenaries are ignored
         during their testing but in real world Production environment Firewall/Proxy are used and many Physical Servers 
         or many Virtual Machines are used to setup different software components required for a single instance of a Product.
       - Hence Dev/QA/Prod environments are way too different, this leads to many issues reported only in Production
