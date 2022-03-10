@@ -21,10 +21,10 @@
     - you can boot many OS side by side on the same PC/Desktop/Workstation/Server simultaneously
     - is a combination of Hardware + Software technology
   - Processors that supports Virtualization feature
-    Intel
-      - VT-X
-    AMD
-      - AMD-V
+    - Intel Processor
+      - Virtualization Feature - VT-X
+    - AMD Processor
+      - Virtualization Feature - AMD-V
   - With HyperThreading(Intel) or AMD CMT (Clustered Multi-threading Enabled)
        - Intel/AMD Processor supports running 2 to 4 threads parallely
        - i.e each Physical CPU core will be seen as 2 virtual cores or in some latest processors as 4 virtual cores
