@@ -122,7 +122,7 @@
          - this is required to ensure that one single container does'nt take up all the H/W resources leaving other containers
            starve for H/W resources
 
-![Docker](DockerHighLevelArchitecture.png)
+![Docker](DockerHighLevelArchitectureUpdated.png)
 
 ## ⛹️‍♂️ Lab - Checking the version of docker installed
 ```
