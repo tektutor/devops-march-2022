@@ -123,6 +123,8 @@
            starve for H/W resources
 
 ![Docker](DockerHighLevelArchitectureUpdated.png)
+![Docker](DockerLayers.png)
+
 
 ## ⛹️‍♂️ Lab - Checking the version of docker installed
 ```
