@@ -7,10 +7,10 @@
    - In case Boot Loader detects more than one OS installed on your system it then gives a menu
      for you to choose which OS you wish to boot into
    Examples below are 2 popular opensource Boot Loaders
-   GRUB
-    version 1
-    version 2
-   LILO (Linux Loaders)
+   - GRUB
+    - version 1
+    - version 2
+   - LILO (Linux Loaders)
 
 ## Virtualization
   - Hypervisor refers to Virtualization software
