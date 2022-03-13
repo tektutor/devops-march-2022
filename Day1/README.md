@@ -298,8 +298,7 @@ The expected output is
 <pre>
 </pre>
 
-## ⛹️‍♀️ Lab - Listing all containers irrespective of their running statjegan@tektutor:~$ docker stop 12fc64f9d46d
-us
+## ⛹️‍♀️ Lab - Listing all containers irrespective of their running  state
 ```
 docker ps -a
 ```
