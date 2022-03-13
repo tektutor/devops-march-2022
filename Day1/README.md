@@ -8,8 +8,8 @@
      for you to choose which OS you wish to boot into
    Examples below are 2 popular opensource Boot Loaders
    - GRUB
-    - version 1
-    - version 2
+     - version 1
+     - version 2
    - LILO (Linux Loaders)
 
 ## Virtualization
