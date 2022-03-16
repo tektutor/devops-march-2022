@@ -214,16 +214,8 @@ In order to apply the export changes done in the /root/.bashrc, you need to manu
 source /root/.bashrc
 ```
 
-Save your join token in a file on the Master Node, the token varies on every system and every time you type kubeadm init, hence you need to save your join token for your reference befo[jegan@master ~]$ kubectl get deploy,rs,po
-NAME                    READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/nginx   1/1     1            1           33s
+Save your join token in a file on the Master Node, the token varies on every system and every time you type kubeadm init, hence you need to save your join token for your reference before you clear your terminal screen.
 
-NAME                               DESIRED   CURRENT   READY   AGE
-replicaset.apps/nginx-6888c79454   1         1         1       33s
-
-NAME                         READY   STATUS    RESTARTS   AGE
-pod/nginx-6888c79454-2cpfx   1/1     Running   0          33s
-re you clear your terminal screen.
 ```
 vim token
 kubeadm join 192.168.154.128:6443 --token 5zt7tp.2txcmgnuzmxtgnl \
